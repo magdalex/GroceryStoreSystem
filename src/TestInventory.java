@@ -47,15 +47,12 @@ public class TestInventory {
             key = scan.nextLine();
             switch (key) {
                 case "1":
-                    System.out.println("\n");
                     inventory.forEach(System.out::println);
-                    loop = false;
                     break;
                 case "2":
                     System.out.println("Enter the keyword:");
                     key = scan.nextLine();
                     search(key, true, true, true).forEach(System.out::println);
-                    loop = false;
                     break;
                 case "3":
                     loop = false;
@@ -84,9 +81,7 @@ public class TestInventory {
                 inventory.add(new EntityProduct(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3),
                         Double.valueOf(resultSet.getString(4)), resultSet.getString(5),
                         Integer.valueOf(resultSet.getString(6))));
-                System.out.println(resultSet.getString(2) + " " + resultSet.getString(3));
             }
-            inventory.forEach(System.out::println);
         }
 
         // Handle any errors that may have occurred.

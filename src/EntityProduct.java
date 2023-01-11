@@ -58,7 +58,8 @@ public class EntityProduct {
     // toString
     @Override
     public String toString() {
-        return "[Product] " + productName + ", [Description] " + productDescription + ", [Price] " + productPrice;
+        return "[Product] " + productName + ", [Description] " + productDescription + ", [Category] " + productCategory
+                + ", [Price] " + productPrice;
     }
 
     // constructors
