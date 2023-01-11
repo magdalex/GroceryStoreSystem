@@ -102,17 +102,9 @@ public class EntityAccount {
     }
 
 
-    public EntityAccount(String email,
-                         String password,
-                         String firstName,
-                         String lastName,
-                         String street,
-                         String city,
-                         String postalCode,
-                         String province,
-                         String country,
-                         String defaultPayment,
-                         String phoneNumber) {
+    public EntityAccount(String email, String password, String firstName, String lastName,
+                         String street, String city, String postalCode, String province,
+                         String country, String defaultPayment, String phoneNumber) {
         this.email = email;
         this.password = password;
         this.firstName = firstName;
@@ -157,7 +149,7 @@ public class EntityAccount {
             lastName = kbd.nextLine();
         }
 
-        System.out.println("Address:\nStreet name:");
+        System.out.println("Address\nStreet name:");
         String street = kbd.nextLine();
 
         System.out.println("City:");
@@ -167,7 +159,7 @@ public class EntityAccount {
             city = kbd.nextLine();
         }
 
-        System.out.println("Postal code:");
+        System.out.println("Postal code:"); //currently only allow canadian zips
         String postalCode = kbd.nextLine();
         while(!isZipValid(postalCode)){
             System.out.println("Re-input zip:");
@@ -202,6 +194,8 @@ public class EntityAccount {
                 password, firstName, lastName, street,
                 city, postalCode, province, country,
                 defaultPayment, phoneNumber);
+
+        //add to hashmap? database?
     }
 
     //make sure @ is present, short emails (up to 20 before @) only
@@ -292,53 +286,4 @@ public class EntityAccount {
         }
         return isValid;
     }
-
-//    public static void main(String[] args){
-//        createAccount();
-//
-//        Scanner kbd = new Scanner(System.in);
-//
-//        System.out.println("input email:");
-//        String email = kbd.next();
-//        while(!isValidEmail(email)){
-//            System.out.println("re-input email:");
-//            email = kbd.next();
-//        }
-//
-//        System.out.println("input password:");
-//        String password = kbd.next();
-//        while(!isValidPassword(password)) {
-//            System.out.println("re-input password:");
-//            password = kbd.next();
-//        }
-//
-//        System.out.println("input letters:");
-//        String letters = kbd.next();
-//        while(!isDigit(letters)){
-//            System.out.println("re-input letters:");
-//            letters = kbd.next();
-//        }
-//
-//        System.out.println("input digits:");
-//        String digits = kbd.next();
-//        while(!isCharacter(digits)){
-//            System.out.println("re-input digits:");
-//            digits = kbd.next();
-//        }
-//
-//        System.out.println("input zip:");
-//        String zip = kbd.next();
-//        while(!isZipValid(zip)){
-//            System.out.println("re-input zip:");
-//            zip = kbd.next();
-//        }
-//
-//        System.out.println("input phone:");
-//        String phone = kbd.next();
-//        while(!isPhoneValid(phone)){
-//            System.out.println("re-input phone:");
-//            phone = kbd.next();
-//        }
-//    }
-
 }
