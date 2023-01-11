@@ -1,10 +1,10 @@
 public class EntityProduct {
-    String productID;
-    String productName;
-    String productDescription;
-    double productPrice;
-    String productCategory;
-    int productAvailability;
+    private String productID;
+    private String productName;
+    private String productDescription;
+    private double productPrice;
+    private String productCategory;
+    private int productAvailability;
     public String getProductID() {
         return productID;
     }
