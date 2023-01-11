@@ -20,7 +20,7 @@ public class LoginSystem {
 	public static void greetingPage(Scanner scan, HashMap<String, String> database) throws IOException {
 		System.out.println("Do you have an existing account already?");
 		System.out.println("Type Yes if you do, type No if you don't");
-		String answer = scan.next();
+		String answer = scan.nextLine();
 		while (true)
 			if (answer.equalsIgnoreCase("yes")) {
 				logIn(scan, database);
@@ -32,13 +32,13 @@ public class LoginSystem {
 
 			} else {
 				System.out.println("Please enter a valid answer!");
-				answer = scan.next();
+				answer = scan.nextLine();
 			}
 	}
 
 	public static void logIn(Scanner scan, HashMap<String, String> database) throws IOException {
 		System.out.println("Please input email");
-		String email = scan.next();
+		String email = scan.nextLine();
 
 		// email input
 		int count = 1;
@@ -48,7 +48,7 @@ public class LoginSystem {
 				break;
 			} else {
 				System.out.println("Please enter a valid email or type 1 if you'd like to create an account.");
-				email = scan.next();
+				email = scan.nextLine();
 				count++;
 				if (count == 3) {
 					System.out.println(
@@ -68,14 +68,22 @@ public class LoginSystem {
 
 		// password input
 		System.out.println("Please enter your password");
-		String password = scan.next();
+		String password = scan.nextLine();
 		int count = 1;
 		while (true) {
 			if (database.get(email).contentEquals(password)) {
+				System.out.println("You have succesfully logged in!");
+
+				// TODO: everything after login successful
+				// test
+				TestInventory.seed();
+				TestInventory.Menu(scan);
+				// end test
+
 				break;
 			} else {
 				System.out.println("Please enter a valid password.");
-				password = scan.next();
+				password = scan.nextLine();
 				count++;
 
 				if (count == 3) {
@@ -85,27 +93,27 @@ public class LoginSystem {
 				}
 			}
 		}
-		System.out.println("You have succesfully logged in!");
+
 	}
 
 	public static void signUp(Scanner scan, HashMap<String, String> database) throws IOException {
 		System.out.println("Welcome to sign up");
 		System.out.println("Please enter a email");
-		String emailSignUp = scan.next();
+		String emailSignUp = scan.nextLine();
 		while (true) {
 			if (database.containsKey(emailSignUp)) {
 				System.out.println("This email is already in use... Please try again");
-				emailSignUp = scan.next();
+				emailSignUp = scan.nextLine();
 			} else {
 				break;
 			}
 		}
 		System.out.println("Please enter a password at least 5 characters long");
-		String passwordSignUp = scan.next();
+		String passwordSignUp = scan.nextLine();
 		while (true) {
 			if (passwordSignUp.length() < 5) {
 				System.out.println("Password too short... Please try again");
-				passwordSignUp = scan.next();
+				passwordSignUp = scan.nextLine();
 			} else {
 				break;
 			}

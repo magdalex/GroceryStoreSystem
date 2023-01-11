@@ -1,10 +1,11 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public class EntityCart {
     private String cartID;
-    private List<EntityProduct> products;
-    private List<Integer> quantities;
-    private List<Double> totalCosts;
+    private List<EntityProduct> products = new ArrayList<EntityProduct>();
+    private List<Integer> quantities = new ArrayList<Integer>();
+    private List<Double> totalCosts = new ArrayList<Double>();
 
     EntityCart(String cartID) {
         this.cartID = cartID;

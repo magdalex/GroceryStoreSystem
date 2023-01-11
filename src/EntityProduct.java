@@ -6,6 +6,7 @@ public class EntityProduct {
     private String productCategory;
     private int productAvailability;
 
+    // getters and setters
     public String getProductID() {
         return productID;
     }
@@ -54,8 +55,25 @@ public class EntityProduct {
         this.productAvailability = productAvailability;
     }
 
+    // toString
     @Override
     public String toString() {
-        return "[Item] " + productName + ", [Price]" + productPrice;
+        return "[Product] " + productName + ", [Description] " + productDescription + ", [Price] " + productPrice;
     }
+
+    // constructors
+    EntityProduct() {
+
+    }
+
+    public EntityProduct(String productID, String productName, String productDescription, double productPrice,
+            String productCategory, int productAvailability) {
+        this.productID = productID;
+        this.productName = productName;
+        this.productDescription = productDescription;
+        this.productPrice = productPrice;
+        this.productCategory = productCategory;
+        this.productAvailability = productAvailability;
+    }
+
 }
