@@ -1,46 +1,16 @@
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.Scanner;
+import java.sql.Statement;
 
 public class TestInventory {
     // class for initially seeding the product database
     // or for testing the logic using a temporary makeshift database
-    private static List<EntityProduct> inventory;
-
-    public static void seed() {
-        inventory = new ArrayList<EntityProduct>();
-        // Fruits
-        inventory.add(new EntityProduct(pID(), "Gala Apple", "A sweet, juicy, crunchy fruit. approximately 200g.", 0.88,
-                "Fruit", 299));
-        inventory.add(new EntityProduct(pID(), "Empire Apple", "A sweet, juicy, crunchy fruit. approximately 195g.",
-                0.81, "Fruit", 187));
-        inventory.add(new EntityProduct(pID(), "Banana", "A sweet, soft yellow fruit. approximately 315g.", 0.63,
-                "Fruit", 411));
-        // Meat
-        inventory.add(new EntityProduct(pID(), "Chicken", "Raw meat, tastes like chicken. 450g.", 6.99,
-                "Meat", 84));
-        inventory.add(new EntityProduct(pID(), "Porc", "Raw meat, tastes like chicken. 450g.", 3.99,
-                "Meat", 84));
-        inventory.add(new EntityProduct(pID(), "Beef", "Raw meat, doesn't taste like chicken. 450g.", 7.99,
-                "Meat", 84));
-        // Dairy
-        inventory.add(new EntityProduct(pID(), "Cheese", "Milk that's gone bad. Very tasty. 225g.", 3.77,
-                "Dairy", 34));
-        inventory.add(new EntityProduct(pID(), "Milk", "White liquid, 3.25% fat content. 1L.", 1.83,
-                "Dairy", 34));
-        inventory.add(new EntityProduct(pID(), "Milk", "White liquid, 2% fat content. 2L.", 3.22,
-                "Dairy", 17));
-    }
-
-    private static String pID() {
-        Random r = new Random();
-        String pID = "";
-        for (int i = 0; i < 10; i++) {
-            pID += r.nextInt(0, 10);
-        }
-        return pID;
-    }
+    private static List<EntityProduct> inventory = new ArrayList<EntityProduct>();
 
     public static List<EntityProduct> search(String keyword, boolean searchName, boolean searchDescription,
             boolean searchCategory) {
@@ -94,6 +64,34 @@ public class TestInventory {
                     System.out.println("Bad input, try again.");
                     break;
             }
+        }
+
+    }
+
+    public static void retrieveDB() throws ClassNotFoundException {
+        Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+        String connectionUrl = "jdbc:sqlserver://vanier-grocery-service.database.windows.net:1433;database=VanierGroceryService;user=remyAzure@vanier-grocery-service;password=Vanier1212;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;";
+
+        ResultSet resultSet = null;
+        try (Connection connection = DriverManager.getConnection(connectionUrl);
+                Statement statement = connection.createStatement();) {
+            // Create and execute a SELECT SQL statement.
+            String selectSql = "SELECT * FROM Products";
+            resultSet = statement.executeQuery(selectSql);
+
+            // Print results from select statement
+            while (resultSet.next()) {
+                inventory.add(new EntityProduct(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3),
+                        Double.valueOf(resultSet.getString(4)), resultSet.getString(5),
+                        Integer.valueOf(resultSet.getString(6))));
+                System.out.println(resultSet.getString(2) + " " + resultSet.getString(3));
+            }
+            inventory.forEach(System.out::println);
+        }
+
+        // Handle any errors that may have occurred.
+        catch (SQLException e) {
+            e.printStackTrace();
         }
 
     }

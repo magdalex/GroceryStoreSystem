@@ -6,7 +6,7 @@ public class LoginSystem {
 	// don't specify if email/password is wrong for better security instead just say
 	// "something" is wrong.
 
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws IOException, ClassNotFoundException {
 		// new scanner to be passed to methods
 		Scanner scan = new Scanner(System.in);
 
@@ -17,7 +17,8 @@ public class LoginSystem {
 		scan.close();
 	}
 
-	public static void greetingPage(Scanner scan, HashMap<String, String> database) throws IOException {
+	public static void greetingPage(Scanner scan, HashMap<String, String> database)
+			throws IOException, ClassNotFoundException {
 		System.out.println("Do you have an existing account already?");
 		System.out.println("Type Yes if you do, type No if you don't");
 		String answer = scan.nextLine();
@@ -36,7 +37,8 @@ public class LoginSystem {
 			}
 	}
 
-	public static void logIn(Scanner scan, HashMap<String, String> database) throws IOException {
+	public static void logIn(Scanner scan, HashMap<String, String> database)
+			throws IOException, ClassNotFoundException {
 		System.out.println("Please input email");
 		String email = scan.nextLine();
 
@@ -64,7 +66,8 @@ public class LoginSystem {
 		}
 	}
 
-	public static void logInPass(Scanner scan, HashMap<String, String> database, String email) {
+	public static void logInPass(Scanner scan, HashMap<String, String> database, String email)
+			throws ClassNotFoundException {
 
 		// password input
 		System.out.println("Please enter your password");
@@ -76,7 +79,7 @@ public class LoginSystem {
 
 				// TODO: everything after login successful
 				// test
-				TestInventory.seed();
+				TestInventory.retrieveDB();
 				TestInventory.Menu(scan);
 				// end test
 
@@ -96,7 +99,8 @@ public class LoginSystem {
 
 	}
 
-	public static void signUp(Scanner scan, HashMap<String, String> database) throws IOException {
+	public static void signUp(Scanner scan, HashMap<String, String> database)
+			throws IOException, ClassNotFoundException {
 		System.out.println("Welcome to sign up");
 		System.out.println("Please enter a email");
 		String emailSignUp = scan.nextLine();
