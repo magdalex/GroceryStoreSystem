@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 import java.sql.Statement;
 
@@ -42,8 +43,11 @@ public class TestInventory {
     public static void Menu(Scanner scan) {
         String key;
         Boolean loop = true;
+        EntityCart cart = new EntityCart(new Random().nextLong(10000000, 999999999) + "");
         while (loop) {
-            System.out.println("\nSelect an option:\n\t1.List all products\n\t2.Search\n\t3.Exit");
+
+            System.out
+                    .println("\nSelect an option:\n\t1.List all products\n\t2.Search\n\t3.Add Item to cart\n\t4.Exit");
             key = scan.nextLine();
             switch (key) {
                 case "1":
@@ -55,6 +59,22 @@ public class TestInventory {
                     search(key, true, true, true).forEach(System.out::println);
                     break;
                 case "3":
+                    try {
+                        System.out.println("Enter the product ID:");
+                        String id = scan.nextLine();
+                        System.out.println("Enter the desired quantity");
+                        int qty = Integer.valueOf(scan.nextLine());
+                        EntityProduct p = inventory.stream().filter(e -> e.getProductID().equalsIgnoreCase(id))
+                                .findFirst()
+                                .get();
+                        cart.add(p, qty);
+
+                    } catch (Exception e) {
+                        System.out.println("Bad input, try again.");
+                    }
+                    System.out.println(cart);
+                    break;
+                case "4":
                     loop = false;
                     break;
                 default:
