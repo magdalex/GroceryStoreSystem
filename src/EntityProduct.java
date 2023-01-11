@@ -53,4 +53,9 @@ public class EntityProduct {
     public void setProductAvailability(int productAvailability) {
         this.productAvailability = productAvailability;
     }
+
+    @Override
+    public String toString() {
+        return "[Item] " + productName + ", [Price]" + productPrice;
+    }
 }
