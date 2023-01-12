@@ -11,6 +11,7 @@ import java.sql.Statement;
 public class Shop {
 
     private static List<EntityProduct> inventory = new ArrayList<EntityProduct>();
+    private static List<EntityCart> carts = new ArrayList<EntityCart>();
 
     public static List<EntityProduct> search(String keyword, boolean searchName, boolean searchDescription,
             boolean searchCategory) {
@@ -39,12 +40,22 @@ public class Shop {
         return productResults;
     }
 
-    public static void Menu(Scanner scan) {
+    public static void Menu(Scanner scan) throws ClassNotFoundException {
         String key;
         Boolean loop = true;
-        EntityCart cart = new EntityCart(new Random().nextLong(10000000, 999999999) + "");
+        retrieveCarts();
+        String cartID = "";
+        do {
+            cartID = new Random().nextLong(10000000, 999999999) + "";
+            for (int i = 0; i < carts.size(); i++) {
+                if (!carts.get(i).getCartID().contentEquals(cartID)) {
+                    loop = false;
+                }
+            }
+        } while (loop);
+        EntityCart cart = new EntityCart(cartID);
+        loop = true;
         while (loop) {
-
             System.out
                     .println(
                             "\nSelect an option:\n\t1.List all products\n\t2.Search\n\t3.Add Item to cart\n\t4.Checkout\n\t5.Exit");
@@ -87,7 +98,10 @@ public class Shop {
                         System.out.println("continue to payment? yes/no:");
                         key = scan.nextLine();
                         if (key.equalsIgnoreCase("yes")) {
-                            // TODO: checkout
+                            // TODO:decrease inventory
+                            AddCartToDB(cart);
+                            Checkout.Menu(scan);
+                            break;
                         } else if (key.equalsIgnoreCase("no")) {
                             break;
                         } else {
@@ -105,7 +119,7 @@ public class Shop {
         }
     }
 
-    public static void retrieveDB() throws ClassNotFoundException {
+    public static void retrieveInvetory() throws ClassNotFoundException {
         Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
         String connectionUrl = "jdbc:sqlserver://vanier-grocery-service.database.windows.net:1433;database=VanierGroceryService;user=remyAzure@vanier-grocery-service;password=Vanier1212;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;";
 
@@ -129,4 +143,74 @@ public class Shop {
             e.printStackTrace();
         }
     }
+
+    public static void AddCartToDB(EntityCart cart) throws ClassNotFoundException {
+
+        if (cart.getCartSize() >= 1) {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            String connectionUrl = "jdbc:sqlserver://vanier-grocery-service.database.windows.net:1433;database=VanierGroceryService;user=remyAzure@vanier-grocery-service;password=Vanier1212;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;";
+            try (Connection connection = DriverManager.getConnection(connectionUrl);
+                    Statement statement = connection.createStatement();) {
+                // Create and execute an insert SQL statement.
+                String sql = "insert into Carts(cartID,productID,quantity,totalCost)Values";
+                for (int i = 0; i < cart.getCartSize(); i++) {
+                    sql += "('" + cart.getCartID() + "',";
+                    sql += "'" + cart.getProduct(i).getProductID() + "',";
+                    sql += "'" + cart.getQuantity(i) + "',";
+                    sql += "'" + cart.getTotalCost(i) + "'),";
+                }
+                sql = sql.substring(0, sql.lastIndexOf(","));
+                sql += ";";
+                int rowsUpdated = statement.executeUpdate(sql);
+                if (rowsUpdated < 1)
+                    throw new SQLException("zero row updated");
+            }
+            // Handle any errors that may have occurred.
+            catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static void retrieveCarts() throws ClassNotFoundException {
+        Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+        String connectionUrl = "jdbc:sqlserver://vanier-grocery-service.database.windows.net:1433;database=VanierGroceryService;user=remyAzure@vanier-grocery-service;password=Vanier1212;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;";
+
+        ResultSet resultSet = null;
+        try (Connection connection = DriverManager.getConnection(connectionUrl);
+                Statement statement = connection.createStatement();) {
+            // Create and execute a SELECT SQL statement.
+            String selectSql = "SELECT * FROM Carts";
+            resultSet = statement.executeQuery(selectSql);
+
+            // Print results from select statement
+            while (resultSet.next()) {
+                boolean cartExist = false;
+                int cartIndex = 0;
+                for (int i = 0; i < carts.size(); i++) {
+                    if (carts.get(i).getCartID().contentEquals(resultSet.getString(1))) {
+                        cartExist = true;
+                        cartIndex = i;
+                    }
+                }
+                String col2 = resultSet.getString(2);
+                if (cartExist) {
+                    carts.get(cartIndex).add(
+                            inventory.stream().filter(p -> p.getProductID().contentEquals(col2)).findFirst().get(),
+                            Integer.valueOf(resultSet.getString(3)));
+                } else {
+                    carts.add(new EntityCart(resultSet.getString(1)));
+                    carts.get(carts.size() - 1).add(
+                            inventory.stream().filter(p -> p.getProductID().contentEquals(col2)).findFirst().get(),
+                            Integer.valueOf(resultSet.getString(3)));
+                }
+            }
+        }
+
+        // Handle any errors that may have occurred.
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

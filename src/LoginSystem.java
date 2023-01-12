@@ -10,8 +10,6 @@ import java.util.List;
 import java.util.Scanner;
 
 public class LoginSystem {
-	// don't specify if email/password is wrong for better security instead just say
-	// "something" is wrong.
 	static List<EntityAccount> accounts = new ArrayList<EntityAccount>();
 
 	public static void main(String[] args) throws IOException, ClassNotFoundException {
@@ -30,11 +28,9 @@ public class LoginSystem {
 			if (answer.equalsIgnoreCase("yes")) {
 				logIn(scan);
 				break;
-
 			} else if (answer.equalsIgnoreCase("no")) {
 				signUp(scan);
 				break;
-
 			} else {
 				System.out.println("Please enter a valid answer!");
 				answer = scan.nextLine();
@@ -69,9 +65,9 @@ public class LoginSystem {
 			// check account exists and is enabled
 			if (account != null && account.isAccountIsEnabled()) {
 				if (account.getPassword().contentEquals(password)) {
-					Shop.retrieveDB();
-					Shop.Menu(scan);
 					System.out.println("You have succesfully logged in!");
+					Shop.retrieveInvetory();
+					Shop.Menu(scan);
 				} else {
 					// bad password, same as account doesn't exists but locks the account after 3x
 					System.out.println("Invalid login, try again.");
@@ -106,8 +102,7 @@ public class LoginSystem {
 		}
 	}
 
-	public static void signUp(Scanner scan)
-			throws IOException, ClassNotFoundException {
+	public static void signUp(Scanner scan) throws IOException, ClassNotFoundException {
 		System.out.println("Welcome to sign up");
 		System.out.println("Please enter a email");
 		String emailSignUp = scan.nextLine();
@@ -169,15 +164,12 @@ public class LoginSystem {
 	public static void retrieveAccounts() throws ClassNotFoundException {
 		Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 		String connectionUrl = "jdbc:sqlserver://vanier-grocery-service.database.windows.net:1433;database=VanierGroceryService;user=remyAzure@vanier-grocery-service;password=Vanier1212;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;";
-
 		ResultSet resultSet = null;
 		try (Connection connection = DriverManager.getConnection(connectionUrl);
 				Statement statement = connection.createStatement();) {
 			// Create and execute a SELECT SQL statement.
 			String selectSql = "SELECT * FROM Accounts";
 			resultSet = statement.executeQuery(selectSql);
-
-			// Print results from select statement
 			while (resultSet.next()) {
 				EntityAccount account = new EntityAccount();
 				account.setEmail(resultSet.getString(1));
@@ -201,13 +193,9 @@ public class LoginSystem {
 				} catch (Exception e) {
 					account.setUnlockTime(null);
 				}
-
 				accounts.add(account);
 			}
-		}
-
-		// Handle any errors that may have occurred.
-		catch (SQLException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
@@ -219,10 +207,10 @@ public class LoginSystem {
 		String connectionUrl = "jdbc:sqlserver://vanier-grocery-service.database.windows.net:1433;database=VanierGroceryService;user=remyAzure@vanier-grocery-service;password=Vanier1212;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;";
 		try (Connection connection = DriverManager.getConnection(connectionUrl);
 				Statement statement = connection.createStatement();) {
-			// Create and execute a SELECT SQL statement.
+			// Create and execute an insert SQL statement.
 			String sql = "insert into Accounts(emailAccount,password,firstName,lastName,phoneNumber,addressNumber,addressStreet,addressCity,addressZip,addressState,creationDate,accountEnabled)Values('";
 			sql += a.getEmail() + "','" + a.getPassword() + "','" + a.getFirstName() + "','" + a.getLastName() + "','"
-					+ a.getPhoneNumber() + "','" + newAccount.getAddressNumber() + "','" + a.getAddressStreet() + "','"
+					+ a.getPhoneNumber() + "','" + a.getAddressNumber() + "','" + a.getAddressStreet() + "','"
 					+ a.getAddressCity() + "','" + a.getAddressZip() + "','" + a.getAddressState() + "','"
 					+ a.getCreationDate() + "','true');";
 			int rowsUpdated = statement.executeUpdate(sql);

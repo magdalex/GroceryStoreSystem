@@ -27,6 +27,10 @@ public class EntityCart {
         return totalCosts.get(listPosition);
     }
 
+    public Integer getCartSize() {
+        return products.size();
+    }
+
     public void add(EntityProduct product, int quantity) {
         products.add(product);
         quantities.add(quantity);
