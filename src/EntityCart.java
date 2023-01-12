@@ -46,4 +46,12 @@ public class EntityCart {
         output += "\n[Cart Total] " + cartTotal;
         return output;
     }
+
+    public double getCartCost() {
+        double cartTotal = 0;
+        for (int i = 0; i < products.size(); i++) {
+            cartTotal += totalCosts.get(i);
+        }
+        return cartTotal;
+    }
 }

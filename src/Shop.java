@@ -8,9 +8,8 @@ import java.util.Random;
 import java.util.Scanner;
 import java.sql.Statement;
 
-public class TestInventory {
-    // class for initially seeding the product database
-    // or for testing the logic using a temporary makeshift database
+public class Shop {
+
     private static List<EntityProduct> inventory = new ArrayList<EntityProduct>();
 
     public static List<EntityProduct> search(String keyword, boolean searchName, boolean searchDescription,
@@ -48,7 +47,7 @@ public class TestInventory {
 
             System.out
                     .println(
-                            "\nSelect an option:\n\t1.List all products\n\t2.Search\n\t3.Add Item to cart\n\t4.Checkout\t\n5.Exit");
+                            "\nSelect an option:\n\t1.List all products\n\t2.Search\n\t3.Add Item to cart\n\t4.Checkout\n\t5.Exit");
             key = scan.nextLine();
             switch (key) {
                 case "1":
@@ -104,7 +103,6 @@ public class TestInventory {
                     break;
             }
         }
-
     }
 
     public static void retrieveDB() throws ClassNotFoundException {
@@ -130,6 +128,5 @@ public class TestInventory {
         catch (SQLException e) {
             e.printStackTrace();
         }
-
     }
 }

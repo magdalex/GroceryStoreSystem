@@ -1,34 +1,38 @@
 import java.io.IOException;
-import java.util.HashMap;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class LoginSystem {
 	// don't specify if email/password is wrong for better security instead just say
 	// "something" is wrong.
+	static List<EntityAccount> accounts = new ArrayList<EntityAccount>();
 
 	public static void main(String[] args) throws IOException, ClassNotFoundException {
 		// new scanner to be passed to methods
 		Scanner scan = new Scanner(System.in);
-
-		// mock database
-		HashMap<String, String> database = Userdata.read();
-
-		greetingPage(scan, database);
+		greetingPage(scan);
 		scan.close();
 	}
 
-	public static void greetingPage(Scanner scan, HashMap<String, String> database)
+	public static void greetingPage(Scanner scan)
 			throws IOException, ClassNotFoundException {
 		System.out.println("Do you have an existing account already?");
 		System.out.println("Type Yes if you do, type No if you don't");
 		String answer = scan.nextLine();
 		while (true)
 			if (answer.equalsIgnoreCase("yes")) {
-				logIn(scan, database);
+				logIn(scan);
 				break;
 
 			} else if (answer.equalsIgnoreCase("no")) {
-				signUp(scan, database);
+				signUp(scan);
 				break;
 
 			} else {
@@ -37,73 +41,84 @@ public class LoginSystem {
 			}
 	}
 
-	public static void logIn(Scanner scan, HashMap<String, String> database)
+	public static void logIn(Scanner scan)
 			throws IOException, ClassNotFoundException {
-		System.out.println("Please input email");
-		String email = scan.nextLine();
-
-		// email input
+		retrieveAccounts();
 		int count = 1;
+
 		while (true) {
-			if (database.containsKey(email)) {
-				logInPass(scan, database, email);
+			// prompt user
+			System.out.println("Please input email");
+			String email = scan.nextLine();
+			System.out.println("Please enter your password");
+			String password = scan.nextLine();
+			// try getting account
+			final String email2 = email;
+			EntityAccount account = null;
+			try {
+				account = accounts.stream().filter(e -> e.getEmail().equalsIgnoreCase(email2)).findFirst().get();
+			} catch (Exception e) {
+			}
+			// check if it's time to enable account
+			if (!account.isAccountIsEnabled()) {
+				if (account.getUnlockTime().before(new Date(new java.util.Date().getTime()))) {
+					account.setAccountIsEnabled(true);
+				}
+				// TODO:update database lock
+			}
+			// check account exists and is enabled
+			if (account != null && account.isAccountIsEnabled()) {
+				if (account.getPassword().contentEquals(password)) {
+					Shop.retrieveDB();
+					Shop.Menu(scan);
+					System.out.println("You have succesfully logged in!");
+				} else {
+					// bad password, same as account doesn't exists but locks the account after 3x
+					System.out.println("Invalid login, try again.");
+					count++;
+					if (count == 3) {
+						accounts.stream().filter(e -> e.getEmail().equalsIgnoreCase(email2)).findFirst().get()
+								.setAccountIsEnabled(false);
+						java.util.Date unlock = new java.util.Date();
+						unlock.setTime(unlock.getTime() + 1800000);
+						Date unlockSQL = new Date(unlock.getTime());
+						accounts.stream().filter(e -> e.getEmail().equalsIgnoreCase(email2)).findFirst().get()
+								.setUnlockTime(unlockSQL);
+						// TODO:update database lock
+						System.out.println(
+								"You will now be sent to the Sign-Up page due to multiple invalid login.");
+						signUp(scan);
+						break;
+					}
+				}
 				break;
+				// account doesn't exist
 			} else {
-				System.out.println("Please enter a valid email or type 1 if you'd like to create an account.");
-				email = scan.nextLine();
+				System.out.println("Invalid login, try again.");
 				count++;
 				if (count == 3) {
 					System.out.println(
-							"You will now be sent to the Sign-Up page due to multiple invalid email inputs" + '\n');
-					signUp(scan, database);
-					break;
-				}
-				if (email.equalsIgnoreCase("1")) {
-					signUp(scan, database);
+							"You will now be sent to the Sign-Up page due to multiple invalid login.");
+					signUp(scan);
 					break;
 				}
 			}
 		}
 	}
 
-	public static void logInPass(Scanner scan, HashMap<String, String> database, String email)
-			throws ClassNotFoundException {
-
-		// password input
-		System.out.println("Please enter your password");
-		String password = scan.nextLine();
-		int count = 1;
-		while (true) {
-			if (database.get(email).contentEquals(password)) {
-				System.out.println("You have succesfully logged in!");
-
-				// continue after successful login
-				TestInventory.retrieveDB();
-				TestInventory.Menu(scan);
-
-				break;
-			} else {
-				System.out.println("Please enter a valid password.");
-				password = scan.nextLine();
-				count++;
-
-				if (count == 3) {
-					System.out.println(
-							"Your account is now locked for 30 minutes due to multiple invalid password entries.");
-					break;
-				}
-			}
-		}
-
-	}
-
-	public static void signUp(Scanner scan, HashMap<String, String> database)
+	public static void signUp(Scanner scan)
 			throws IOException, ClassNotFoundException {
 		System.out.println("Welcome to sign up");
 		System.out.println("Please enter a email");
 		String emailSignUp = scan.nextLine();
 		while (true) {
-			if (database.containsKey(emailSignUp)) {
+			final String email2 = emailSignUp;
+			EntityAccount account = null;
+			try {
+				account = accounts.stream().filter(e -> e.getEmail().equalsIgnoreCase(email2)).findFirst().get();
+			} catch (Exception e) {
+			}
+			if (account != null) {
 				System.out.println("This email is already in use... Please try again");
 				emailSignUp = scan.nextLine();
 			} else {
@@ -120,10 +135,103 @@ public class LoginSystem {
 				break;
 			}
 		}
-		database.put(emailSignUp, passwordSignUp);
+		System.out.println("Enter your first name:");
+		String firstName = scan.nextLine();
+		System.out.println("Enter your last name:");
+		String lastName = scan.nextLine();
+		System.out.println("Enter your phone number:");
+		String phoneNumber = scan.nextLine();
+		System.out.println("Enter your address number:");
+		String addressNumber = scan.nextLine();
+		System.out.println("Enter your address Street:");
+		String addressStreet = scan.nextLine();
+		System.out.println("Enter your appartment number (enter 'none' if you don't have one):");
+		String addressApt = scan.nextLine();
+		if (addressApt.equalsIgnoreCase("none"))
+			addressApt = null;
+		System.out.println("Enter your city:");
+		String addressCity = scan.nextLine();
+		System.out.println("Enter your postal code:");
+		String AddressZip = scan.nextLine();
+		System.out.println("Enter your province:");
+		String addressState = scan.nextLine();
+		Date creationDate = new Date(new java.util.Date().getTime());
+		EntityAccount newAccount = new EntityAccount(emailSignUp, passwordSignUp, firstName, lastName, phoneNumber,
+				creationDate, false, creationDate, addressNumber, addressStreet, addressApt, addressCity, AddressZip,
+				addressState, addressCity, AddressZip, addressState);
+		accounts.add(newAccount);
+		AddAccountToDB(newAccount);
 		System.out.println("Welcome! You have succesfully signed up!");
-		Userdata.write(database);
-		greetingPage(scan, database);
+		// return to start
+		greetingPage(scan);
 	}
 
+	public static void retrieveAccounts() throws ClassNotFoundException {
+		Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+		String connectionUrl = "jdbc:sqlserver://vanier-grocery-service.database.windows.net:1433;database=VanierGroceryService;user=remyAzure@vanier-grocery-service;password=Vanier1212;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;";
+
+		ResultSet resultSet = null;
+		try (Connection connection = DriverManager.getConnection(connectionUrl);
+				Statement statement = connection.createStatement();) {
+			// Create and execute a SELECT SQL statement.
+			String selectSql = "SELECT * FROM Accounts";
+			resultSet = statement.executeQuery(selectSql);
+
+			// Print results from select statement
+			while (resultSet.next()) {
+				EntityAccount account = new EntityAccount();
+				account.setEmail(resultSet.getString(1));
+				account.setPassword(resultSet.getString(2));
+				account.setFirstName(resultSet.getString(3));
+				account.setLastName(resultSet.getString(4));
+				account.setPhoneNumber(resultSet.getString(5));
+				account.setAddressNumber(resultSet.getString(6));
+				account.setAddressStreet(resultSet.getString(7));
+				account.setAddressApt(resultSet.getString(8));
+				account.setAddressCity(resultSet.getString(9));
+				account.setAddressZip(resultSet.getString(10));
+				account.setAddressState(resultSet.getString(11));
+				account.setPayCardNumber(resultSet.getString(12));
+				account.setPayCardType(resultSet.getString(13));
+				account.setPayCardExp(resultSet.getString(14));
+				account.setCreationDate(Date.valueOf(resultSet.getString(15)));
+				account.setAccountIsEnabled(resultSet.getString(16).equalsIgnoreCase("true") ? true : false);
+				try {
+					account.setUnlockTime(Date.valueOf(resultSet.getString(17)));
+				} catch (Exception e) {
+					account.setUnlockTime(null);
+				}
+
+				accounts.add(account);
+			}
+		}
+
+		// Handle any errors that may have occurred.
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static void AddAccountToDB(EntityAccount newAccount) throws ClassNotFoundException {
+		// alias for cleaner code
+		EntityAccount a = newAccount;
+		Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+		String connectionUrl = "jdbc:sqlserver://vanier-grocery-service.database.windows.net:1433;database=VanierGroceryService;user=remyAzure@vanier-grocery-service;password=Vanier1212;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;";
+		try (Connection connection = DriverManager.getConnection(connectionUrl);
+				Statement statement = connection.createStatement();) {
+			// Create and execute a SELECT SQL statement.
+			String sql = "insert into Accounts(emailAccount,password,firstName,lastName,phoneNumber,addressNumber,addressStreet,addressCity,addressZip,addressState,creationDate,accountEnabled)Values('";
+			sql += a.getEmail() + "','" + a.getPassword() + "','" + a.getFirstName() + "','" + a.getLastName() + "','"
+					+ a.getPhoneNumber() + "','" + newAccount.getAddressNumber() + "','" + a.getAddressStreet() + "','"
+					+ a.getAddressCity() + "','" + a.getAddressZip() + "','" + a.getAddressState() + "','"
+					+ a.getCreationDate() + "','true');";
+			int rowsUpdated = statement.executeUpdate(sql);
+			if (rowsUpdated < 1)
+				throw new SQLException("zero row updated");
+		}
+		// Handle any errors that may have occurred.
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 }
