@@ -77,11 +77,9 @@ public class LoginSystem {
 			if (database.get(email).contentEquals(password)) {
 				System.out.println("You have succesfully logged in!");
 
-				// TODO: everything after login successful
-				// test
+				// continue after successful login
 				TestInventory.retrieveDB();
 				TestInventory.Menu(scan);
-				// end test
 
 				break;
 			} else {

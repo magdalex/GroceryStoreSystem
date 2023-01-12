@@ -47,7 +47,8 @@ public class TestInventory {
         while (loop) {
 
             System.out
-                    .println("\nSelect an option:\n\t1.List all products\n\t2.Search\n\t3.Add Item to cart\n\t4.Exit");
+                    .println(
+                            "\nSelect an option:\n\t1.List all products\n\t2.Search\n\t3.Add Item to cart\n\t4.Checkout\t\n5.Exit");
             key = scan.nextLine();
             switch (key) {
                 case "1":
@@ -67,14 +68,35 @@ public class TestInventory {
                         EntityProduct p = inventory.stream().filter(e -> e.getProductID().equalsIgnoreCase(id))
                                 .findFirst()
                                 .get();
-                        cart.add(p, qty);
-
+                        if (p.getProductAvailability() >= qty) {
+                            cart.add(p, qty);
+                            System.out.println("Item added");
+                        } else {
+                            System.out.println("Insufficient Stock, only " + p.getProductAvailability() + " "
+                                    + p.getProductName() + " was added to cart");
+                            cart.add(p, p.getProductAvailability());
+                        }
                     } catch (Exception e) {
                         System.out.println("Bad input, try again.");
                     }
                     System.out.println(cart);
                     break;
                 case "4":
+                    System.out.println("This is the cart you're trying to checkout:");
+                    System.out.println(cart);
+                    while (true) {
+                        System.out.println("continue to payment? yes/no:");
+                        key = scan.nextLine();
+                        if (key.equalsIgnoreCase("yes")) {
+                            // TODO: checkout
+                        } else if (key.equalsIgnoreCase("no")) {
+                            break;
+                        } else {
+                            System.out.println("bad input, try again.");
+                        }
+                    }
+                    break;
+                case "5":
                     loop = false;
                     break;
                 default:
