@@ -6,12 +6,12 @@ public class EntityPayment {
 	private String paymentID;
 	private double totalCost;
 	private String defaultCardNum;
-	private String defaultCardCode;
+	private String defaultCardCVV;
 	private String defaultCardExp;
 	private String defaultCardType;
 	private String email;
 	private String paymentCardNum;
-	private String paymentCardCode;
+	private String paymentCardCVV;
 	private String paymentCardExp;
 	private String paymentCardType;
 	boolean isPaid = false;
@@ -21,6 +21,8 @@ public class EntityPayment {
 		this.orderID = order.orderID;
 		this.defaultCardNum = account.cardNum;
 		this.defaultCardType = account.cardType;
+		this.defaultCardCVV = account.defaultCardCVV;
+		this.defaultCardExp = account.defaultCardExp;
 		this.email = account.email;
 		this.isPaid = order.isPaid;
 	}
@@ -33,7 +35,7 @@ public class EntityPayment {
 		int option = 0;
 		if (option == 1) {
 			paymentCardNum = defaultCardNum;
-			paymentCardCode = defaultCardCode;
+			defaultCardCVV = defaultCardCVV;
 			paymentCardType = defaultCardType;
 
 		} else if (option == 2) {
