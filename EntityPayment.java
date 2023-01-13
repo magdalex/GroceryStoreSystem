@@ -1,0 +1,56 @@
+import java.security.SecureRandom;
+
+public class EntityPayment {
+
+	private String orderID;
+	private String paymentID;
+	private double totalCost;
+	private String defaultCardNum;
+	private String defaultCardCode;
+	private String defaultCardType;
+	private String email;
+	private String paymentCardNum;
+	private String paymentCardCode;
+	private String paymentCardType;
+	boolean paymentStatus = false;
+
+	public EntityPayment(EntityAccount account, EntityOrder order) {
+		this.totalCost = account.totalCost;
+		this.orderID = order.orderID;
+		this.defaultCardNum = account.cardNum;
+		this.defaultCardType = account.cardType;
+		this.email = account.email;
+	}
+
+	public void paymentProcess() {
+		System.out.println("Your total cost is :" + totalCost + "$" + '\n' + '\n');
+
+		System.out.println(
+				"Please select payment option by pressing 1 for default payment method or 2 to enter a new payment method");
+		int option = 0;
+		if (option == 1) {
+			paymentCardNum = defaultCardNum;
+			paymentCardCode = defaultCardCode;
+			paymentCardType = defaultCardType;
+
+		} else if (option == 2) {
+			System.out.println("Please enter the card type");
+			paymentCardType = null;
+			System.out.println("Please enter card number");
+			paymentCardNum = null;
+
+			System.out.println("Please enter cardd security code");
+			paymentCardCode = null;
+
+		}
+		System.out.println("Press enter to complete payment");
+		
+		System.out.println("Payment COMPlETE!");
+		paymentStatus = true;
+		
+		
+		
+
+	}
+
+}
