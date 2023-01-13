@@ -40,7 +40,7 @@ public class Shop {
         return productResults;
     }
 
-    public static void Menu(Scanner scan) throws ClassNotFoundException {
+    public static void Menu(Scanner scan, EntityAccount account) throws ClassNotFoundException {
         String key;
         Boolean loop = true;
         retrieveCarts();
@@ -58,7 +58,7 @@ public class Shop {
         while (loop) {
             System.out
                     .println(
-                            "\nSelect an option:\n\t1.List all products\n\t2.Search\n\t3.Add Item to cart\n\t4.Checkout\n\t5.Exit");
+                            "\nSelect an option:\n\t1.List all products\n\t2.Search\n\t3.Add Item to cart\n\t4.Checkout\n\t5.ManageAccount\n\t6.Exit");
             key = scan.nextLine();
             switch (key) {
                 case "1":
@@ -73,6 +73,7 @@ public class Shop {
                     try {
                         System.out.println("Enter the product ID:");
                         String id = scan.nextLine();
+                        // TODO: add FK to DB table carts - column productID
                         System.out.println("Enter the desired quantity");
                         int qty = Integer.valueOf(scan.nextLine());
                         EntityProduct p = inventory.stream().filter(e -> e.getProductID().equalsIgnoreCase(id))
@@ -100,7 +101,7 @@ public class Shop {
                         if (key.equalsIgnoreCase("yes")) {
                             // TODO:decrease inventory
                             AddCartToDB(cart);
-                            Checkout.Menu(scan);
+                            Checkout.Menu(scan, cart, account);
                             break;
                         } else if (key.equalsIgnoreCase("no")) {
                             break;
@@ -110,6 +111,9 @@ public class Shop {
                     }
                     break;
                 case "5":
+                    ManageAccount.menu(scan, account);
+                    break;
+                case "6":
                     loop = false;
                     break;
                 default:
@@ -137,7 +141,6 @@ public class Shop {
                         Integer.valueOf(resultSet.getString(6))));
             }
         }
-
         // Handle any errors that may have occurred.
         catch (SQLException e) {
             e.printStackTrace();
@@ -173,9 +176,9 @@ public class Shop {
     }
 
     public static void retrieveCarts() throws ClassNotFoundException {
+        carts = new ArrayList<EntityCart>();
         Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
         String connectionUrl = "jdbc:sqlserver://vanier-grocery-service.database.windows.net:1433;database=VanierGroceryService;user=remyAzure@vanier-grocery-service;password=Vanier1212;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;";
-
         ResultSet resultSet = null;
         try (Connection connection = DriverManager.getConnection(connectionUrl);
                 Statement statement = connection.createStatement();) {

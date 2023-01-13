@@ -67,7 +67,7 @@ public class LoginSystem {
 				if (account.getPassword().contentEquals(password)) {
 					System.out.println("You have succesfully logged in!");
 					Shop.retrieveInvetory();
-					Shop.Menu(scan);
+					Shop.Menu(scan, account);
 				} else {
 					// bad password, same as account doesn't exists but locks the account after 3x
 					System.out.println("Invalid login, try again.");
