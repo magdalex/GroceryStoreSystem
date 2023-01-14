@@ -203,6 +203,7 @@ public class LoginSystem {
 	public static void AddAccountToDB(EntityAccount newAccount) throws ClassNotFoundException {
 		// alias for cleaner code
 		EntityAccount a = newAccount;
+		// connection stuff
 		Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 		String connectionUrl = "jdbc:sqlserver://vanier-grocery-service.database.windows.net:1433;database=VanierGroceryService;user=remyAzure@vanier-grocery-service;password=Vanier1212;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;";
 		try (Connection connection = DriverManager.getConnection(connectionUrl);
