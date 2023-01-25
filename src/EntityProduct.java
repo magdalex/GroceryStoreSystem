@@ -136,7 +136,36 @@ public class EntityProduct {
         return results;
     }
 
-    public static void adjustInventory(String ID, int quantity) {
-        // TODO:
+    public static void adjustInventory(String ID, int quantity) throws ClassNotFoundException {
+        Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+        String connectionUrl = LoginSystem.dbConnection;
+        try (Connection connection = DriverManager.getConnection(connectionUrl);
+                Statement statement = connection.createStatement();) {
+            // Create and execute a SELECT SQL statement.
+            String selectSql = "UPDATE Products SET productInventoryQuantity = " + quantity + " WHERE productID = "
+                    + ID;
+            int rowsUpdated = statement.executeUpdate(selectSql);
+            if (rowsUpdated < 1)
+                throw new SQLException("zero row updated");
+        }
+        // Handle any errors that may have occurred.
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static EntityProduct getProductFromDB(String ID) throws ClassNotFoundException, SQLException {
+        Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+        String connectionUrl = LoginSystem.dbConnection;
+        ResultSet resultSet = null;
+        try (Connection connection = DriverManager.getConnection(connectionUrl);
+                Statement statement = connection.createStatement();) {
+            // Create and execute a SELECT SQL statement.
+            String selectSql = "SELECT * FROM Products WHERE productID = " + ID;
+            resultSet = statement.executeQuery(selectSql);
+            return new EntityProduct(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3),
+                    Double.valueOf(resultSet.getString(4)), resultSet.getString(5),
+                    Integer.valueOf(resultSet.getString(6)));
+        }
     }
 }
