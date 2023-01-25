@@ -1,3 +1,10 @@
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+
 public class EntityProduct {
     private String productID;
     private String productName;
@@ -78,4 +85,58 @@ public class EntityProduct {
         this.productAvailability = productAvailability;
     }
 
+    // DB functions
+    public static ArrayList<EntityProduct> search(String keyword) throws ClassNotFoundException {
+        ArrayList<EntityProduct> results = new ArrayList<EntityProduct>();
+        Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+        String connectionUrl = LoginSystem.dbConnection;
+        ResultSet resultSet = null;
+        try (Connection connection = DriverManager.getConnection(connectionUrl);
+                Statement statement = connection.createStatement();) {
+            // Create and execute a SELECT SQL statement.
+            String selectSql = "SELECT * FROM Products WHERE productCategory LIKE '%" + keyword
+                    + "%' or productName like '%" + keyword + "%' or productDescription LIKE '%" + keyword + "%'";
+            resultSet = statement.executeQuery(selectSql);
+            // Print results from select statement
+            while (resultSet.next()) {
+                results.add(new EntityProduct(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3),
+                        Double.valueOf(resultSet.getString(4)), resultSet.getString(5),
+                        Integer.valueOf(resultSet.getString(6))));
+            }
+        }
+        // Handle any errors that may have occurred.
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return results;
+    }
+
+    public static ArrayList<EntityProduct> listAll() throws ClassNotFoundException {
+        ArrayList<EntityProduct> results = new ArrayList<EntityProduct>();
+        Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+        String connectionUrl = LoginSystem.dbConnection;
+        ResultSet resultSet = null;
+        try (Connection connection = DriverManager.getConnection(connectionUrl);
+                Statement statement = connection.createStatement();) {
+            // Create and execute a SELECT SQL statement.
+            String selectSql = "SELECT * FROM Products";
+            resultSet = statement.executeQuery(selectSql);
+
+            // Print results from select statement
+            while (resultSet.next()) {
+                results.add(new EntityProduct(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3),
+                        Double.valueOf(resultSet.getString(4)), resultSet.getString(5),
+                        Integer.valueOf(resultSet.getString(6))));
+            }
+        }
+        // Handle any errors that may have occurred.
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return results;
+    }
+
+    public static void adjustInventory(String ID, int quantity) {
+        // TODO:
+    }
 }

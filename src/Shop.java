@@ -125,7 +125,7 @@ public class Shop {
 
     public static void retrieveInvetory() throws ClassNotFoundException {
         Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-        String connectionUrl = "jdbc:sqlserver://vanier-grocery-service.database.windows.net:1433;database=VanierGroceryService;user=remyAzure@vanier-grocery-service;password=Vanier1212;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;";
+        String connectionUrl = LoginSystem.dbConnection;
 
         ResultSet resultSet = null;
         try (Connection connection = DriverManager.getConnection(connectionUrl);
@@ -151,7 +151,7 @@ public class Shop {
 
         if (cart.getCartSize() >= 1) {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            String connectionUrl = "jdbc:sqlserver://vanier-grocery-service.database.windows.net:1433;database=VanierGroceryService;user=remyAzure@vanier-grocery-service;password=Vanier1212;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;";
+            String connectionUrl = LoginSystem.dbConnection;
             try (Connection connection = DriverManager.getConnection(connectionUrl);
                     Statement statement = connection.createStatement();) {
                 // Create and execute an insert SQL statement.
@@ -178,7 +178,7 @@ public class Shop {
     public static void retrieveCarts() throws ClassNotFoundException {
         carts = new ArrayList<EntityCart>();
         Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-        String connectionUrl = "jdbc:sqlserver://vanier-grocery-service.database.windows.net:1433;database=VanierGroceryService;user=remyAzure@vanier-grocery-service;password=Vanier1212;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;";
+        String connectionUrl = LoginSystem.dbConnection;
         ResultSet resultSet = null;
         try (Connection connection = DriverManager.getConnection(connectionUrl);
                 Statement statement = connection.createStatement();) {

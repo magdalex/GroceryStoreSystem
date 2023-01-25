@@ -11,6 +11,7 @@ import java.util.Scanner;
 
 public class LoginSystem {
 	static List<EntityAccount> accounts = new ArrayList<EntityAccount>();
+	public static final String dbConnection = "jdbc:sqlserver://vanier-grocery-service.database.windows.net:1433;database=VanierGroceryService;user=remyAzure@vanier-grocery-service;password=Vanier1212;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;";
 
 	public static void main(String[] args) throws IOException, ClassNotFoundException {
 		// new scanner to be passed to methods
@@ -87,7 +88,7 @@ public class LoginSystem {
 						break;
 					}
 				}
-				break;
+				//
 				// account doesn't exist
 			} else {
 				System.out.println("Invalid login, try again.");
@@ -163,7 +164,7 @@ public class LoginSystem {
 
 	public static void retrieveAccounts() throws ClassNotFoundException {
 		Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-		String connectionUrl = "jdbc:sqlserver://vanier-grocery-service.database.windows.net:1433;database=VanierGroceryService;user=remyAzure@vanier-grocery-service;password=Vanier1212;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;";
+		String connectionUrl = LoginSystem.dbConnection;
 		ResultSet resultSet = null;
 		try (Connection connection = DriverManager.getConnection(connectionUrl);
 				Statement statement = connection.createStatement();) {
@@ -205,17 +206,23 @@ public class LoginSystem {
 		EntityAccount a = newAccount;
 		// connection stuff
 		Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-		String connectionUrl = "jdbc:sqlserver://vanier-grocery-service.database.windows.net:1433;database=VanierGroceryService;user=remyAzure@vanier-grocery-service;password=Vanier1212;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;";
-		try (Connection connection = DriverManager.getConnection(connectionUrl);
+		try (Connection connection = DriverManager.getConnection(LoginSystem.dbConnection);
 				Statement statement = connection.createStatement();) {
 			// Create and execute an insert SQL statement.
-			String sql = "insert into Accounts(emailAccount,password,firstName,lastName,phoneNumber,addressNumber,addressStreet,addressCity,addressZip,addressState,creationDate,accountEnabled)Values('";
+			String sql = "insert into Accounts(emailAccount,password,firstName,lastName,phoneNumber,addressNumber,";
+			sql += "addressStreet,";
+			sql += "addressCity,";
+			sql += "addressZip,";
+			sql += "addressState,";
+			sql += "creationDate,";
+			sql += "accountEnabled";
+			sql += ")Values('";
 			sql += a.getEmail() + "','" + a.getPassword() + "','" + a.getFirstName() + "','" + a.getLastName() + "','"
 					+ a.getPhoneNumber() + "','" + a.getAddressNumber() + "','" + a.getAddressStreet() + "','"
 					+ a.getAddressCity() + "','" + a.getAddressZip() + "','" + a.getAddressState() + "','"
 					+ a.getCreationDate() + "','true');";
 			int rowsUpdated = statement.executeUpdate(sql);
-			if (rowsUpdated < 1)
+			if (rowsUpdated != 1)
 				throw new SQLException("zero row updated");
 		}
 		// Handle any errors that may have occurred.

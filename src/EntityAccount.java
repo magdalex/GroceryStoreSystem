@@ -194,4 +194,6 @@ public class EntityAccount {
         this.payCardType = payCardType;
         this.payCardExp = payCardExp;
     }
+
+    
 }
