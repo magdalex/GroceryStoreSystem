@@ -55,39 +55,58 @@ public class LoginSystem {
 			try {
 				account = accounts.stream().filter(e -> e.getEmail().equalsIgnoreCase(email2)).findFirst().get();
 			} catch (Exception e) {
+
 			}
+
 			// check if it's time to enable account
-			if (!account.isAccountIsEnabled()) {
-				if (account.getUnlockTime().before(new Date(new java.util.Date().getTime()))) {
-					account.setAccountIsEnabled(true);
+			try {
+				if (!account.isAccountIsEnabled()) {
+					if (account.getUnlockTime().before(new Date(new java.util.Date().getTime()))) {
+						account.setAccountIsEnabled(true);
+					}
+					// TODO:update database lock
 				}
-				// TODO:update database lock
+			} catch (Exception e) {
+
 			}
+
 			// check account exists and is enabled
-			if (account != null && account.isAccountIsEnabled()) {
-				if (account.getPassword().contentEquals(password)) {
-					System.out.println("You have succesfully logged in!");
-					Shop.retrieveInvetory();
-					Shop.Menu(scan, account);
+			if (account != null) {
+				if (account.isAccountIsEnabled()) {
+					if (account.getPassword().contentEquals(password)) {
+						System.out.println("You have succesfully logged in!");
+						Shop.retrieveInvetory();
+						Shop.Menu(scan, account);
+					} else {
+						// bad password, same as account doesn't exists but locks the account after 3x
+						System.out.println("Invalid login, try again.");
+						count++;
+						if (count == 3) {
+							accounts.stream().filter(e -> e.getEmail().equalsIgnoreCase(email2)).findFirst().get()
+									.setAccountIsEnabled(false);
+							java.util.Date unlock = new java.util.Date();
+							unlock.setTime(unlock.getTime() + 1800000);
+							Date unlockSQL = new Date(unlock.getTime());
+							accounts.stream().filter(e -> e.getEmail().equalsIgnoreCase(email2)).findFirst().get()
+									.setUnlockTime(unlockSQL);
+							// TODO:update database lock
+							System.out.println(
+									"You will now be sent to the Sign-Up page due to multiple invalid login.");
+							signUp(scan);
+							break;
+						}
+					}
 				} else {
-					// bad password, same as account doesn't exists but locks the account after 3x
 					System.out.println("Invalid login, try again.");
 					count++;
 					if (count == 3) {
-						accounts.stream().filter(e -> e.getEmail().equalsIgnoreCase(email2)).findFirst().get()
-								.setAccountIsEnabled(false);
-						java.util.Date unlock = new java.util.Date();
-						unlock.setTime(unlock.getTime() + 1800000);
-						Date unlockSQL = new Date(unlock.getTime());
-						accounts.stream().filter(e -> e.getEmail().equalsIgnoreCase(email2)).findFirst().get()
-								.setUnlockTime(unlockSQL);
-						// TODO:update database lock
 						System.out.println(
 								"You will now be sent to the Sign-Up page due to multiple invalid login.");
 						signUp(scan);
 						break;
 					}
 				}
+
 				//
 				// account doesn't exist
 			} else {
