@@ -41,7 +41,7 @@ public class LoginSystem {
 	public static void logIn(Scanner scan)
 			throws IOException, ClassNotFoundException {
 		retrieveAccounts();
-		int count = 1;
+		int count = 0;
 
 		while (true) {
 			// prompt user
