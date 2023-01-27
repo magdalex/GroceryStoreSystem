@@ -45,8 +45,8 @@ public class Checkout {
         while (loop && !payCardType.contentEquals("default")) {
             System.out.println("Enter your card number:");
             payCardNum = scan.nextLine();
-            if (payCardNum.length() < 16) {
-                System.out.println("Card number is too short.");
+            if (payCardNum.length() != 16) {
+                System.out.println("Card number is invalid.");
             } else {
                 loop = false;
             }
