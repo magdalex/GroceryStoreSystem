@@ -75,8 +75,7 @@ public class LoginSystem {
 				if (account.isAccountIsEnabled()) {
 					if (account.getPassword().contentEquals(password)) {
 						System.out.println("You have succesfully logged in!");
-						Shop.retrieveInvetory();
-						Shop.Menu(scan, account);
+						EntityProduct.shopMenu(scan, account);
 					} else {
 						// bad password, same as account doesn't exists but locks the account after 3x
 						System.out.println("Invalid login, try again.");

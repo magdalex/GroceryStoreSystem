@@ -1,3 +1,4 @@
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,8 +8,9 @@ public class EntityCart {
     private List<Integer> quantities = new ArrayList<Integer>();
     private List<Double> totalCosts = new ArrayList<Double>();
 
-    EntityCart(String cartID) {
-        this.cartID = cartID;
+    EntityCart() {
+        //TODO: get next cart ID from DB / implement incrementing number function in DB
+        cartID = "";
     }
 
     public String getCartID() {
@@ -58,4 +60,33 @@ public class EntityCart {
         }
         return cartTotal;
     }
+
+    public static void AddCartToDB(EntityCart cart) throws ClassNotFoundException {
+
+        if (cart.getCartSize() >= 1) {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            String connectionUrl = LoginSystem.dbConnection;
+            try (Connection connection = DriverManager.getConnection(connectionUrl);
+                 Statement statement = connection.createStatement();) {
+                // Create and execute an insert SQL statement.
+                String sql = "insert into Carts(cartID,productID,quantity,totalCost)Values";
+                for (int i = 0; i < cart.getCartSize(); i++) {
+                    sql += "('" + cart.getCartID() + "',";
+                    sql += "'" + cart.getProduct(i).getProductID() + "',";
+                    sql += "'" + cart.getQuantity(i) + "',";
+                    sql += "'" + cart.getTotalCost(i) + "'),";
+                }
+                sql = sql.substring(0, sql.lastIndexOf(","));
+                sql += ";";
+                int rowsUpdated = statement.executeUpdate(sql);
+                if (rowsUpdated < 1)
+                    throw new SQLException("zero row updated");
+            }
+            // Handle any errors that may have occurred.
+            catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 }
