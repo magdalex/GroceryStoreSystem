@@ -20,7 +20,7 @@ public class Account {
     private String defaultCardType;
 
     public static void editAccount(Scanner scan, Account account) throws ClassNotFoundException {
-        //todo: menu for editing account details
+        // todo: menu for editing account details, viewing open orders/payments
         Product.shopMenu(scan, account);
     }
 
@@ -312,7 +312,7 @@ public class Account {
         account.setDefaultCardType(defaultCardType.toLowerCase());
         try {
             updateDB(account);
-            LoginSystem.logIn(scan);
+            Main.logIn(scan);
         } catch (Exception e) {
             System.out.println("Couldn't add new account to database");
         }
@@ -412,7 +412,7 @@ public class Account {
     public static void updateDB(Account a) throws ClassNotFoundException { //update or insert
         boolean exist = false;
         Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-        String connectionUrl = LoginSystem.dbConnection;
+        String connectionUrl = Main.dbConnection;
         ResultSet rs;
         try (Connection connection = DriverManager.getConnection(connectionUrl); Statement statement = connection.createStatement()) {
             // Create and execute a SELECT SQL statement.
@@ -426,7 +426,7 @@ public class Account {
         }
         Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
         if (exist) {
-            try (Connection connection = DriverManager.getConnection(LoginSystem.dbConnection); Statement statement = connection.createStatement()) {
+            try (Connection connection = DriverManager.getConnection(Main.dbConnection); Statement statement = connection.createStatement()) {
                 // Create and execute an insert SQL statement.
                 String sql = "UPDATE Accounts SET  emailAccount = '" + a.email + "', password = '" + a.password + "', firstName = '" + a.firstName + "', lastName = '" + a.lastName + "', addressStreet = '" + a.street + "', addressCity = '" + a.city + "', addressZip = '" + a.postalCode + "', addressState = '" + a.province + "', addressCountry = '" + a.country + "', phoneNumber = '" + a.phoneNumber + "', cardFirstName = '" + a.defaultCardFirstName + "', cardLastName = '" + a.defaultCardLastName + "', cardNumber = '" + a.defaultCardNum + "', cardCVV = '" + a.defaultCardCVV + "', cardExp = '" + a.defaultCardExp + "', cardType = '" + a.defaultCardType + "' WHERE emailAccount = '" + a.email + "' ";
                 int rowsUpdated = statement.executeUpdate(sql);
@@ -437,7 +437,7 @@ public class Account {
                 e.printStackTrace();
             }
         } else {
-            try (Connection connection = DriverManager.getConnection(LoginSystem.dbConnection); Statement statement = connection.createStatement()) {
+            try (Connection connection = DriverManager.getConnection(Main.dbConnection); Statement statement = connection.createStatement()) {
                 // Create and execute an insert SQL statement.
                 String sql = "insert into Accounts(emailAccount,password,firstName,lastName,addressStreet,addressCity,addressZip,addressState,addressCountry,phoneNumber,cardFirstName,cardLastName,cardNumber,cardCVV,cardExp,cardType)Values('" + a.email + "','" + a.password + "','" + a.firstName + "','" + a.lastName + "','" + a.street + "','" + a.city + "','" + a.postalCode + "','" + a.province + "','" + a.country + "','" + a.phoneNumber + "','" + a.defaultCardFirstName + "','" + a.defaultCardLastName + "','" + a.defaultCardNum + "','" + a.defaultCardCVV + "','" + a.defaultCardExp + "','" + a.defaultCardType + "');";
                 int rowsUpdated = statement.executeUpdate(sql);
@@ -452,7 +452,7 @@ public class Account {
 
     public static Account getFromDB(String email, String password) throws ClassNotFoundException { //get or return null
         Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-        String connectionUrl = LoginSystem.dbConnection;
+        String connectionUrl = Main.dbConnection;
         ResultSet rs;
         try (Connection connection = DriverManager.getConnection(connectionUrl); Statement statement = connection.createStatement()) {
             // Create and execute a SELECT SQL statement.

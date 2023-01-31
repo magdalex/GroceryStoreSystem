@@ -90,7 +90,7 @@ public class Product {
     public static ArrayList<Product> search(String keyword) throws ClassNotFoundException {
         ArrayList<Product> results = new ArrayList<>();
         Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-        String connectionUrl = LoginSystem.dbConnection;
+        String connectionUrl = Main.dbConnection;
         ResultSet resultSet;
         try (Connection connection = DriverManager.getConnection(connectionUrl);
              Statement statement = connection.createStatement()) {
@@ -115,7 +115,7 @@ public class Product {
     public static ArrayList<Product> getAll() throws ClassNotFoundException {
         ArrayList<Product> results = new ArrayList<>();
         Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-        String connectionUrl = LoginSystem.dbConnection;
+        String connectionUrl = Main.dbConnection;
         ResultSet resultSet;
         try (Connection connection = DriverManager.getConnection(connectionUrl);
              Statement statement = connection.createStatement()) {
@@ -139,7 +139,7 @@ public class Product {
 
     public static void adjustInventory(String ID, int quantity) throws ClassNotFoundException {
         Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-        String connectionUrl = LoginSystem.dbConnection;
+        String connectionUrl = Main.dbConnection;
         try (Connection connection = DriverManager.getConnection(connectionUrl);
              Statement statement = connection.createStatement()) {
             // Create and execute a SELECT SQL statement.
@@ -157,7 +157,7 @@ public class Product {
 
     public static Product getProductFromDB(String ID) throws ClassNotFoundException {
         Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-        String connectionUrl = LoginSystem.dbConnection;
+        String connectionUrl = Main.dbConnection;
         ResultSet resultSet;
         try (Connection connection = DriverManager.getConnection(connectionUrl);
              Statement statement = connection.createStatement()) {
@@ -228,7 +228,7 @@ public class Product {
                         String input = scan.nextLine();
                         switch (input.toLowerCase()) {
                             case "yes" -> {
-                                //TODO: call order main method: order.menu(scan);
+                                Order.order(scan,cart,account);
                                 loop2 = false;
                             }
                             case "no" -> loop2 = false;

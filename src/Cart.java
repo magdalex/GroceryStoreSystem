@@ -4,22 +4,21 @@ import java.util.List;
 
 public class Cart {
     private String cartID;
-    private List<Product> products = new ArrayList<Product>();
-    private List<Integer> quantities = new ArrayList<Integer>();
-    private List<Double> totalCosts = new ArrayList<Double>();
+    private List<Product> products = new ArrayList<>();
+    private List<Integer> quantities = new ArrayList<>();
+    private List<Double> totalCosts = new ArrayList<>();
 
     Cart() throws ClassNotFoundException {
         cartID = "";
         Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-        String connectionUrl = LoginSystem.dbConnection;
+        String connectionUrl = Main.dbConnection;
         try (Connection connection = DriverManager.getConnection(connectionUrl);
-             Statement statement = connection.createStatement();) {
+             Statement statement = connection.createStatement()) {
             // Create and execute an insert SQL statement.
             String sql = "SELECT NEXT VALUE FOR CartSequence";
             ResultSet rs = statement.executeQuery(sql);
             if(rs.next())
                 cartID = rs.getString(1);
-            System.out.println("cart number "+cartID+" was created");
         }
         catch (Exception e){
         }
@@ -77,9 +76,9 @@ public class Cart {
 
         if (cart.getCartSize() >= 1) {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            String connectionUrl = LoginSystem.dbConnection;
+            String connectionUrl = Main.dbConnection;
             try (Connection connection = DriverManager.getConnection(connectionUrl);
-                 Statement statement = connection.createStatement();) {
+                 Statement statement = connection.createStatement()) {
                 // Create and execute an insert SQL statement.
                 String sql = "insert into Carts(cartID,productID,quantity,totalCost)Values";
                 for (int i = 0; i < cart.getCartSize(); i++) {
@@ -100,5 +99,7 @@ public class Cart {
             }
         }
     }
+
+    //todo: get cart method
 
 }
