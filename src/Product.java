@@ -6,7 +6,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class EntityProduct {
+public class Product {
     private String productID;
     private String productName;
     private String productDescription;
@@ -72,12 +72,12 @@ public class EntityProduct {
     }
 
     // constructors
-    EntityProduct() {
+    Product() {
 
     }
 
-    public EntityProduct(String productID, String productName, String productDescription, double productPrice,
-                         String productCategory, int productAvailability) {
+    public Product(String productID, String productName, String productDescription, double productPrice,
+                   String productCategory, int productAvailability) {
         this.productID = productID;
         this.productName = productName;
         this.productDescription = productDescription;
@@ -87,8 +87,8 @@ public class EntityProduct {
     }
 
     // DB functions
-    public static ArrayList<EntityProduct> search(String keyword) throws ClassNotFoundException {
-        ArrayList<EntityProduct> results = new ArrayList<>();
+    public static ArrayList<Product> search(String keyword) throws ClassNotFoundException {
+        ArrayList<Product> results = new ArrayList<>();
         Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
         String connectionUrl = LoginSystem.dbConnection;
         ResultSet resultSet;
@@ -100,7 +100,7 @@ public class EntityProduct {
             resultSet = statement.executeQuery(selectSql);
             // Print results from select statement
             while (resultSet.next()) {
-                results.add(new EntityProduct(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3),
+                results.add(new Product(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3),
                         Double.parseDouble(resultSet.getString(4)), resultSet.getString(5),
                         Integer.parseInt(resultSet.getString(6))));
             }
@@ -112,8 +112,8 @@ public class EntityProduct {
         return results;
     }
 
-    public static ArrayList<EntityProduct> getAll() throws ClassNotFoundException {
-        ArrayList<EntityProduct> results = new ArrayList<>();
+    public static ArrayList<Product> getAll() throws ClassNotFoundException {
+        ArrayList<Product> results = new ArrayList<>();
         Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
         String connectionUrl = LoginSystem.dbConnection;
         ResultSet resultSet;
@@ -125,7 +125,7 @@ public class EntityProduct {
 
             // Print results from select statement
             while (resultSet.next()) {
-                results.add(new EntityProduct(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3),
+                results.add(new Product(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3),
                         Double.parseDouble(resultSet.getString(4)), resultSet.getString(5),
                         Integer.parseInt(resultSet.getString(6))));
             }
@@ -155,7 +155,7 @@ public class EntityProduct {
         }
     }
 
-    public static EntityProduct getProductFromDB(String ID) throws ClassNotFoundException, SQLException {
+    public static Product getProductFromDB(String ID) throws ClassNotFoundException {
         Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
         String connectionUrl = LoginSystem.dbConnection;
         ResultSet resultSet;
@@ -164,14 +164,17 @@ public class EntityProduct {
             // Create and execute a SELECT SQL statement.
             String selectSql = "SELECT * FROM Products WHERE productID = " + ID;
             resultSet = statement.executeQuery(selectSql);
-            return new EntityProduct(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3),
+            if (resultSet.next()){
+            return new Product(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3),
                     Double.parseDouble(resultSet.getString(4)), resultSet.getString(5),
-                    Integer.parseInt(resultSet.getString(6)));
+                    Integer.parseInt(resultSet.getString(6)));}
         }
+        catch (Exception e){}
+        return null;
     }
 
-    public static void shopMenu(Scanner scan, EntityAccount account) throws ClassNotFoundException {
-        EntityCart cart = new EntityCart();
+    public static void shopMenu(Scanner scan, Account account) throws ClassNotFoundException {
+        Cart cart = new Cart();
         boolean loop = true;
         while (loop) {
             System.out.println("--- Shopping Menu ---");
@@ -179,27 +182,24 @@ public class EntityProduct {
             System.out.println("\t2. Search items by keyword");
             System.out.println("\t3. Add item by ID");
             System.out.println("\t4. Checkout cart");
-            System.out.println("\t5. Back to main menu");
+            System.out.println("\t5. Edit Account");
             String userInput = scan.nextLine();
             switch (userInput) {
-                case "1":
-                    getAll().forEach(System.out :: println);
-                    break;
-                case "2":
+                case "1" -> getAll().forEach(System.out::println);
+                case "2" -> {
                     System.out.println("Enter the keyword:");
-                    search(scan.nextLine()).forEach(System.out :: println);
-                    break;
-                case "3":
+                    search(scan.nextLine()).forEach(System.out::println);
+                }
+                case "3" -> {
                     System.out.println("Enter the ID:");
                     String productID = scan.nextLine();
-                    EntityProduct toAdd = null;
+                    Product toAdd = null;
                     try {
                         toAdd = getProductFromDB(productID);
-                    } catch (Exception e){
+                    } catch (Exception e) {
                         System.out.println("Item not found!");
                     }
-                    if (toAdd != null)
-                    {
+                    if (toAdd != null) {
                         System.out.println("Enter the desired quantity:");
                         String qty = scan.nextLine();
                         int quantity = 0;
@@ -207,41 +207,38 @@ public class EntityProduct {
                             quantity = Integer.parseInt(qty);
                             if (quantity < 1)
                                 throw new Exception();
-                        } catch (Exception e){
+                        } catch (Exception e) {
                             System.out.println("Quantity input was not a valid number");
                         }
-                        if(quantity > 0){
+                        if (quantity > 0) {
+                            if (quantity > toAdd.productAvailability) {
+                                System.out.println("insufficient availability. " + toAdd.productAvailability + "Added instead of " + quantity + ".");
+                                quantity = toAdd.productAvailability;
+                            }
                             cart.add(toAdd, quantity);
                         }
                     }
-                    break;
-                case "4":
+                }
+                case "4" -> {
                     boolean loop2 = true;
-                    while(loop2){
+                    while (loop2) {
                         System.out.println("do you want to take this cart to checkout?");
                         System.out.println(cart);
                         System.out.println("Yes/No:");
                         String input = scan.nextLine();
-                        switch (input.toLowerCase()){
-                            case "yes":
-                                EntityOrder order = new EntityOrder(account, cart);
+                        switch (input.toLowerCase()) {
+                            case "yes" -> {
                                 //TODO: call order main method: order.menu(scan);
-                                loop = false;
-                                break;
-                            case "no":
-                                loop = false;
-                                break;
-                            default:
-                                System.out.println("Invalid input, try again.");
+                                loop2 = false;
+                            }
+                            case "no" -> loop2 = false;
+                            default -> System.out.println("Invalid input, try again.");
                         }
                     }
-                    break;
-                case "5":
-                    //todo: link to main menu
-                    loop = false;
-                    break;
-                default:
-                    System.out.println("Invalid input, try again.");
+                }
+                case "5" ->
+                    Account.editAccount(scan, account);
+                default -> System.out.println("Invalid input, try again.");
             }
         }
     }

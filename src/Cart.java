@@ -2,22 +2,34 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EntityCart {
+public class Cart {
     private String cartID;
-    private List<EntityProduct> products = new ArrayList<EntityProduct>();
+    private List<Product> products = new ArrayList<Product>();
     private List<Integer> quantities = new ArrayList<Integer>();
     private List<Double> totalCosts = new ArrayList<Double>();
 
-    EntityCart() {
-        //TODO: get next cart ID from DB / implement incrementing number function in DB
+    Cart() throws ClassNotFoundException {
         cartID = "";
+        Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+        String connectionUrl = LoginSystem.dbConnection;
+        try (Connection connection = DriverManager.getConnection(connectionUrl);
+             Statement statement = connection.createStatement();) {
+            // Create and execute an insert SQL statement.
+            String sql = "SELECT NEXT VALUE FOR CartSequence";
+            ResultSet rs = statement.executeQuery(sql);
+            if(rs.next())
+                cartID = rs.getString(1);
+            System.out.println("cart number "+cartID+" was created");
+        }
+        catch (Exception e){
+        }
     }
 
     public String getCartID() {
         return cartID;
     }
 
-    public EntityProduct getProduct(int listPosition) {
+    public Product getProduct(int listPosition) {
         return products.get(listPosition);
     }
 
@@ -33,7 +45,7 @@ public class EntityCart {
         return products.size();
     }
 
-    public void add(EntityProduct product, int quantity) {
+    public void add(Product product, int quantity) {
         products.add(product);
         quantities.add(quantity);
         totalCosts.add(product.getProductPrice() * quantity);
@@ -61,7 +73,7 @@ public class EntityCart {
         return cartTotal;
     }
 
-    public static void AddCartToDB(EntityCart cart) throws ClassNotFoundException {
+    public static void AddCartToDB(Cart cart) throws ClassNotFoundException {
 
         if (cart.getCartSize() >= 1) {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");

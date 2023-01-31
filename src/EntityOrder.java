@@ -2,15 +2,15 @@ import java.util.Date;
 
 public class EntityOrder {
     private String OrderID;
-    private EntityAccount AccountLink;
+    private Account AccountLink;
     private String PaymentID;
-    private EntityCart CartLink;
+    private Cart CartLink;
     private Date OrderDate;
     private double TotalCost;
     private String DeliveryType;
     private boolean paid;
 
-    EntityOrder(EntityAccount AccountLink, EntityCart CartLink) {
+    EntityOrder(Account AccountLink, Cart CartLink) {
         this.CartLink = CartLink;
         this.AccountLink = AccountLink;
         OrderDate = new Date();
@@ -34,11 +34,11 @@ public class EntityOrder {
         OrderID = orderID;
     }
 
-    public EntityAccount getAccountLink() {
+    public Account getAccountLink() {
         return AccountLink;
     }
 
-    public void setAccountLink(EntityAccount accountLink) {
+    public void setAccountLink(Account accountLink) {
         AccountLink = accountLink;
     }
 
@@ -50,11 +50,11 @@ public class EntityOrder {
         PaymentID = paymentID;
     }
 
-    public EntityCart getCartLink() {
+    public Cart getCartLink() {
         return CartLink;
     }
 
-    public void setCartLink(EntityCart cartLink) {
+    public void setCartLink(Cart cartLink) {
         CartLink = cartLink;
     }
 
