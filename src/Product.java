@@ -66,9 +66,7 @@ public class Product {
     // toString
     @Override
     public String toString() {
-        return "[ID] " + productID + ", [Product] " + productName + ", [Description] " + productDescription
-                + ", [Availability] " + productAvailability + ", [Category] " + productCategory
-                + ", [Price] " + productPrice;
+        return "[ID] " + productID + ", [Product] " + productName + ", [Description] " + productDescription + ", [Availability] " + productAvailability + ", [Category] " + productCategory + ", [Price] " + productPrice;
     }
 
     // constructors
@@ -76,8 +74,7 @@ public class Product {
 
     }
 
-    public Product(String productID, String productName, String productDescription, double productPrice,
-                   String productCategory, int productAvailability) {
+    public Product(String productID, String productName, String productDescription, double productPrice, String productCategory, int productAvailability) {
         this.productID = productID;
         this.productName = productName;
         this.productDescription = productDescription;
@@ -92,17 +89,33 @@ public class Product {
         Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
         String connectionUrl = Main.dbConnection;
         ResultSet resultSet;
-        try (Connection connection = DriverManager.getConnection(connectionUrl);
-             Statement statement = connection.createStatement()) {
+        try (Connection connection = DriverManager.getConnection(connectionUrl); Statement statement = connection.createStatement()) {
             // Create and execute a SELECT SQL statement.
-            String selectSql = "SELECT * FROM Products WHERE productCategory LIKE '%" + keyword
-                    + "%' or productName like '%" + keyword + "%' or productDescription LIKE '%" + keyword + "%'";
+            String selectSql = "SELECT * FROM Products WHERE productCategory LIKE '%" + keyword + "%' or productName like '%" + keyword + "%' or productDescription LIKE '%" + keyword + "%'";
             resultSet = statement.executeQuery(selectSql);
             // Print results from select statement
             while (resultSet.next()) {
-                results.add(new Product(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3),
-                        Double.parseDouble(resultSet.getString(4)), resultSet.getString(5),
-                        Integer.parseInt(resultSet.getString(6))));
+                results.add(new Product(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3), Double.parseDouble(resultSet.getString(4)), resultSet.getString(5), Integer.parseInt(resultSet.getString(6))));
+            }
+        }
+        // Handle any errors that may have occurred.
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return results;
+    }
+    public static ArrayList<Product> searchCategory(String keyword) throws ClassNotFoundException {
+        ArrayList<Product> results = new ArrayList<>();
+        Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+        String connectionUrl = Main.dbConnection;
+        ResultSet resultSet;
+        try (Connection connection = DriverManager.getConnection(connectionUrl); Statement statement = connection.createStatement()) {
+            // Create and execute a SELECT SQL statement.
+            String selectSql = "SELECT * FROM Products WHERE productCategory = '" + keyword + "'";
+            resultSet = statement.executeQuery(selectSql);
+            // Print results from select statement
+            while (resultSet.next()) {
+                results.add(new Product(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3), Double.parseDouble(resultSet.getString(4)), resultSet.getString(5), Integer.parseInt(resultSet.getString(6))));
             }
         }
         // Handle any errors that may have occurred.
@@ -112,22 +125,19 @@ public class Product {
         return results;
     }
 
-    public static ArrayList<Product> getAll() throws ClassNotFoundException {
-        ArrayList<Product> results = new ArrayList<>();
+    public static ArrayList<String> getCategories() throws ClassNotFoundException {
+        ArrayList<String> results = new ArrayList<>();
         Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
         String connectionUrl = Main.dbConnection;
         ResultSet resultSet;
-        try (Connection connection = DriverManager.getConnection(connectionUrl);
-             Statement statement = connection.createStatement()) {
+        try (Connection connection = DriverManager.getConnection(connectionUrl); Statement statement = connection.createStatement()) {
             // Create and execute a SELECT SQL statement.
-            String selectSql = "SELECT * FROM Products";
+            String selectSql = "Select productCategory from Products group by productCategory";
             resultSet = statement.executeQuery(selectSql);
 
             // Print results from select statement
             while (resultSet.next()) {
-                results.add(new Product(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3),
-                        Double.parseDouble(resultSet.getString(4)), resultSet.getString(5),
-                        Integer.parseInt(resultSet.getString(6))));
+                results.add(resultSet.getString(1));
             }
         }
         // Handle any errors that may have occurred.
@@ -140,14 +150,11 @@ public class Product {
     public static void adjustInventory(String ID, int quantity) throws ClassNotFoundException {
         Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
         String connectionUrl = Main.dbConnection;
-        try (Connection connection = DriverManager.getConnection(connectionUrl);
-             Statement statement = connection.createStatement()) {
+        try (Connection connection = DriverManager.getConnection(connectionUrl); Statement statement = connection.createStatement()) {
             // Create and execute a SELECT SQL statement.
-            String selectSql = "UPDATE Products SET productInventoryQuantity = " + quantity + " WHERE productID = "
-                    + ID;
+            String selectSql = "UPDATE Products SET productInventoryQuantity = " + quantity + " WHERE productID = " + ID;
             int rowsUpdated = statement.executeUpdate(selectSql);
-            if (rowsUpdated < 1)
-                throw new SQLException("zero row updated");
+            if (rowsUpdated < 1) throw new SQLException("zero row updated");
         }
         // Handle any errors that may have occurred.
         catch (SQLException e) {
@@ -159,17 +166,15 @@ public class Product {
         Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
         String connectionUrl = Main.dbConnection;
         ResultSet resultSet;
-        try (Connection connection = DriverManager.getConnection(connectionUrl);
-             Statement statement = connection.createStatement()) {
+        try (Connection connection = DriverManager.getConnection(connectionUrl); Statement statement = connection.createStatement()) {
             // Create and execute a SELECT SQL statement.
             String selectSql = "SELECT * FROM Products WHERE productID = " + ID;
             resultSet = statement.executeQuery(selectSql);
-            if (resultSet.next()){
-            return new Product(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3),
-                    Double.parseDouble(resultSet.getString(4)), resultSet.getString(5),
-                    Integer.parseInt(resultSet.getString(6)));}
+            if (resultSet.next()) {
+                return new Product(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3), Double.parseDouble(resultSet.getString(4)), resultSet.getString(5), Integer.parseInt(resultSet.getString(6)));
+            }
+        } catch (Exception e) {
         }
-        catch (Exception e){}
         return null;
     }
 
@@ -178,8 +183,7 @@ public class Product {
         boolean loop = true;
         while (loop) {
             System.out.println("--- Shopping Menu ---");
-            System.out.println("\t1. List all items");
-            // TODO: list categories to browse by category, update DB product descriptions
+            System.out.println("\t1. List by category");
             System.out.println("\t2. Search items by keyword");
             System.out.println("\t3. Add item by ID");
             System.out.println("\t4. Checkout cart");
@@ -187,7 +191,20 @@ public class Product {
             System.out.println("\t6. Exit");
             String userInput = scan.nextLine();
             switch (userInput) {
-                case "1" -> getAll().forEach(System.out::println);
+                case "1" -> {
+                    ArrayList<String> categories = getCategories();
+                    System.out.println("CATEGORIES:");
+                    categories.forEach(System.out::println);
+                    String selected = "";
+                    System.out.println("Enter the category you would like to see:");
+                    while (true) {
+                        String input = scan.nextLine();
+                        selected = categories.stream().filter(s -> s.equalsIgnoreCase(input)).findFirst().get();
+                        if (selected.equalsIgnoreCase("")) System.out.println("Invalid input, try again.");
+                        else break;
+                    }
+                    searchCategory(selected).forEach(System.out::println);
+                }
                 case "2" -> {
                     System.out.println("Enter the keyword:");
                     search(scan.nextLine()).forEach(System.out::println);
@@ -207,8 +224,7 @@ public class Product {
                         int quantity = 0;
                         try {
                             quantity = Integer.parseInt(qty);
-                            if (quantity < 1)
-                                throw new Exception();
+                            if (quantity < 1) throw new Exception();
                         } catch (Exception e) {
                             System.out.println("Quantity input was not a valid number");
                         }
@@ -230,7 +246,7 @@ public class Product {
                         String input = scan.nextLine();
                         switch (input.toLowerCase()) {
                             case "yes" -> {
-                                Order.order(scan,cart,account);
+                                Order.order(scan, cart, account);
                                 loop2 = false;
                             }
                             case "no" -> loop2 = false;
@@ -238,10 +254,8 @@ public class Product {
                         }
                     }
                 }
-                case "5" ->
-                    Account.editAccount(scan, account);
-                case "6" ->
-                    loop = false;
+                case "5" -> Account.editAccount(scan, account);
+                case "6" -> loop = false;
                 default -> System.out.println("Invalid input, try again.");
             }
         }
