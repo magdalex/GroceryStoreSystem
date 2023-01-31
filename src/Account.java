@@ -1,4 +1,5 @@
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Account {
@@ -20,8 +21,14 @@ public class Account {
     private String defaultCardType;
 
     public static void editAccount(Scanner scan, Account account) throws ClassNotFoundException {
-        // todo: menu for editing account details, viewing open orders/payments
-        Product.shopMenu(scan, account);
+        ArrayList<Payment> payments = Payment.getAllPayments(account.getEmail());//get list of all payments
+        ArrayList<Order> orders = new ArrayList<>();
+        payments.forEach(p -> orders.add(new Order(p.getOrderID())));//get list of all orders
+
+        // todo: menu for editing account details, viewing open orders/payments. code goes here.
+
+        updateDB(account); //save changes
+        Product.shopMenu(scan, account); // return to menu
     }
 
     public String getEmail() {

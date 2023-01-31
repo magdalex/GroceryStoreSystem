@@ -23,6 +23,9 @@ public class Cart {
         catch (Exception e){
         }
     }
+    Cart(String cartID){
+        //todo: get cart from db
+    }
 
     public String getCartID() {
         return cartID;
@@ -99,7 +102,4 @@ public class Cart {
             }
         }
     }
-
-    //todo: get cart from db method
-
 }

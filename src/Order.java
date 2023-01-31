@@ -33,6 +33,10 @@ public class Order {
         paid = false;
     }
 
+    Order(String accountID){
+        // TODO: get order from DB using email/accountID
+    }
+
     public boolean isPaid() {
         return paid;
     }
@@ -148,7 +152,15 @@ public class Order {
             e.printStackTrace();
         }
     }
-
-    // TODO: get order from DB method
-    // TODO: toString override
+    @Override
+    public String toString() {
+        return "orderID='" + orderID + '\'' +
+                ", paymentID='" + paymentID + '\'' +
+                ", cartLink=" + cartLink +
+                ", orderDate=" + orderDate +
+                ", totalCost=" + totalCost +
+                ", deliveryType='" + deliveryType + '\'' +
+                ", paid=" + paid +
+                '}';
+    }
 }

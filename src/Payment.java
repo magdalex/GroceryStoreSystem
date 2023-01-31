@@ -1,4 +1,5 @@
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Payment {
@@ -112,6 +113,9 @@ public class Payment {
         this.accountID = accountID;
         isDelivered = "false";
     }
+    private Payment(String accountID){
+        // todo: get payment from db by email for getAllPayments
+    }
 
     public static void checkout(Scanner scan, Order order, Account account) throws ClassNotFoundException {
         Payment payment = new Payment(order.getOrderID(), account.getEmail());
@@ -211,6 +215,23 @@ public class Payment {
         }
     }
 
-    // todo: get payment ordered list from db by date and email for manage account
-    // TODO: toString override
+    @Override
+    public String toString() {
+        return "Payment{" +
+                "paymentID='" + paymentID + '\'' +
+                ", cardFirstName='" + cardFirstName + '\'' +
+                ", cardLastName='" + cardLastName + '\'' +
+                ", cardNum='" + cardNum + '\'' +
+                ", cardCVV='" + cardCVV + '\'' +
+                ", cardExp='" + cardExp + '\'' +
+                ", cardType='" + cardType + '\'' +
+                ", isDelivered='" + isDelivered + '\'' +
+                ", orderID='" + orderID + '\'' +
+                '}';
+    }
+    public static ArrayList<Payment> getAllPayments(String accountID){
+        // todo: get all of an accounts payments, use private constructor
+        ArrayList<Payment> payments = new ArrayList<>();
+        return payments;
+    }
 }
