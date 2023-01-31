@@ -4,14 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="46f092e3-8cd8-49ba-8947-17252fb060f3" name="Changes" comment="code preparation for missing methods">
+    <list default="true" id="46f092e3-8cd8-49ba-8947-17252fb060f3" name="Changes" comment="browse by category added">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GroceryStoreSystem/Account.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GroceryStoreSystem/Account.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GroceryStoreSystem/Cart.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GroceryStoreSystem/Cart.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GroceryStoreSystem/Order.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GroceryStoreSystem/Order.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GroceryStoreSystem/Payment.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GroceryStoreSystem/Payment.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GroceryStoreSystem/Product.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GroceryStoreSystem/Product.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Product.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Account.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Account.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,26 +38,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "E:/School/sysDev/Java/GrocerySystem/GroceryStoreSystem/src",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;E:/School/sysDev/Java/GrocerySystem/GroceryStoreSystem/src&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;org.jetbrains.plugins.github.ui.GithubSettingsConfigurable&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "azure"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;azure&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="E:\School\sysDev\Java\GrocerySystem\GroceryStoreSystem\src" />
@@ -87,7 +82,8 @@
       <option name="presentableId" value="Default" />
       <updated>1675133913800</updated>
       <workItem from="1675133915179" duration="3129000" />
-      <workItem from="1675137067986" duration="29190000" />
+      <workItem from="1675137067986" duration="29320000" />
+      <workItem from="1675167301461" duration="2069000" />
     </task>
     <task id="LOCAL-00001" summary="Code cleanup, proper DB query in account, product and cart. DB sequencer function.">
       <created>1675150165727</created>
@@ -124,7 +120,14 @@
       <option name="project" value="LOCAL" />
       <updated>1675165313417</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="browse by category added">
+      <created>1675167104420</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1675167104420</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -185,7 +188,8 @@
     <MESSAGE value="main functions all working, still needs account manager" />
     <MESSAGE value="ERD update" />
     <MESSAGE value="code preparation for missing methods" />
-    <option name="LAST_COMMIT_MESSAGE" value="code preparation for missing methods" />
+    <MESSAGE value="browse by category added" />
+    <option name="LAST_COMMIT_MESSAGE" value="browse by category added" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

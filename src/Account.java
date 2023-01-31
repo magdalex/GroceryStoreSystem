@@ -1,4 +1,5 @@
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -178,13 +179,13 @@ public class Account {
         this.defaultCardExp = "";
         this.defaultCardType = "";
     }
-    public static void createAccount(Scanner scan) {
+    public static void createAccount(Scanner scan) throws ClassNotFoundException {
         Account account = new Account();
 
         System.out.println("--- Signup ---\nInput email address:");
         String email = scan.nextLine();
         while (!isValidEmail(email)) {
-            System.out.println("Re-input email address:");
+            System.out.println("Email is invalid or already registered. Re-input email address:");
             email = scan.nextLine();
         }
         account.setEmail(email.toLowerCase());
@@ -326,9 +327,26 @@ public class Account {
     }
 
     //make sure @ is present, short emails (up to 20 before @) only
-    public static boolean isValidEmail(String email) {
-        if (email.matches("^(?=.{1,20}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@" + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$"))
+    public static boolean isValidEmail(String email) throws ClassNotFoundException {
+        if (email.matches("^(?=.{1,20}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@" + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$")) {
+            boolean exist = false;
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            String connectionUrl = Main.dbConnection;
+            ResultSet rs;
+            try (Connection connection = DriverManager.getConnection(connectionUrl); Statement statement = connection.createStatement()) {
+                // Create and execute a SELECT SQL statement.
+                String selectSql = "SELECT * FROM Accounts WHERE emailAccount = '" + email + "';";
+                rs = statement.executeQuery(selectSql);
+                if (rs.isBeforeFirst()) {
+                    exist = true;
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            if (exist)
+                return false;
             return true;
+        }
         System.out.println("Invalid email.");
         return false;
     }
@@ -342,7 +360,7 @@ public class Account {
     //check if already expired
     public static boolean isValidExp(String exp) {
         try {
-            if ((Integer.parseInt(exp.substring(exp.length() - 2))) < 23) {
+            if ((Integer.parseInt(exp.substring(exp.length() - 2))) < LocalDate.now().getYear()-2000 || (Integer.parseInt(exp.substring(0, 2))) < LocalDate.now().getMonthValue()) {
                 System.out.println("Card expired.");
                 return false;
             }
