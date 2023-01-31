@@ -4,21 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="46f092e3-8cd8-49ba-8947-17252fb060f3" name="Changes" comment="incremental update, almost done.">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/c7d10e17-d3a7-4178-b39d-b015f3b0cab9.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/c7d10e17-d3a7-4178-b39d-b015f3b0cab9.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/c7d10e17-d3a7-4178-b39d-b015f3b0cab9/storage_v2/_src_/database/VanierGroceryService.u2g7bA/schema/dbo.sYMBAA.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/c7d10e17-d3a7-4178-b39d-b015f3b0cab9/storage_v2/_src_/database/VanierGroceryService.u2g7bA/schema/dbo.sYMBAA.meta" afterDir="false" />
+    <list default="true" id="46f092e3-8cd8-49ba-8947-17252fb060f3" name="Changes" comment="main functions all working, still needs account manager">
+      <change afterPath="$PROJECT_DIR$/GroceryStoreSystem.pdf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GroceryStoreSystem/Account.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GroceryStoreSystem/Account.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GroceryStoreSystem/Cart.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GroceryStoreSystem/Cart.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GroceryStoreSystem/EntityOrder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GroceryStoreSystem/EntityPayment.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GroceryStoreSystem/LoginSystem.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GroceryStoreSystem/Product.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GroceryStoreSystem/Product.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Cart.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Cart.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Order.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Payment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Payment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Product.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GroceryStoreSystemERD.vsdx" beforeDir="false" afterPath="$PROJECT_DIR$/GroceryStoreSystemERD.vsdx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,7 +45,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "E:/School/sysDev/Java/GrocerySystem/GroceryStoreSystem",
+    "last_opened_file_path": "E:/School/sysDev/Java/GrocerySystem/GroceryStoreSystem/src",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -70,6 +59,14 @@
     ]
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\School\sysDev\Java\GrocerySystem\GroceryStoreSystem\src" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\School\sysDev\Java\GrocerySystem\GroceryStoreSystem" />
+    </key>
+  </component>
   <component name="SQLScriptSettings">
     <option name="matrix">
       <map>
@@ -86,7 +83,7 @@
       <option name="presentableId" value="Default" />
       <updated>1675133913800</updated>
       <workItem from="1675133915179" duration="3129000" />
-      <workItem from="1675137067986" duration="23826000" />
+      <workItem from="1675137067986" duration="25767000" />
     </task>
     <task id="LOCAL-00001" summary="Code cleanup, proper DB query in account, product and cart. DB sequencer function.">
       <created>1675150165727</created>
@@ -102,7 +99,14 @@
       <option name="project" value="LOCAL" />
       <updated>1675157614565</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="main functions all working, still needs account manager">
+      <created>1675161560745</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1675161560745</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -160,7 +164,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Code cleanup, proper DB query in account, product and cart. DB sequencer function." />
     <MESSAGE value="incremental update, almost done." />
-    <option name="LAST_COMMIT_MESSAGE" value="incremental update, almost done." />
+    <MESSAGE value="main functions all working, still needs account manager" />
+    <option name="LAST_COMMIT_MESSAGE" value="main functions all working, still needs account manager" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
