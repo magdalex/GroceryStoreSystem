@@ -113,8 +113,18 @@ public class Payment {
         this.accountID = accountID;
         isDelivered = "false";
     }
-    private Payment(String accountID){
-        // todo: get payment from db by email for getAllPayments
+
+    public Payment(String paymentID, String accountID, String cardFirstName, String cardLastName, String cardNum, String cardCVV, String cardExp, String cardType, String isDelivered, String orderID) {
+        this.paymentID = paymentID;
+        this.accountID = accountID;
+        this.cardFirstName = cardFirstName;
+        this.cardLastName = cardLastName;
+        this.cardNum = cardNum;
+        this.cardCVV = cardCVV;
+        this.cardExp = cardExp;
+        this.cardType = cardType;
+        this.isDelivered = isDelivered;
+        this.orderID = orderID;
     }
 
     public static void checkout(Scanner scan, Order order, Account account) throws ClassNotFoundException {
@@ -229,9 +239,27 @@ public class Payment {
                 ", orderID='" + orderID + '\'' +
                 '}';
     }
-    public static ArrayList<Payment> getAllPayments(String accountID){
-        // todo: get all of an accounts payments, use private constructor
+
+    public static ArrayList<Payment> getAllPayments(String accountID) {
+
         ArrayList<Payment> payments = new ArrayList<>();
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+        } catch (Exception e) {
+        }
+        String connectionUrl = Main.dbConnection;
+        try (Connection connection = DriverManager.getConnection(connectionUrl);
+             Statement statement = connection.createStatement()) {
+            // Create and execute an insert SQL statement.
+            String sql = "Select * from Payments where accountID = '" + accountID + "'";
+            ResultSet rs = statement.executeQuery(sql);
+            while (rs.next()) {
+                payments.add(new Payment(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getString(10)));
+            }
+        }
+        // Handle any errors that may have occurred.
+        catch (SQLException e) {
+        }
         return payments;
     }
 }

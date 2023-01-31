@@ -187,7 +187,7 @@ public class Product {
             System.out.println("\t2. Search items by keyword");
             System.out.println("\t3. Add item by ID");
             System.out.println("\t4. Checkout cart");
-            System.out.println("\t5. Edit Account");
+            System.out.println("\t5. Manage Account");
             System.out.println("\t6. Exit");
             String userInput = scan.nextLine();
             switch (userInput) {

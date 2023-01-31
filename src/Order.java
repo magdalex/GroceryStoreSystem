@@ -10,7 +10,7 @@ public class Order {
     private Date orderDate;
     private double totalCost;
     private String deliveryType;
-    private boolean paid;
+    private String paid;
 
     Order(Account AccountLink, Cart CartLink) throws ClassNotFoundException {
         //orderID
@@ -30,18 +30,45 @@ public class Order {
         this.accountLink = AccountLink;
         orderDate = new Date();
         totalCost = CartLink.getCartCost();
-        paid = false;
+        paid = "false";
     }
 
-    Order(String accountID){
-        // TODO: get order from DB using email/accountID
+    Order(Account account, String orderID) {
+        this.accountLink = account;
+        this.orderID = orderID;
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+        } catch (Exception e) {
+        }
+        String connectionUrl = Main.dbConnection;
+        try (Connection connection = DriverManager.getConnection(connectionUrl);
+             Statement statement = connection.createStatement()) {
+            // Create and execute an insert SQL statement.
+            String sql = "Select * from Orders where orderID = '" + orderID + "'";
+            ResultSet rs = statement.executeQuery(sql);
+            if (rs.next()) {
+
+                this.paymentID=rs.getString(3);
+                try {
+                    this.cartLink= new Cart(rs.getString(4));
+                } catch (Exception e) { }
+                this.orderDate = rs.getDate(5);
+                this.totalCost = Double.parseDouble(rs.getString(6));
+                this.deliveryType = rs.getString(7);
+                this.paid = rs.getString(8);
+            }
+        }
+        // Handle any errors that may have occurred.
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
-    public boolean isPaid() {
+    public String getPaid() {
         return paid;
     }
 
-    public void setPaid(boolean paid) {
+    public void setPaid(String paid) {
         this.paid = paid;
     }
 

@@ -21,18 +21,7 @@ public class Account {
     private String defaultCardExp;
     private String defaultCardType;
 
-    public static void editAccount(Scanner scan, Account account) throws ClassNotFoundException {
-        ArrayList<Payment> payments = Payment.getAllPayments(account.getEmail());//get list of all payments
-        ArrayList<Order> orders = new ArrayList<>();
-        payments.forEach(p -> orders.add(new Order(p.getOrderID())));//get list of all orders
-
-        // todo: menu for editing account details, viewing open orders/payments. code goes here.
-
-        updateDB(account); //save changes
-        Product.shopMenu(scan, account); // return to menu
-    }
-
-    public String getEmail() {
+     public String getEmail() {
         return email;
     }
 
@@ -181,76 +170,64 @@ public class Account {
     }
     public static void createAccount(Scanner scan) throws ClassNotFoundException {
         Account account = new Account();
-
-        System.out.println("--- Signup ---\nInput email address:");
-        String email = scan.nextLine();
-        while (!isValidEmail(email)) {
-            System.out.println("Email is invalid or already registered. Re-input email address:");
-            email = scan.nextLine();
+        emailFN(scan, account);
+        passwordFN(scan, account);
+        nameFN(scan, account);
+        addressFN(scan, account);
+        phoneFN(scan, account);
+        defaultCardFN(scan, account);
+        try {
+            updateDB(account);
+            Main.logIn(scan);
+        } catch (Exception e) {
+            System.out.println("Couldn't add new account to database");
         }
-        account.setEmail(email.toLowerCase());
+    }
+    public static void editAccount(Scanner scan, Account account) throws ClassNotFoundException {
+        ArrayList<Payment> payments = Payment.getAllPayments(account.getEmail());//get list of all payments
+        ArrayList<Order> orders = new ArrayList<>();
+        payments.forEach(p -> orders.add(new Order(account, p.getOrderID())));//get list of all orders
 
-        System.out.println("Passwords, between 5 and 15 characters, must have at least one uppercase and one lowercase \n" + "letter, at least one digit, and at least one of the following special characters: @#$%_-\\");
-        System.out.println("Input password:");
-        String password = scan.nextLine();
-        while (!isValidPassword(password)) {
-            System.out.println("Re-input password:");
-            password = scan.nextLine();
+        boolean loop = true;
+        while(loop){
+            System.out.println("--- Manage Account ---\n\t1.Change login info\n\t2.Change name\n\t3.Change address\n\t4.Change phone number\n\t5.Change default payment\n\t6.See orders\n\t7.Go back to menu");
+            String input = scan.nextLine();
+            switch (input){
+                case "1" -> {
+                    emailFN(scan, account);
+                    passwordFN(scan, account);
+                }
+                case "2" -> nameFN(scan, account);
+                case "3" -> addressFN(scan, account);
+                case "4" -> phoneFN(scan, account);
+                case "5" -> defaultCardFN(scan, account);
+                case "6" -> {
+                    payments.forEach(System.out::println);
+                    System.out.println("Enter the OrderID you would like to see:");
+                    String selected = "";
+                    while (true) {
+                        String input2 = scan.nextLine();
+                        try{
+                        selected = payments.stream().filter(s -> s.getOrderID().equalsIgnoreCase(input2)).findFirst().get().getOrderID();
+                        }catch (Exception e){}
+                        if (selected.equalsIgnoreCase("")) System.out.println("Invalid input, try again.");
+                        else break;
+                    }
+                    final String selected2 = selected;
+                    try {
+                        System.out.println(orders.stream().filter(o->o.getOrderID().equalsIgnoreCase(selected2)).findFirst().get());
+                    }catch (Exception e){}
+
+                }
+                case "7" -> {
+                    loop = false;
+                }
+                default -> System.out.println("Invalid input, try again.");
+            }
         }
-        account.setPassword(password);
-
-        System.out.println("Input first name:");
-        String firstName = scan.nextLine();
-        while (!isDigit(firstName)) {
-            System.out.println("Re-input first name:");
-            firstName = scan.nextLine();
-        }
-        account.setFirstName(firstName.toLowerCase());
-
-        System.out.println("Input last name:");
-        String lastName = scan.nextLine();
-        while (!isDigit(lastName)) {
-            System.out.println("Re-input last name:");
-            lastName = scan.nextLine();
-        }
-        account.setLastName(lastName.toLowerCase());
-
-        System.out.println("Address\nInput street number, name and apartment number:");
-        String street = scan.nextLine(); //check no special characters
-        account.setStreet(street.toLowerCase());
-
-        System.out.println("Input city:");
-        String city = scan.nextLine();
-        while (!isDigit(city)) {
-            System.out.println("Re-input city:");
-            city = scan.nextLine();
-        }
-        account.setCity(city.toLowerCase());
-
-        System.out.println("Input postal code, without spaces or hyphens:");
-        String postalCode = scan.nextLine();
-        while (!isZipValid(postalCode)) {
-            System.out.println("Re-input postal code:");
-            postalCode = scan.nextLine();
-        }
-        account.setPostalCode(postalCode.toLowerCase());
-
-        System.out.println("Input province:");
-        String province = scan.nextLine();
-        while (!isDigit(province)) {
-            System.out.println("Re-input province:");
-            province = scan.nextLine();
-        }
-        account.setProvince(province.toLowerCase());
-
-        System.out.println("Input country:");
-        String country = scan.nextLine();
-        while (!isDigit(country)) {
-            System.out.println("Re-input country:");
-            country = scan.nextLine();
-        }
-        account.setCountry(country.toLowerCase());
-
+        updateDB(account); //save changes
+    }
+    private static void phoneFN(Scanner scan, Account account) {
         System.out.println("Input phone number with no spaces:");
         String phoneNumber = scan.nextLine();
         while (!isPhoneValid(phoneNumber)) {
@@ -258,7 +235,9 @@ public class Account {
             phoneNumber = scan.nextLine();
         }
         account.setPhoneNumber(phoneNumber);
+    }
 
+    private static void defaultCardFN(Scanner scan, Account account) {
         boolean loop = true;
         do {
             System.out.println("Default payment\nInput card holder's first name:");
@@ -318,12 +297,83 @@ public class Account {
             defaultCardType = scan.nextLine();
         }
         account.setDefaultCardType(defaultCardType.toLowerCase());
-        try {
-            updateDB(account);
-            Main.logIn(scan);
-        } catch (Exception e) {
-            System.out.println("Couldn't add new account to database");
+    }
+
+    private static void addressFN(Scanner scan, Account account) {
+        System.out.println("Address\nInput street number, name and apartment number:");
+        String street = scan.nextLine(); //check no special characters
+        account.setStreet(street.toLowerCase());
+
+        System.out.println("Input city:");
+        String city = scan.nextLine();
+        while (!isDigit(city)) {
+            System.out.println("Re-input city:");
+            city = scan.nextLine();
         }
+        account.setCity(city.toLowerCase());
+
+        System.out.println("Input postal code, without spaces or hyphens:");
+        String postalCode = scan.nextLine();
+        while (!isZipValid(postalCode)) {
+            System.out.println("Re-input postal code:");
+            postalCode = scan.nextLine();
+        }
+        account.setPostalCode(postalCode.toLowerCase());
+
+        System.out.println("Input province:");
+        String province = scan.nextLine();
+        while (!isDigit(province)) {
+            System.out.println("Re-input province:");
+            province = scan.nextLine();
+        }
+        account.setProvince(province.toLowerCase());
+
+        System.out.println("Input country:");
+        String country = scan.nextLine();
+        while (!isDigit(country)) {
+            System.out.println("Re-input country:");
+            country = scan.nextLine();
+        }
+        account.setCountry(country.toLowerCase());
+    }
+
+    private static void nameFN(Scanner scan, Account account) {
+        System.out.println("Input first name:");
+        String firstName = scan.nextLine();
+        while (!isDigit(firstName)) {
+            System.out.println("Re-input first name:");
+            firstName = scan.nextLine();
+        }
+        account.setFirstName(firstName.toLowerCase());
+
+        System.out.println("Input last name:");
+        String lastName = scan.nextLine();
+        while (!isDigit(lastName)) {
+            System.out.println("Re-input last name:");
+            lastName = scan.nextLine();
+        }
+        account.setLastName(lastName.toLowerCase());
+    }
+
+    private static void passwordFN(Scanner scan, Account account) {
+        System.out.println("Passwords, between 5 and 15 characters, must have at least one uppercase and one lowercase \n" + "letter, at least one digit, and at least one of the following special characters: @#$%_-\\");
+        System.out.println("Input password:");
+        String password = scan.nextLine();
+        while (!isValidPassword(password)) {
+            System.out.println("Re-input password:");
+            password = scan.nextLine();
+        }
+        account.setPassword(password);
+    }
+
+    private static void emailFN(Scanner scan, Account account) throws ClassNotFoundException {
+        System.out.println("--- Signup ---\nInput email address:");
+        String email = scan.nextLine();
+        while (!isValidEmail(email)) {
+            System.out.println("Email is invalid or already registered. Re-input email address:");
+            email = scan.nextLine();
+        }
+        account.setEmail(email.toLowerCase());
     }
 
     //make sure @ is present, short emails (up to 20 before @) only
@@ -338,14 +388,11 @@ public class Account {
                 String selectSql = "SELECT * FROM Accounts WHERE emailAccount = '" + email + "';";
                 rs = statement.executeQuery(selectSql);
                 if (rs.isBeforeFirst()) {
-                    exist = true;
+                    return !exist;
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-            if (exist)
-                return false;
-            return true;
         }
         System.out.println("Invalid email.");
         return false;

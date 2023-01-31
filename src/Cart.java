@@ -17,14 +17,29 @@ public class Cart {
             // Create and execute an insert SQL statement.
             String sql = "SELECT NEXT VALUE FOR CartSequence";
             ResultSet rs = statement.executeQuery(sql);
-            if(rs.next())
+            if (rs.next())
                 cartID = rs.getString(1);
-        }
-        catch (Exception e){
+        } catch (Exception e) {
         }
     }
-    Cart(String cartID){
-        //todo: get cart from db
+
+    Cart(String cartID) throws ClassNotFoundException {
+        this.cartID = cartID;
+        Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+        String connectionUrl = Main.dbConnection;
+        try (Connection connection = DriverManager.getConnection(connectionUrl);
+             Statement statement = connection.createStatement()) {
+            // Create and execute an insert SQL statement.
+            String sql = "Select * from Carts where cartID = '" + cartID + "'";
+            ResultSet rs = statement.executeQuery(sql);
+            while (rs.next()) {
+                add(Product.getProductFromDB(rs.getString(2)),rs.getInt(3));
+            }
+        }
+        // Handle any errors that may have occurred.
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public String getCartID() {
