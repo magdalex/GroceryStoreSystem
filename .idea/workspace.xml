@@ -4,10 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="46f092e3-8cd8-49ba-8947-17252fb060f3" name="Changes" comment="account manager added">
+    <list default="true" id="46f092e3-8cd8-49ba-8947-17252fb060f3" name="Changes" comment="removed change email function, too hard to implement">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GroceryStoreSystem/Account.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GroceryStoreSystem/Account.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/GroceryStoreSystem/Cart.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GroceryStoreSystem/Cart.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/GroceryStoreSystem/Order.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GroceryStoreSystem/Order.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GroceryStoreSystem/Payment.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GroceryStoreSystem/Payment.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GroceryStoreSystem/Product.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GroceryStoreSystem/Product.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Cart.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Cart.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Order.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Product.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -84,7 +89,7 @@
       <updated>1675133913800</updated>
       <workItem from="1675133915179" duration="3129000" />
       <workItem from="1675137067986" duration="29320000" />
-      <workItem from="1675167301461" duration="10038000" />
+      <workItem from="1675167301461" duration="12745000" />
     </task>
     <task id="LOCAL-00001" summary="Code cleanup, proper DB query in account, product and cart. DB sequencer function.">
       <created>1675150165727</created>
@@ -142,7 +147,14 @@
       <option name="project" value="LOCAL" />
       <updated>1675178581236</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="removed change email function, too hard to implement">
+      <created>1675179354780</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1675179354780</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -206,7 +218,8 @@
     <MESSAGE value="browse by category added" />
     <MESSAGE value="added check if email already registered during signup" />
     <MESSAGE value="account manager added" />
-    <option name="LAST_COMMIT_MESSAGE" value="account manager added" />
+    <MESSAGE value="removed change email function, too hard to implement" />
+    <option name="LAST_COMMIT_MESSAGE" value="removed change email function, too hard to implement" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

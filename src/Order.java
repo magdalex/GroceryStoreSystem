@@ -21,10 +21,9 @@ public class Order {
             // Create and execute an insert SQL statement.
             String sql = "SELECT NEXT VALUE FOR OrderSequence";
             ResultSet rs = statement.executeQuery(sql);
-            if(rs.next())
+            if (rs.next())
                 orderID = rs.getString(1);
-        }
-        catch (Exception e){
+        } catch (Exception e) {
         }
         this.cartLink = CartLink;
         this.accountLink = AccountLink;
@@ -48,10 +47,11 @@ public class Order {
             ResultSet rs = statement.executeQuery(sql);
             if (rs.next()) {
 
-                this.paymentID=rs.getString(3);
+                this.paymentID = rs.getString(3);
                 try {
-                    this.cartLink= new Cart(rs.getString(4));
-                } catch (Exception e) { }
+                    this.cartLink = new Cart(rs.getString(4));
+                } catch (Exception e) {
+                }
                 this.orderDate = rs.getDate(5);
                 this.totalCost = Double.parseDouble(rs.getString(6));
                 this.deliveryType = rs.getString(7);
@@ -129,26 +129,41 @@ public class Order {
     }
 
     public static void order(Scanner scan, Cart cart, Account account) throws ClassNotFoundException {
-        Order order = new Order(account,cart);
-        //todo:adjust inventory, notify of changes
+        Order order = new Order(account, cart);
+        for (int i = 0; i < cart.getCartSize(); i++) {
+            String productID = cart.getProduct(i).getProductID();
+            Product toAdd = null;
+            try {
+                toAdd = Product.getProductFromDB(productID);
+            } catch (Exception e) { }
+            if (toAdd != null) {
+                int quantity = cart.getQuantity(i);
+                    if (quantity > toAdd.getProductAvailability()) {
+                        System.out.println("insufficient availability for "+toAdd.getProductName()+". " + toAdd.getProductAvailability() + " in cart instead of " + quantity + ".");
+                        quantity = toAdd.getProductAvailability();
+                    }
+                cart.add(toAdd, quantity);
+                Product.adjustInventory(toAdd.getProductID(), toAdd.getProductAvailability()- cart.getQuantity(i));
+            }
+        }
         Cart.AddCartToDB(cart);
-        while(true) {
+        while (true) {
             System.out.println("What type of order will this be? Enter [pickup] or [delivery]:");
             String input = scan.nextLine();
-            if(input.equalsIgnoreCase("pickup")){
+            if (input.equalsIgnoreCase("pickup")) {
                 order.deliveryType = "Pickup";
                 break;
             }
-            if(input.equalsIgnoreCase("delivery")){
+            if (input.equalsIgnoreCase("delivery")) {
                 order.deliveryType = "Delivery";
                 break;
             }
             System.out.println("bad input, try again.");
         }
-        System.out.println("Your Total is:\n\tOrder: "+order.totalCost+"\n\t"+order.deliveryType+": "+ (order.deliveryType.equalsIgnoreCase("pickup")? 1.99:5.99));
-        System.out.println("\tTaxes: "+(order.deliveryType.equalsIgnoreCase("pickup")? 1.99*0.15:5.99*0.15));
-        order.totalCost += (order.deliveryType.equalsIgnoreCase("pickup")? 1.99*1.15:5.99*1.15);
-        System.out.println("\tTOTAL: "+order.totalCost);
+        System.out.println("Your Total is:\n\tOrder: " + order.totalCost + "\n\t" + order.deliveryType + ": " + (order.deliveryType.equalsIgnoreCase("pickup") ? 1.99 : 5.99));
+        System.out.println("\tTaxes: " + (order.deliveryType.equalsIgnoreCase("pickup") ? 1.99 * 0.15 : 5.99 * 0.15));
+        order.totalCost += (order.deliveryType.equalsIgnoreCase("pickup") ? 1.99 * 1.15 : 5.99 * 1.15);
+        System.out.println("\tTOTAL: " + order.totalCost);
         addToDB(order);
         Payment.checkout(scan, order, account);
     }
@@ -166,6 +181,7 @@ public class Order {
             e.printStackTrace();
         }
     }
+
     public static void updateDB(Order order) throws ClassNotFoundException {
         Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
         try (Connection connection = DriverManager.getConnection(Main.dbConnection); Statement statement = connection.createStatement()) {
@@ -179,6 +195,7 @@ public class Order {
             e.printStackTrace();
         }
     }
+
     @Override
     public String toString() {
         return "orderID='" + orderID + '\'' +

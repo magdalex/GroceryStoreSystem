@@ -33,7 +33,7 @@ public class Cart {
             String sql = "Select * from Carts where cartID = '" + cartID + "'";
             ResultSet rs = statement.executeQuery(sql);
             while (rs.next()) {
-                add(Product.getProductFromDB(rs.getString(2)),rs.getInt(3));
+                add(Product.getProductFromDB(rs.getString(2)), rs.getInt(3));
             }
         }
         // Handle any errors that may have occurred.
@@ -63,9 +63,19 @@ public class Cart {
     }
 
     public void add(Product product, int quantity) {
-        products.add(product);
-        quantities.add(quantity);
-        totalCosts.add(product.getProductPrice() * quantity);
+        if (products.stream().filter(p -> p.getProductID().equalsIgnoreCase(product.getProductID())).count() < 1) {
+            products.add(product);
+            quantities.add(quantity);
+            totalCosts.add(product.getProductPrice() * quantity);
+        } else {
+            for (int i = 0; i < products.size(); i++) {
+                if (products.get(i).getProductID().equalsIgnoreCase(product.getProductID())) {
+                    quantities.add(i, quantity);
+                    totalCosts.add(i, product.getProductPrice() * quantity);
+                }
+            }
+
+        }
     }
 
     @Override

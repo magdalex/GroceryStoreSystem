@@ -230,10 +230,11 @@ public class Product {
                         }
                         if (quantity > 0) {
                             if (quantity > toAdd.productAvailability) {
-                                System.out.println("insufficient availability. " + toAdd.productAvailability + "Added instead of " + quantity + ".");
+                                System.out.println("Insufficient availability. " + toAdd.productAvailability + " added instead of " + quantity + ".");
                                 quantity = toAdd.productAvailability;
                             }
                             cart.add(toAdd, quantity);
+                            System.out.println(cart);
                         }
                     }
                 }
