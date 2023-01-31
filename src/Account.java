@@ -21,7 +21,7 @@ public class Account {
     private String defaultCardExp;
     private String defaultCardType;
 
-     public String getEmail() {
+    public String getEmail() {
         return email;
     }
 
@@ -168,6 +168,7 @@ public class Account {
         this.defaultCardExp = "";
         this.defaultCardType = "";
     }
+
     public static void createAccount(Scanner scan) throws ClassNotFoundException {
         Account account = new Account();
         emailFN(scan, account);
@@ -183,20 +184,19 @@ public class Account {
             System.out.println("Couldn't add new account to database");
         }
     }
+
     public static void editAccount(Scanner scan, Account account) throws ClassNotFoundException {
         ArrayList<Payment> payments = Payment.getAllPayments(account.getEmail());//get list of all payments
         ArrayList<Order> orders = new ArrayList<>();
         payments.forEach(p -> orders.add(new Order(account, p.getOrderID())));//get list of all orders
 
         boolean loop = true;
-        while(loop){
-            System.out.println("--- Manage Account ---\n\t1.Change login info\n\t2.Change name\n\t3.Change address\n\t4.Change phone number\n\t5.Change default payment\n\t6.See orders\n\t7.Go back to menu");
+        while (loop) {
+            System.out.println("--- Manage Account ---\n\t1.Change password\n\t2.Change name\n\t3.Change address\n\t4.Change phone number\n\t5.Change default payment\n\t6.See orders\n\t7.Go back to menu");
             String input = scan.nextLine();
-            switch (input){
-                case "1" -> {
-                    emailFN(scan, account);
-                    passwordFN(scan, account);
-                }
+            switch (input) {
+                case "1" -> passwordFN(scan, account);
+
                 case "2" -> nameFN(scan, account);
                 case "3" -> addressFN(scan, account);
                 case "4" -> phoneFN(scan, account);
@@ -207,16 +207,18 @@ public class Account {
                     String selected = "";
                     while (true) {
                         String input2 = scan.nextLine();
-                        try{
-                        selected = payments.stream().filter(s -> s.getOrderID().equalsIgnoreCase(input2)).findFirst().get().getOrderID();
-                        }catch (Exception e){}
+                        try {
+                            selected = payments.stream().filter(s -> s.getOrderID().equalsIgnoreCase(input2)).findFirst().get().getOrderID();
+                        } catch (Exception e) {
+                        }
                         if (selected.equalsIgnoreCase("")) System.out.println("Invalid input, try again.");
                         else break;
                     }
                     final String selected2 = selected;
                     try {
-                        System.out.println(orders.stream().filter(o->o.getOrderID().equalsIgnoreCase(selected2)).findFirst().get());
-                    }catch (Exception e){}
+                        System.out.println(orders.stream().filter(o -> o.getOrderID().equalsIgnoreCase(selected2)).findFirst().get());
+                    } catch (Exception e) {
+                    }
 
                 }
                 case "7" -> {
@@ -227,6 +229,7 @@ public class Account {
         }
         updateDB(account); //save changes
     }
+
     private static void phoneFN(Scanner scan, Account account) {
         System.out.println("Input phone number with no spaces:");
         String phoneNumber = scan.nextLine();
@@ -407,7 +410,7 @@ public class Account {
     //check if already expired
     public static boolean isValidExp(String exp) {
         try {
-            if ((Integer.parseInt(exp.substring(exp.length() - 2))) < LocalDate.now().getYear()-2000 || (Integer.parseInt(exp.substring(0, 2))) < LocalDate.now().getMonthValue()) {
+            if ((Integer.parseInt(exp.substring(exp.length() - 2))) < LocalDate.now().getYear() - 2000 || (Integer.parseInt(exp.substring(0, 2))) < LocalDate.now().getMonthValue()) {
                 System.out.println("Card expired.");
                 return false;
             }
