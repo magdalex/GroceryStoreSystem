@@ -1,7 +1,4 @@
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.Date;
 import java.util.Scanner;
 
@@ -117,17 +114,41 @@ public class Order {
             }
             System.out.println("bad input, try again.");
         }
-        System.out.println("Your Total is:\n\tOrder: "+order.totalCost+"\n\t"+order.deliveryType+"\n\t"+ (order.deliveryType.equalsIgnoreCase("pickup")? 1.99:5.99));
+        System.out.println("Your Total is:\n\tOrder: "+order.totalCost+"\n\t"+order.deliveryType+": "+ (order.deliveryType.equalsIgnoreCase("pickup")? 1.99:5.99));
         System.out.println("\tTaxes: "+(order.deliveryType.equalsIgnoreCase("pickup")? 1.99*0.15:5.99*0.15));
         order.totalCost += (order.deliveryType.equalsIgnoreCase("pickup")? 1.99*1.15:5.99*1.15);
+        System.out.println("\tTOTAL: "+order.totalCost);
         addToDB(order);
         Payment.checkout(scan, order, account);
     }
 
-    private static void addToDB(Order order){
-        //todo: add order to db
+    private static void addToDB(Order order) throws ClassNotFoundException {
+        Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+        try (Connection connection = DriverManager.getConnection(Main.dbConnection); Statement statement = connection.createStatement()) {
+            // Create and execute an insert SQL statement.
+            String sql = "insert into Orders(orderID,accountID,cartID,totalCost,deliveryType)Values('" + order.orderID + "','" + order.accountLink.getEmail() + "','" + order.cartLink.getCartID() + "','" + order.totalCost + "','" + order.deliveryType + "');";
+            int rowsUpdated = statement.executeUpdate(sql);
+            if (rowsUpdated < 1) throw new SQLException("zero row updated");
+        }
+        // Handle any errors that may have occurred.
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
-    public static void updateDB(Order order){
-        //todo: update db (after payment) to isPaid="true";
+    public static void updateDB(Order order) throws ClassNotFoundException {
+        Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+        try (Connection connection = DriverManager.getConnection(Main.dbConnection); Statement statement = connection.createStatement()) {
+            // Create and execute an insert SQL statement.
+            String sql = "UPDATE Orders SET  paymentID = '" + order.paymentID + "', isPaid = 'true' WHERE orderID = '" + order.orderID + "' ";
+            int rowsUpdated = statement.executeUpdate(sql);
+            if (rowsUpdated < 1) throw new SQLException("zero row updated");
+        }
+        // Handle any errors that may have occurred.
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
+
+    // TODO: get order from DB method
+    // TODO: toString override
 }

@@ -4,17 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="46f092e3-8cd8-49ba-8947-17252fb060f3" name="Changes" comment="Code cleanup, proper DB query in account, product and cart. DB sequencer function.">
-      <change afterPath="$PROJECT_DIR$/src/Order.java" afterDir="false" />
+    <list default="true" id="46f092e3-8cd8-49ba-8947-17252fb060f3" name="Changes" comment="incremental update, almost done.">
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/c7d10e17-d3a7-4178-b39d-b015f3b0cab9.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/c7d10e17-d3a7-4178-b39d-b015f3b0cab9.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/c7d10e17-d3a7-4178-b39d-b015f3b0cab9/storage_v2/_src_/database/VanierGroceryService.u2g7bA/schema/dbo.sYMBAA.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/c7d10e17-d3a7-4178-b39d-b015f3b0cab9/storage_v2/_src_/database/VanierGroceryService.u2g7bA/schema/dbo.sYMBAA.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Account.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Account.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GroceryStoreSystem/Account.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GroceryStoreSystem/Account.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GroceryStoreSystem/Cart.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GroceryStoreSystem/Cart.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GroceryStoreSystem/EntityOrder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GroceryStoreSystem/EntityPayment.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GroceryStoreSystem/LoginSystem.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GroceryStoreSystem/Product.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GroceryStoreSystem/Product.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Cart.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Cart.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/EntityOrder.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/EntityPayment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Payment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/LoginSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Order.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Payment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Payment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Product.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -83,7 +86,7 @@
       <option name="presentableId" value="Default" />
       <updated>1675133913800</updated>
       <workItem from="1675133915179" duration="3129000" />
-      <workItem from="1675137067986" duration="19934000" />
+      <workItem from="1675137067986" duration="23826000" />
     </task>
     <task id="LOCAL-00001" summary="Code cleanup, proper DB query in account, product and cart. DB sequencer function.">
       <created>1675150165727</created>
@@ -92,7 +95,14 @@
       <option name="project" value="LOCAL" />
       <updated>1675150165727</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="incremental update, almost done.">
+      <created>1675157614565</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1675157614565</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -149,7 +159,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Code cleanup, proper DB query in account, product and cart. DB sequencer function." />
-    <option name="LAST_COMMIT_MESSAGE" value="Code cleanup, proper DB query in account, product and cart. DB sequencer function." />
+    <MESSAGE value="incremental update, almost done." />
+    <option name="LAST_COMMIT_MESSAGE" value="incremental update, almost done." />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

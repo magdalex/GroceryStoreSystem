@@ -44,6 +44,7 @@ public class Main {
             if (account != null) {
                 System.out.println("You have successfully logged in!");
                 Product.shopMenu(scan, account);
+                break;
             } else {
                 System.out.println("Invalid login, try again.");
                 count++;

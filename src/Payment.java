@@ -1,3 +1,4 @@
+import java.sql.*;
 import java.util.Scanner;
 
 public class Payment {
@@ -10,7 +11,6 @@ public class Payment {
         this.orderID = orderID;
     }
 
-    private String orderID;
 
     public String getPaymentID() {
         return paymentID;
@@ -93,16 +93,29 @@ public class Payment {
     private String cardExp;
     private String cardType;
     private String isDelivered;
+    private String orderID;
 
-    Payment(String orderID, String accountID) {
+    Payment(String orderID, String accountID) throws ClassNotFoundException {
         this.orderID = orderID;
-        //todo: db paymentID sequence
+        paymentID = "";
+        Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+        String connectionUrl = Main.dbConnection;
+        try (Connection connection = DriverManager.getConnection(connectionUrl);
+             Statement statement = connection.createStatement()) {
+            // Create and execute an insert SQL statement.
+            String sql = "SELECT NEXT VALUE FOR PaymentSequence";
+            ResultSet rs = statement.executeQuery(sql);
+            if (rs.next())
+                paymentID = rs.getString(1);
+        } catch (Exception e) {
+        }
         this.accountID = accountID;
         isDelivered = "false";
     }
 
-    public static void checkout(Scanner scan, Order order, Account account) {
+    public static void checkout(Scanner scan, Order order, Account account) throws ClassNotFoundException {
         Payment payment = new Payment(order.getOrderID(), account.getEmail());
+        order.setPaymentID(payment.paymentID);
         while (true) {
             System.out.println("What will you use? Enter [default] or [new]:");
             String input = scan.nextLine();
@@ -111,6 +124,8 @@ public class Payment {
                 payment.cardCVV = account.getDefaultCardCVV();
                 payment.cardExp = account.getDefaultCardExp();
                 payment.cardType = account.getDefaultCardType();
+                payment.cardFirstName = account.getDefaultFirstCardName();
+                payment.cardLastName = account.getDefaultCardLastName();
                 break;
             }
             if (input.equalsIgnoreCase("new")) {
@@ -182,9 +197,20 @@ public class Payment {
         System.out.println("Order and payment complete, Thank you for shopping here!");
     }
 
-    private static void addToDB(Payment payment) {
-        //todo: add to db and create table
+    private static void addToDB(Payment payment) throws ClassNotFoundException {
+        Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+        try (Connection connection = DriverManager.getConnection(Main.dbConnection); Statement statement = connection.createStatement()) {
+            // Create and execute an insert SQL statement.
+            String sql = "insert into Payments(paymentID,accountID,cardFirstName,cardLastName,cardNum,cardCVV,cardExp,cardType,orderID)Values('" + payment.paymentID + "','" + payment.accountID + "','" + payment.cardFirstName + "','" + payment.cardLastName + "','" + payment.cardNum + "','" + payment.cardCVV + "','" + payment.cardExp + "','" + payment.cardType + "','" + payment.orderID + "');";
+            int rowsUpdated = statement.executeUpdate(sql);
+            if (rowsUpdated < 1) throw new SQLException("zero row updated");
+        }
+        // Handle any errors that may have occurred.
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
-    //todo: get payment ordered list from db by date and email for manage account
+    // todo: get payment ordered list from db by date and email for manage account
+    // TODO: toString override
 }

@@ -179,10 +179,12 @@ public class Product {
         while (loop) {
             System.out.println("--- Shopping Menu ---");
             System.out.println("\t1. List all items");
+            // TODO: list categories to browse by category, update DB product descriptions
             System.out.println("\t2. Search items by keyword");
             System.out.println("\t3. Add item by ID");
             System.out.println("\t4. Checkout cart");
             System.out.println("\t5. Edit Account");
+            System.out.println("\t6. Exit");
             String userInput = scan.nextLine();
             switch (userInput) {
                 case "1" -> getAll().forEach(System.out::println);
@@ -238,6 +240,8 @@ public class Product {
                 }
                 case "5" ->
                     Account.editAccount(scan, account);
+                case "6" ->
+                    loop = false;
                 default -> System.out.println("Invalid input, try again.");
             }
         }

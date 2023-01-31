@@ -100,6 +100,6 @@ public class Cart {
         }
     }
 
-    //todo: get cart method
+    //todo: get cart from db method
 
 }
