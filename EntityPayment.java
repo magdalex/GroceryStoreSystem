@@ -1,3 +1,4 @@
+/* 
 import java.security.SecureRandom;
 
 public class EntityPayment {
@@ -86,3 +87,4 @@ public class EntityPayment {
 	}
 
 }
+*/

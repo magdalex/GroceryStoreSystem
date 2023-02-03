@@ -1,0 +1,69 @@
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"46f092e3-8cd8-49ba-8947-17252fb060f3\" name=\"Changes\" comment=\"\">\r\n      <change afterPath=\"$PROJECT_DIR$/.idea/dataSources.xml\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/.idea/libraries/mssql_jdbc_11_2_2_jre17__2_.xml\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/.idea/sqldialects.xml\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/Account.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/misc.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/misc.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/Checkout.java\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/EntityAccount.java\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/EntityCart.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/Cart.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/EntityOrder.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/EntityOrder.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/EntityProduct.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/Product.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/LoginSystem.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/LoginSystem.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/ManageAccount.java\" beforeDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"CodeInsightWorkspaceSettings\">\r\n    <option name=\"optimizeImportsOnTheFly\" value=\"true\" />\r\n  </component>\r\n  <component name=\"DatabaseLocalColorSettings\">\r\n    <colors>\r\n      <entry key=\"c7d10e17-d3a7-4178-b39d-b015f3b0cab9\" value=\"Blue\" />\r\n    </colors>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_BRANCH_BY_REPOSITORY\">\r\n      <map>\r\n        <entry key=\"$PROJECT_DIR$\" value=\"remy\" />\r\n      </map>\r\n    </option>\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"MarkdownSettingsMigration\">\r\n    <option name=\"stateVersion\" value=\"1\" />\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"2L4chLsYTZsnPK8a5JqlWF6yARP\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\"><![CDATA[{\r\n  \"keyToString\": {\r\n    \"RunOnceActivity.OpenProjectViewOnStart\": \"true\",\r\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\",\r\n    \"SHARE_PROJECT_CONFIGURATION_FILES\": \"true\",\r\n    \"WebServerToolWindowFactoryState\": \"false\",\r\n    \"last_opened_file_path\": \"E:/School/sysDev/Java/GrocerySystem/GroceryStoreSystem\",\r\n    \"node.js.detected.package.eslint\": \"true\",\r\n    \"node.js.detected.package.tslint\": \"true\",\r\n    \"node.js.selected.package.eslint\": \"(autodetect)\",\r\n    \"node.js.selected.package.tslint\": \"(autodetect)\",\r\n    \"settings.editor.selected.configurable\": \"preferences.pluginManager\",\r\n    \"vue.rearranger.settings.migration\": \"true\"\r\n  },\r\n  \"keyToStringList\": {\r\n    \"DatabaseDriversLRU\": [\r\n      \"azure\"\r\n    ]\r\n  }\r\n}]]></component>\r\n  <component name=\"SQLScriptSettings\">\r\n    <option name=\"matrix\">\r\n      <map>\r\n        <entry key=\"AZURE.Drop\" value=\"IfExists=1\" />\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"46f092e3-8cd8-49ba-8947-17252fb060f3\" name=\"Changes\" comment=\"\" />\r\n      <created>1675133913800</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1675133913800</updated>\r\n      <workItem from=\"1675133915179\" duration=\"3129000\" />\r\n      <workItem from=\"1675137067986\" duration=\"12391000\" />\r\n    </task>\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State>\r\n              <option name=\"FILTERS\">\r\n                <map>\r\n                  <entry key=\"branch\">\r\n                    <value>\r\n                      <list>\r\n                        <option value=\"origin/remy\" />\r\n                      </list>\r\n                    </value>\r\n                  </entry>\r\n                </map>\r\n              </option>\r\n            </State>\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n    <option name=\"RECENT_FILTERS\">\r\n      <map>\r\n        <entry key=\"Branch\">\r\n          <value>\r\n            <list>\r\n              <RecentGroup>\r\n                <option name=\"FILTER_VALUES\">\r\n                  <option value=\"remy\" />\r\n                </option>\r\n              </RecentGroup>\r\n            </list>\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision c0d70f2c6fd49df071cee84ebda50cec0f07432f)
++++ b/.idea/workspace.xml	(date 1675150367765)
+@@ -4,21 +4,7 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="46f092e3-8cd8-49ba-8947-17252fb060f3" name="Changes" comment="">
+-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/.idea/libraries/mssql_jdbc_11_2_2_jre17__2_.xml" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/Account.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/Checkout.java" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/EntityAccount.java" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/EntityCart.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Cart.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/EntityOrder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/EntityOrder.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/EntityProduct.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Product.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/LoginSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/LoginSystem.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/ManageAccount.java" beforeDir="false" />
+-    </list>
++    <list default="true" id="46f092e3-8cd8-49ba-8947-17252fb060f3" name="Changes" comment="Code cleanup, proper DB query in account, product and cart. DB sequencer function." />
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+@@ -39,6 +25,7 @@
+       </map>
+     </option>
+     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
++    <option name="UPDATE_TYPE" value="REBASE" />
+   </component>
+   <component name="MarkdownSettingsMigration">
+     <option name="stateVersion" value="1" />
+@@ -84,8 +71,16 @@
+       <option name="presentableId" value="Default" />
+       <updated>1675133913800</updated>
+       <workItem from="1675133915179" duration="3129000" />
+-      <workItem from="1675137067986" duration="12391000" />
++      <workItem from="1675137067986" duration="12785000" />
+     </task>
++    <task id="LOCAL-00001" summary="Code cleanup, proper DB query in account, product and cart. DB sequencer function.">
++      <created>1675150165727</created>
++      <option name="number" value="00001" />
++      <option name="presentableId" value="LOCAL-00001" />
++      <option name="project" value="LOCAL" />
++      <updated>1675150165727</updated>
++    </task>
++    <option name="localTasksCounter" value="2" />
+     <servers />
+   </component>
+   <component name="TypeScriptGeneratedFilesManager">
+@@ -129,4 +124,8 @@
+       </map>
+     </option>
+   </component>
++  <component name="VcsManagerConfiguration">
++    <MESSAGE value="Code cleanup, proper DB query in account, product and cart. DB sequencer function." />
++    <option name="LAST_COMMIT_MESSAGE" value="Code cleanup, proper DB query in account, product and cart. DB sequencer function." />
++  </component>
+ </project>
+\ No newline at end of file
