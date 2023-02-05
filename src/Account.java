@@ -169,6 +169,11 @@ public class Account {
         this.defaultCardType = "";
     }
 
+
+
+    // createAccount creates an account object of account and passes
+    // the scanner method and account method through multiple methods...
+
     public static void createAccount(Scanner scan) throws ClassNotFoundException {
         Account account = new Account();
         emailFN(scan, account);
@@ -245,7 +250,7 @@ public class Account {
         do {
             System.out.println("Default payment\nInput card holder's first name:");
             String defaultCardFirstName = scan.nextLine();
-            while (!isDigit(defaultCardFirstName)) {
+            while (!isDigit(defaultCardFirstName)) {    // if digits
                 System.out.println("Re-input first name:");
                 defaultCardFirstName = scan.nextLine();
             }
