@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Account {
+    // Account arguments
     private String email;
     private String password;
     private String firstName;
@@ -14,6 +15,8 @@ public class Account {
     private String province;
     private String country;
     private String phoneNumber;
+
+    // Default Card arguments
     private String defaultCardFirstName;
     private String defaultCardLastName;
     private String defaultCardNum;
@@ -150,7 +153,7 @@ public class Account {
     }
 
 
-    public Account() {
+    public Account() {          //Constructor
         this.email = "";
         this.password = "";
         this.firstName = "";
@@ -387,6 +390,8 @@ public class Account {
     //make sure @ is present, short emails (up to 20 before @) only
     public static boolean isValidEmail(String email) throws ClassNotFoundException {
         if (email.matches("^(?=.{1,20}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@" + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$")) {
+            // ensures an @ and . symbol --- email format
+            // only up to 20 chars before @ and no . before/after @
             boolean exist = false;
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             String connectionUrl = Main.dbConnection;
@@ -408,8 +413,8 @@ public class Account {
 
     //check format of date
     public static boolean isValidExpFormat(String exp) {
-        // [XX/XX], [01-12]/[01-99]
-        return exp.matches("(?:0[1-9]|1[0-2])/[0-9]{2}");
+        // [XX/XX], [01-12]/[01-99]     -- follows this format ... 0 before single numbers  
+        return exp.matches("(?:0[1-9]|1[0-2])/[0-9]{2}"); // 0-9 , 0-9  both digits
     }
 
     //check if already expired
@@ -450,6 +455,10 @@ public class Account {
         return true;
     }
 
+
+
+// Custom isChecks 
+
     //make sure no digits in letters
     public static boolean isDigit(String input) {
         if (input.matches("[A-zA-Z -]+")) return true;
@@ -464,7 +473,7 @@ public class Account {
         return false;
     }
 
-    //LETTER/NUMBER/LETTER NUMBER/LETTER/NUMBER format only
+    //LETTER/NUMBER/LETTER NUMBER/LETTER/NUMBER format only     // no space between following exact format
     public static boolean isZipValid(String zip) {
         if (zip.matches("^(.*[a-zA-Z][0-9][a-zA-Z][0-9][a-zA-Z][0-9].*$)")) return true;
         System.out.println("Error: Not a valid postal code.");
@@ -556,8 +565,10 @@ public class Account {
                 account.setDefaultCardCVV(rs.getString(14));
                 account.setDefaultCardExp(rs.getString(15));
                 account.setDefaultCardType(rs.getString(16));
+
+                return account;
             }
-            return account;
+
         } catch (SQLException e) {
             //e.printStackTrace();
         }

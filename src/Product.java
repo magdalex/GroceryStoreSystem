@@ -70,7 +70,7 @@ public class Product {
     }
 
     // constructors
-    Product() {
+    Product() { // Default Constructor
 
     }
 
@@ -178,9 +178,12 @@ public class Product {
         return null;
     }
 
+
+
+    // This method is called when logIn is successful...
     public static void shopMenu(Scanner scan, Account account) throws ClassNotFoundException {
-        Cart cart = new Cart();
-        boolean loop = true;
+        Cart cart = new Cart();     // Creates a cart object
+        boolean loop = true;        
         while (loop) {
             System.out.println("--- Shopping Menu ---");
             System.out.println("\t1. List by category");
@@ -189,7 +192,7 @@ public class Product {
             System.out.println("\t4. Checkout cart");
             System.out.println("\t5. Manage Account");
             System.out.println("\t6. Exit");
-            String userInput = scan.nextLine();
+            String userInput = scan.nextLine();     // Taking userInput for choice...
             switch (userInput) {
                 case "1" -> {
                     ArrayList<String> categories = getCategories();

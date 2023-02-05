@@ -52,19 +52,19 @@ public class Main {
             System.out.println("Please enter your password");
             String password = scan.nextLine();
             // try getting account
-            Account account = Account.getFromDB(email, password);
+            Account account = Account.getFromDB(email, password); // getFromDB method is run with email and pw strings being passed through...
             if (count == 3) {
                 System.out.println("You will now be sent to the Sign-Up page due to multiple invalid login.");
-                Account.createAccount(scan);
+                Account.createAccount(scan); // if log in invalid 3x then scanner is sent to createAccount method and it is run
                 break;
             }
             if (account != null) {      // Checks if account is null after getFromDB method if not then logged in...
                 System.out.println("You have successfully logged in!");
-                Product.shopMenu(scan, account);
+                Product.shopMenu(scan, account);        // Scanner is now passed into Product class shopMenu method.
                 break;
             } else {
                 System.out.println("Invalid login, try again.");
-                count++;
+                count++;        // count increases if invalid log-in.
             }
         }
     }
