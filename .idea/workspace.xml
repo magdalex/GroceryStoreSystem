@@ -4,15 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="46f092e3-8cd8-49ba-8947-17252fb060f3" name="Changes" comment="removed change email function, too hard to implement">
+    <list default="true" id="46f092e3-8cd8-49ba-8947-17252fb060f3" name="Changes" comment="implemented inventory control">
+      <change afterPath="$PROJECT_DIR$/dependencies/commons-codec-1.15.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GroceryStoreSystem/Account.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GroceryStoreSystem/Account.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GroceryStoreSystem/Cart.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GroceryStoreSystem/Cart.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GroceryStoreSystem/Order.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GroceryStoreSystem/Order.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GroceryStoreSystem/Product.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GroceryStoreSystem/Product.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Cart.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Cart.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Order.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Product.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GroceryStoreSystem.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/GroceryStoreSystemERD.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SQLQuery1.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Account.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Account.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,6 +67,7 @@
       <recent name="E:\School\sysDev\Java\GrocerySystem\GroceryStoreSystem\src" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\School\sysDev\Java\GrocerySystem\GroceryStoreSystem\dependencies" />
       <recent name="E:\School\sysDev\Java\GrocerySystem\GroceryStoreSystem" />
     </key>
   </component>
@@ -89,7 +88,12 @@
       <updated>1675133913800</updated>
       <workItem from="1675133915179" duration="3129000" />
       <workItem from="1675137067986" duration="29320000" />
-      <workItem from="1675167301461" duration="12745000" />
+      <workItem from="1675167301461" duration="14106000" />
+      <workItem from="1675266554911" duration="6450000" />
+      <workItem from="1675285627834" duration="8000" />
+      <workItem from="1675372484332" duration="20000" />
+      <workItem from="1675434894475" duration="1969000" />
+      <workItem from="1675617417756" duration="2410000" />
     </task>
     <task id="LOCAL-00001" summary="Code cleanup, proper DB query in account, product and cart. DB sequencer function.">
       <created>1675150165727</created>
@@ -154,7 +158,14 @@
       <option name="project" value="LOCAL" />
       <updated>1675179354780</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="implemented inventory control">
+      <created>1675181896867</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1675181896867</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -219,7 +230,8 @@
     <MESSAGE value="added check if email already registered during signup" />
     <MESSAGE value="account manager added" />
     <MESSAGE value="removed change email function, too hard to implement" />
-    <option name="LAST_COMMIT_MESSAGE" value="removed change email function, too hard to implement" />
+    <MESSAGE value="implemented inventory control" />
+    <option name="LAST_COMMIT_MESSAGE" value="implemented inventory control" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

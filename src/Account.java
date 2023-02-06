@@ -366,7 +366,8 @@ public class Account {
             System.out.println("Re-input password:");
             password = scan.nextLine();
         }
-        account.setPassword(password);
+        String sha256hex = org.apache.commons.codec.digest.DigestUtils.sha256Hex(password);
+        account.setPassword(sha256hex);
     }
 
     private static void emailFN(Scanner scan, Account account) throws ClassNotFoundException {
@@ -551,8 +552,8 @@ public class Account {
                 account.setDefaultCardCVV(rs.getString(14));
                 account.setDefaultCardExp(rs.getString(15));
                 account.setDefaultCardType(rs.getString(16));
+                return account;
             }
-            return account;
         } catch (SQLException e) {
             //e.printStackTrace();
         }

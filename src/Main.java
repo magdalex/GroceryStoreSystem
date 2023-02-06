@@ -34,8 +34,9 @@ public class Main {
             String email = scan.nextLine();
             System.out.println("Please enter your password");
             String password = scan.nextLine();
+            String sha256hex = org.apache.commons.codec.digest.DigestUtils.sha256Hex(password);
             // try getting account
-            Account account = Account.getFromDB(email, password);
+            Account account = Account.getFromDB(email, sha256hex);
             if (count == 3) {
                 System.out.println("You will now be sent to the Sign-Up page due to multiple invalid login.");
                 Account.createAccount(scan);
