@@ -359,7 +359,7 @@ public class Account {
     }
 
     private static void passwordFN(Scanner scan, Account account) {
-        System.out.println("Passwords, between 5 and 15 characters, must have at least one uppercase and one lowercase \n" + "letter, at least one digit, and at least one of the following special characters: @#$%_-\\");
+        System.out.println("Passwords, 8 to 16 characters, must have at least 2 uppercase and 2 lowercase \n" + "letter, at least 2 digit, and at least 2 special characters.\\");
         System.out.println("Input password:");
         String password = scan.nextLine();
         while (!isValidPassword(password)) {
@@ -423,27 +423,28 @@ public class Account {
 
     //enforce strong password
     public static boolean isValidPassword(String password) {
-        if (password.length() < 5 || password.length() > 15) {
-            System.out.println("Password must be more than 5 and less than 15 characters in length.");
-            return false;
+        boolean passwordValid = true;
+        if (password.length() < 8 || password.length() > 16) {
+            System.out.println("Password must be  8 to 16 characters in length.");
+            passwordValid = false;
         }
-        if (!password.matches("(.*[A-Z].*)")) {
-            System.out.println("Password must have at least one uppercase character.");
-            return false;
+        if (!password.matches("(.*[A-Z].*[A-Z].*)")) {
+            System.out.println("Password must have at least 2 uppercase characters.");
+            passwordValid = false;
         }
-        if (!password.matches("(.*[a-z].*)")) {
-            System.out.println("Password must have at least one lowercase character.");
-            return false;
+        if (!password.matches("(.*[a-z].*[a-z].*)")) {
+            System.out.println("Password must have at least 2 lowercase characters.");
+            passwordValid = false;
         }
-        if (!password.matches("(.*[0-9].*)")) {
-            System.out.println("Password must have at least one number.");
-            return false;
+        if (!password.matches("(.*[0-9].*[0-9].*)")) {
+            System.out.println("Password must have at least 2 numbers.");
+            passwordValid = false;
         }
-        if (!password.matches("(.*[@,#,$,%,_(\\-),*].*$)")) {
-            System.out.println("Password must have at least one of the following characters: @#$%_-");
-            return false;
+        if (!password.matches(".*[^A-Za-z0-9].*[^A-Za-z0-9].*")) {
+            System.out.println("Password must have at least two special characters");
+            passwordValid = false;
         }
-        return true;
+        return passwordValid;
     }
 
     //make sure no digits in letters

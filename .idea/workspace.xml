@@ -4,13 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="46f092e3-8cd8-49ba-8947-17252fb060f3" name="Changes" comment="implemented inventory control">
-      <change afterPath="$PROJECT_DIR$/dependencies/commons-codec-1.15.jar" afterDir="false" />
+    <list default="true" id="46f092e3-8cd8-49ba-8947-17252fb060f3" name="Changes" comment="added apache common codec dependency and implemented sha256 password encryption">
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase_[Changes]1/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase__Changes_1.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GroceryStoreSystem.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/GroceryStoreSystemERD.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SQLQuery1.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GroceryStoreSystem/Account.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GroceryStoreSystem/Account.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Account.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Account.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,6 +34,19 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="UPDATE_TYPE" value="REBASE" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="d517ead9-4f16-4dcb-b10f-f13b3050c93a" />
+        <option name="url" value="https://github.com/magdalex/GroceryStoreSystem.git" />
+      </UrlAndAccount>
+    </option>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -67,8 +81,8 @@
       <recent name="E:\School\sysDev\Java\GrocerySystem\GroceryStoreSystem\src" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="E:\School\sysDev\Java\GrocerySystem\GroceryStoreSystem\dependencies" />
       <recent name="E:\School\sysDev\Java\GrocerySystem\GroceryStoreSystem" />
+      <recent name="E:\School\sysDev\Java\GrocerySystem\GroceryStoreSystem\dependencies" />
     </key>
   </component>
   <component name="SQLScriptSettings">
@@ -93,7 +107,9 @@
       <workItem from="1675285627834" duration="8000" />
       <workItem from="1675372484332" duration="20000" />
       <workItem from="1675434894475" duration="1969000" />
-      <workItem from="1675617417756" duration="2410000" />
+      <workItem from="1675617417756" duration="3930000" />
+      <workItem from="1675699551820" duration="2856000" />
+      <workItem from="1675806527194" duration="699000" />
     </task>
     <task id="LOCAL-00001" summary="Code cleanup, proper DB query in account, product and cart. DB sequencer function.">
       <created>1675150165727</created>
@@ -165,7 +181,14 @@
       <option name="project" value="LOCAL" />
       <updated>1675181896867</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="added apache common codec dependency and implemented sha256 password encryption">
+      <created>1675694999257</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1675694999257</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -231,7 +254,8 @@
     <MESSAGE value="account manager added" />
     <MESSAGE value="removed change email function, too hard to implement" />
     <MESSAGE value="implemented inventory control" />
-    <option name="LAST_COMMIT_MESSAGE" value="implemented inventory control" />
+    <MESSAGE value="added apache common codec dependency and implemented sha256 password encryption" />
+    <option name="LAST_COMMIT_MESSAGE" value="added apache common codec dependency and implemented sha256 password encryption" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
