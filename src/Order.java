@@ -1,4 +1,5 @@
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
 
@@ -147,6 +148,7 @@ public class Order {
             }
         }
         Cart.AddCartToDB(cart);
+        order.totalCost = order.cartLink.getCartCost();
         while (true) {
             System.out.println("What type of order will this be? Enter [pickup] or [delivery]:");
             String input = scan.nextLine();
@@ -195,12 +197,45 @@ public class Order {
             e.printStackTrace();
         }
     }
+    public static ArrayList<Order> getAllOrders(Account accountID) {
 
+        ArrayList<Order> orders = new ArrayList<>();
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+        } catch (Exception e) {
+        }
+        String connectionUrl = Main.dbConnection;
+        try (Connection connection = DriverManager.getConnection(connectionUrl);
+             Statement statement = connection.createStatement()) {
+            // Create and execute an insert SQL statement.
+            String sql = "Select orderID from Orders where accountID = '" + accountID.getEmail() + "'";
+            ResultSet rs = statement.executeQuery(sql);
+            while (rs.next()) {
+                Order order = new Order(accountID,rs.getString(1));
+                orders.add(order);
+            }
+
+        }
+        // Handle any errors that may have occurred.
+        catch (SQLException e) {
+        }
+        return orders;
+    }
     @Override
     public String toString() {
         return "orderID='" + orderID + '\'' +
                 ", paymentID='" + paymentID + '\'' +
                 ", cartLink=" + cartLink +
+                ", orderDate=" + orderDate +
+                ", totalCost=" + totalCost +
+                ", deliveryType='" + deliveryType + '\'' +
+                ", paid=" + paid +
+                '}';
+    }
+
+    public String shortString() {
+        return "orderID='" + orderID + '\'' +
+                ", paymentID='" + paymentID + '\'' +
                 ", orderDate=" + orderDate +
                 ", totalCost=" + totalCost +
                 ", deliveryType='" + deliveryType + '\'' +

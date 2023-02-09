@@ -186,9 +186,6 @@ public class Account {
     }
 
     public static void editAccount(Scanner scan, Account account) throws ClassNotFoundException {
-        ArrayList<Payment> payments = Payment.getAllPayments(account.getEmail());//get list of all payments
-        ArrayList<Order> orders = new ArrayList<>();
-        payments.forEach(p -> orders.add(new Order(account, p.getOrderID())));//get list of all orders
 
         boolean loop = true;
         while (loop) {
@@ -202,13 +199,14 @@ public class Account {
                 case "4" -> phoneFN(scan, account);
                 case "5" -> defaultCardFN(scan, account);
                 case "6" -> {
-                    payments.forEach(System.out::println);
+                    ArrayList<Order> orders = Order.getAllOrders(account);
+                    orders.forEach(o->System.out.println(o.shortString()));
                     System.out.println("Enter the OrderID you would like to see:");
                     String selected = "";
                     while (true) {
                         String input2 = scan.nextLine();
                         try {
-                            selected = payments.stream().filter(s -> s.getOrderID().equalsIgnoreCase(input2)).findFirst().get().getOrderID();
+                            selected = orders.stream().filter(s -> s.getOrderID().equalsIgnoreCase(input2)).findFirst().get().getOrderID();
                         } catch (Exception e) {
                         }
                         if (selected.equalsIgnoreCase("")) System.out.println("Invalid input, try again.");
