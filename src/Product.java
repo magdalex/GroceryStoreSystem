@@ -66,7 +66,7 @@ public class Product {
     // toString
     @Override
     public String toString() {
-        return "[ID] " + productID + ", [Product] " + productName + ", [Description] " + productDescription + ", [Availability] " + productAvailability + ", [Category] " + productCategory + ", [Price] " + productPrice;
+        return "[ID] " + productID + ", [Product] " + productName + ", [Description] " + productDescription + ", [Availability] " + productAvailability + ", [Category] " + productCategory + ", [Price] " + String.format("$%.2f",productPrice);
     }
 
     // constructors
@@ -181,9 +181,10 @@ public class Product {
     public static void shopMenu(Scanner scan, Account account) throws ClassNotFoundException {
         Cart cart = new Cart();
         boolean loop = true;
-        System.out.print("Accumulated points: $");
-        System.out.printf("%.2f\n",account.getPointBalance()/100.00);
         while (loop) {
+            account = Account.getFromDB(account.getEmail(), account.getPassword());
+            System.out.print("Accumulated points: $");
+            System.out.printf("%.2f\n",account.getPointBalance()/100.00);
             System.out.println("--- Shopping Menu ---");
             System.out.println("\t1. List by category");
             System.out.println("\t2. Search items by keyword");

@@ -175,19 +175,21 @@ public class Account {
     }
 
     public static void editAccount(Scanner scan, Account account) throws ClassNotFoundException {
-
+        account = Account.getFromDB(account.getEmail(), account.getPassword());
+        System.out.print("Accumulated points: $");
+        System.out.printf("%.2f\n",account.getPointBalance()/100.00);
         boolean loop = true;
         while (loop) {
             System.out.println("--- Manage Account ---\n\t1.Change password\n\t2.Change name\n\t3.Change address\n\t4.Change phone number\n\t5.Change default payment\n\t6.See orders\n\t7.Go back to menu");
             String input = scan.nextLine();
             switch (input) {
                 case "1" -> passwordFN(scan, account);
-
                 case "2" -> nameFN(scan, account);
                 case "3" -> addressFN(scan, account);
                 case "4" -> phoneFN(scan, account);
                 case "5" -> defaultCardFN(scan, account);
                 case "6" -> {
+                    System.out.println("Retrieving all past orders, this may take a while...");
                     ArrayList<Order> orders = Order.getAllOrders(account);
                     orders.forEach(o -> System.out.println(o.shortString()));
                     System.out.println("Enter the OrderID you would like to see:");

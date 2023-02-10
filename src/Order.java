@@ -162,10 +162,10 @@ public class Order {
             }
             System.out.println("bad input, try again.");
         }
-        System.out.println("Your Total is:\n\tOrder: " + order.totalCost + "\n\t" + order.deliveryType + ": " + (order.deliveryType.equalsIgnoreCase("pickup") ? 1.99 : 5.99));
-        System.out.println("\tTaxes: " + (order.deliveryType.equalsIgnoreCase("pickup") ? 1.99 * 0.15 : 5.99 * 0.15));
+        System.out.println("Your Total is:\n\tOrder: " + String.format("$%.2f",order.totalCost) + "\n\t" + order.deliveryType + ": " + (order.deliveryType.equalsIgnoreCase("pickup") ? "$1.99" : "$5.99"));
+        System.out.println("\tTaxes: " + String.format("$%.2f",(order.deliveryType.equalsIgnoreCase("pickup") ? 1.99 * 0.15 : 5.99 * 0.15)));
         order.totalCost += (order.deliveryType.equalsIgnoreCase("pickup") ? 1.99 * 1.15 : 5.99 * 1.15);
-        System.out.println("\tTOTAL: " + order.totalCost);
+        System.out.println("\tTOTAL: " + String.format("$%.2f",order.totalCost));
         addToDB(order);
         Payment.checkout(scan, order, account);
     }
@@ -227,19 +227,16 @@ public class Order {
                 ", paymentID='" + paymentID + '\'' +
                 ", cartLink=" + cartLink +
                 ", orderDate=" + orderDate +
-                ", totalCost=" + totalCost +
+                ", totalCost=" + String.format("$%.2f",totalCost) +
                 ", deliveryType='" + deliveryType + '\'' +
-                ", paid=" + paid +
-                '}';
+                ", paid=" + paid;
     }
 
     public String shortString() {
         return "orderID='" + orderID + '\'' +
-                ", paymentID='" + paymentID + '\'' +
                 ", orderDate=" + orderDate +
-                ", totalCost=" + totalCost +
+                ", totalCost=" + String.format("$%.2f",totalCost) +
                 ", deliveryType='" + deliveryType + '\'' +
-                ", paid=" + paid +
-                '}';
+                ", paid=" + paid;
     }
 }
