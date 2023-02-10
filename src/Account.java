@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Account {
+
+    //instance variables
     private String email;
     private String password;
     private String firstName;
@@ -20,136 +22,116 @@ public class Account {
     private String defaultCardCVV;
     private String defaultCardExp;
     private String defaultCardType;
+    private int pointBalance;
 
+    //getter and setters
+    public String getDefaultCardFirstName() {
+        return defaultCardFirstName;
+    }
+    public int getPointBalance() {
+        return pointBalance;
+    }
+    public void setPointBalance(int pointBalance) {
+        this.pointBalance = pointBalance;
+    }
     public String getEmail() {
         return email;
     }
-
     public void setEmail(String email) {
         this.email = email;
     }
-
     public String getPassword() {
         return password;
     }
-
     public void setPassword(String password) {
         this.password = password;
     }
-
     public String getFirstName() {
         return firstName;
     }
-
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
-
     public String getLastName() {
         return lastName;
     }
-
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
-
     public String getStreet() {
         return street;
     }
-
     public void setStreet(String street) {
         this.street = street;
     }
-
     public String getCity() {
         return city;
     }
-
     public void setCity(String city) {
         this.city = city;
     }
-
     public String getPostalCode() {
         return postalCode;
     }
-
     public void setPostalCode(String postalCode) {
         this.postalCode = postalCode;
     }
-
     public String getProvince() {
         return province;
     }
-
     public void setProvince(String province) {
         this.province = province;
     }
-
     public String getCountry() {
         return country;
     }
-
     public void setCountry(String country) {
         this.country = country;
     }
-
     public String getPhoneNumber() {
         return phoneNumber;
     }
-
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
-
     public String getDefaultFirstCardName() {
         return defaultCardFirstName;
     }
-
     public void setDefaultCardFirstName(String defaultCardFirstName) {
         this.defaultCardFirstName = defaultCardFirstName;
     }
-
     public String getDefaultCardLastName() {
         return defaultCardLastName;
     }
-
     public void setDefaultCardLastName(String defaultCardLastName) {
         this.defaultCardLastName = defaultCardLastName;
     }
-
     public String getDefaultCardNum() {
         return defaultCardNum;
     }
-
     public void setDefaultCardNum(String defaultCardNum) {
         this.defaultCardNum = defaultCardNum;
     }
-
     public String getDefaultCardCVV() {
         return defaultCardCVV;
     }
-
     public void setDefaultCardCVV(String defaultCardCVV) {
         this.defaultCardCVV = defaultCardCVV;
     }
-
     public String getDefaultCardExp() {
         return defaultCardExp;
     }
-
     public void setDefaultCardExp(String defaultCardExp) {
         this.defaultCardExp = defaultCardExp;
     }
-
     public String getDefaultCardType() {
         return defaultCardType;
     }
-
     public void setDefaultCardType(String defaultCardType) {
         this.defaultCardType = defaultCardType;
     }
 
-
+    //constructor
     public Account() {
         this.email = "";
         this.password = "";
@@ -168,6 +150,13 @@ public class Account {
         this.defaultCardExp = "";
         this.defaultCardType = "";
     }
+
+    @Override
+    public String toString() {
+        return "\nAccount information:\nEmail: " + email + ", password: " + password + ", First name: " + firstName + ", Last name: " + lastName + "\n" + "Street: " + street + ", City: " + city + ", Postal code: " + postalCode + ", Province: " + province + "\n" + "Country: " + country + ", Phone number: " + phoneNumber + "\n" + "Card First name: " + defaultCardFirstName + ", Card Last name: " + defaultCardLastName + ", Card Number: " + defaultCardNum + "\n" + "Card CVV: " + defaultCardCVV + ", Card Expiration: " + defaultCardExp + ", Card Type: " + defaultCardType + "\n";
+    }
+
+    // STATIC METHODS --------------------------------------------------------------------------------------------------
 
     public static void createAccount(Scanner scan) throws ClassNotFoundException {
         Account account = new Account();
@@ -200,7 +189,7 @@ public class Account {
                 case "5" -> defaultCardFN(scan, account);
                 case "6" -> {
                     ArrayList<Order> orders = Order.getAllOrders(account);
-                    orders.forEach(o->System.out.println(o.shortString()));
+                    orders.forEach(o -> System.out.println(o.shortString()));
                     System.out.println("Enter the OrderID you would like to see:");
                     String selected = "";
                     while (true) {
@@ -476,11 +465,6 @@ public class Account {
             return false;
         }
         return true;
-    }
-
-    @Override
-    public String toString() {
-        return "\nAccount information:\nEmail: " + email + ", password: " + password + ", First name: " + firstName + ", Last name: " + lastName + "\n" + "Street: " + street + ", City: " + city + ", Postal code: " + postalCode + ", Province: " + province + "\n" + "Country: " + country + ", Phone number: " + phoneNumber + "\n" + "Card First name: " + defaultCardFirstName + ", Card Last name: " + defaultCardLastName + ", Card Number: " + defaultCardNum + "\n" + "Card CVV: " + defaultCardCVV + ", Card Expiration: " + defaultCardExp + ", Card Type: " + defaultCardType + "\n";
     }
 
     // DB methods

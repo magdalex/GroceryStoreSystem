@@ -249,6 +249,7 @@ public class Product {
                             case "yes" -> {
                                 Order.order(scan, cart, account);
                                 loop2 = false;
+                                cart = new Cart();
                             }
                             case "no" -> loop2 = false;
                             default -> System.out.println("Invalid input, try again.");

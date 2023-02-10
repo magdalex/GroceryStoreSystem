@@ -208,6 +208,7 @@ public class Payment {
         }
         Order.updateDB(order);
         addToDB(payment);
+
         System.out.println("Order and payment complete, Thank you for shopping here!");
     }
 

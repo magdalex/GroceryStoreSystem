@@ -4,11 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="46f092e3-8cd8-49ba-8947-17252fb060f3" name="Changes" comment="regex updated">
+    <list default="true" id="46f092e3-8cd8-49ba-8947-17252fb060f3" name="Changes" comment="total after qty changed on checkout fixed, optimized some db calls for performance">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/c7d10e17-d3a7-4178-b39d-b015f3b0cab9.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/c7d10e17-d3a7-4178-b39d-b015f3b0cab9.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/c7d10e17-d3a7-4178-b39d-b015f3b0cab9/storage_v2/_src_/database/VanierGroceryService.u2g7bA/schema/dbo.sYMBAA.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/c7d10e17-d3a7-4178-b39d-b015f3b0cab9/storage_v2/_src_/database/VanierGroceryService.u2g7bA/schema/dbo.sYMBAA.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GroceryStoreSystem/Account.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GroceryStoreSystem/Account.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GroceryStoreSystem/Order.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GroceryStoreSystem/Order.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Account.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Account.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Order.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Payment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Payment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Product.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -109,7 +112,8 @@
       <workItem from="1675806527194" duration="1467000" />
       <workItem from="1675810821861" duration="12000" />
       <workItem from="1675914803305" duration="924000" />
-      <workItem from="1675915869454" duration="3734000" />
+      <workItem from="1675915869454" duration="5122000" />
+      <workItem from="1676042957553" duration="5464000" />
     </task>
     <task id="LOCAL-00001" summary="Code cleanup, proper DB query in account, product and cart. DB sequencer function.">
       <created>1675150165727</created>
@@ -195,7 +199,14 @@
       <option name="project" value="LOCAL" />
       <updated>1675809537942</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="total after qty changed on checkout fixed, optimized some db calls for performance">
+      <created>1675968581595</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1675968581595</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -263,7 +274,8 @@
     <MESSAGE value="implemented inventory control" />
     <MESSAGE value="added apache common codec dependency and implemented sha256 password encryption" />
     <MESSAGE value="regex updated" />
-    <option name="LAST_COMMIT_MESSAGE" value="regex updated" />
+    <MESSAGE value="total after qty changed on checkout fixed, optimized some db calls for performance" />
+    <option name="LAST_COMMIT_MESSAGE" value="total after qty changed on checkout fixed, optimized some db calls for performance" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
