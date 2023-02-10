@@ -129,9 +129,48 @@ public class Payment {
 
     public static void checkout(Scanner scan, Order order, Account account) throws ClassNotFoundException {
         Payment payment = new Payment(order.getOrderID(), account.getEmail());
+        account = Account.getFromDB(account.getEmail(), account.getPassword());
         order.setPaymentID(payment.paymentID);
+        System.out.print("Accumulated points: $");
+        System.out.printf("%.2f\n",account.getPointBalance()/100.00);
+        System.out.println("Do you want to use your points? (yes/no)");
+        String answer = scan.nextLine();
         while (true) {
-            System.out.println("What will you use? Enter [default] or [new]:");
+            if (answer.equalsIgnoreCase("yes")) {
+                System.out.print("order total: ");
+                System.out.printf("$%.2f\n", order.getTotalCost());
+                System.out.print("point total: ");
+                System.out.printf("$%.2f\n", account.getPointBalance()/100.00);
+                if (account.getPointBalance() / 100.00 >= order.getTotalCost()) {
+                    System.out.print("point used: ");
+                    System.out.printf("$%.2f\n", order.getTotalCost());
+                    account.setPointBalance(account.getPointBalance() - (int) (order.getTotalCost() * 100));
+                    System.out.print("point left: ");
+                    System.out.printf("$%.2f\n", account.getPointBalance()/100.00);
+                } else {
+                    System.out.print("point used: ");
+                    System.out.printf("$%.2f\n", account.getPointBalance()/100.00);
+                    order.setTotalCost(order.getTotalCost()-account.getPointBalance()/100.00);
+                    account.setPointBalance(0);
+                    System.out.print("point left: ");
+                    System.out.printf("$%.2f\n", account.getPointBalance()/100.00);
+                }
+                System.out.print("new order total: ");
+                System.out.printf("$%.2f\n", order.getTotalCost());
+                Account.updateDB(account);
+
+                break;
+            } else if (answer.equalsIgnoreCase("no")) {
+                break;
+            } else {
+                System.out.println("Please enter a valid answer!");
+                answer = scan.nextLine();
+            }
+        }
+
+
+        while (true) {
+            System.out.println("What card will you use? Enter [default] or [new]:");
             String input = scan.nextLine();
             if (input.equalsIgnoreCase("default")) {
                 payment.cardNum = account.getDefaultCardNum();
@@ -207,8 +246,11 @@ public class Payment {
             System.out.println("bad input, try again.");
         }
         Order.updateDB(order);
+
         addToDB(payment);
+
         System.out.println("Order and payment complete, Thank you for shopping here!");
+        System.out.println("You have accumulated $"+String.format("%.2f",order.getTotalCost()/50.00)+" in points from this order!");
     }
 
     private static void addToDB(Payment payment) throws ClassNotFoundException {

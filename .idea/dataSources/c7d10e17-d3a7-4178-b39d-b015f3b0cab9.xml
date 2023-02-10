@@ -16685,7 +16685,7 @@
     </schema>
     <schema id="5543" parent="5510" name="dbo">
       <Current>1</Current>
-      <IntrospectionTimestamp>2023-01-31.05:15:24.367</IntrospectionTimestamp>
+      <IntrospectionTimestamp>2023-02-10.12:04:25.073</IntrospectionTimestamp>
       <ObjectId>1</ObjectId>
     </schema>
     <schema id="5544" parent="5510" name="guest">
@@ -16699,7 +16699,7 @@
       <DasType>bigint|0s</DasType>
       <ModifiedTimestamp>2023-01-31.02:06:10.210</ModifiedTimestamp>
       <ObjectId>1845581613</ObjectId>
-      <SequenceIdentity>-9223372036854775808(10000009)..9223372036854775807</SequenceIdentity>
+      <SequenceIdentity>-9223372036854775808(10000066)..9223372036854775807</SequenceIdentity>
       <UnderlyingDasType>bigint|0s</UnderlyingDasType>
     </sequence>
     <sequence id="5547" parent="5543" name="OrderSequence">
@@ -16707,7 +16707,7 @@
       <DasType>bigint|0s</DasType>
       <ModifiedTimestamp>2023-01-31.03:14:33.980</ModifiedTimestamp>
       <ObjectId>1973582069</ObjectId>
-      <SequenceIdentity>10000000(10000001)..9223372036854775807</SequenceIdentity>
+      <SequenceIdentity>10000000(10000015)..9223372036854775807</SequenceIdentity>
       <UnderlyingDasType>bigint|0s</UnderlyingDasType>
     </sequence>
     <sequence id="5548" parent="5543" name="PaymentSequence">
@@ -16715,12 +16715,12 @@
       <DasType>bigint|0s</DasType>
       <ModifiedTimestamp>2023-01-31.04:48:16.620</ModifiedTimestamp>
       <ObjectId>1989582126</ObjectId>
-      <SequenceIdentity>10000000(10000001)..9223372036854775807</SequenceIdentity>
+      <SequenceIdentity>10000000(10000014)..9223372036854775807</SequenceIdentity>
       <UnderlyingDasType>bigint|0s</UnderlyingDasType>
     </sequence>
     <table id="5549" parent="5543" name="Accounts">
       <CreatedTimestamp>2023-01-11.20:38:37.580</CreatedTimestamp>
-      <ModifiedTimestamp>2023-01-31.05:13:22.063</ModifiedTimestamp>
+      <ModifiedTimestamp>2023-02-10.10:53:33.120</ModifiedTimestamp>
       <ObjectId>1589580701</ObjectId>
     </table>
     <table id="5550" parent="5543" name="Carts">
@@ -16735,7 +16735,7 @@
     </table>
     <table id="5552" parent="5543" name="Payments">
       <CreatedTimestamp>2023-01-31.05:12:23.553</CreatedTimestamp>
-      <ModifiedTimestamp>2023-01-31.05:15:22.930</ModifiedTimestamp>
+      <ModifiedTimestamp>2023-02-10.12:04:23.580</ModifiedTimestamp>
       <ObjectId>2005582183</ObjectId>
     </table>
     <table id="5553" parent="5543" name="Products">
@@ -16815,14 +16815,27 @@
       <DasType>varchar(255 char)|0s</DasType>
       <Position>25</Position>
     </column>
-    <index id="5570" parent="5549" name="PK__Accounts__DE1055ACC8D6084F">
+    <column id="5570" parent="5549" name="pointBalance">
+      <DasType>int|0s</DasType>
+      <Position>26</Position>
+      <DefaultConstraintId>18099105</DefaultConstraintId>
+      <DefaultConstraintName>DF__Accounts__pointB__01142BA1</DefaultConstraintName>
+    </column>
+    <default id="5571" parent="5549" name="DF__Accounts__pointB__01142BA1">
+      <ColNames>pointBalance</ColNames>
+      <DefaultExpression>0</DefaultExpression>
+      <ModifiedTimestamp>2023-02-10.10:53:33.230</ModifiedTimestamp>
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>18099105</ObjectId>
+    </default>
+    <index id="5572" parent="5549" name="PK__Accounts__DE1055ACC8D6084F">
       <Clustering>1</Clustering>
       <ColNames>emailAccount</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Position>1</Position>
       <Unique>1</Unique>
     </index>
-    <key id="5571" parent="5549" name="PK__Accounts__DE1055ACC8D6084F">
+    <key id="5573" parent="5549" name="PK__Accounts__DE1055ACC8D6084F">
       <CreatedTimestamp>2023-01-11.20:38:37.583</CreatedTimestamp>
       <ModifiedTimestamp>2023-01-11.20:38:37.583</ModifiedTimestamp>
       <NameSurrogate>1</NameSurrogate>
@@ -16830,25 +16843,25 @@
       <Primary>1</Primary>
       <UnderlyingIndexName>PK__Accounts__DE1055ACC8D6084F</UnderlyingIndexName>
     </key>
-    <column id="5572" parent="5550" name="cartID">
+    <column id="5574" parent="5550" name="cartID">
       <DasType>varchar(255 char)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="5573" parent="5550" name="productID">
+    <column id="5575" parent="5550" name="productID">
       <DasType>varchar(255 char)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="5574" parent="5550" name="quantity">
+    <column id="5576" parent="5550" name="quantity">
       <DasType>numeric(18)|0s</DasType>
       <Position>3</Position>
     </column>
-    <column id="5575" parent="5550" name="totalCost">
+    <column id="5577" parent="5550" name="totalCost">
       <DasType>decimal(10,2)|0s</DasType>
       <Position>4</Position>
     </column>
-    <index id="5576" parent="5550" name="PK__Carts__F38A0ECCBA7A6C2C">
+    <index id="5578" parent="5550" name="PK__Carts__F38A0ECCBA7A6C2C">
       <Clustering>1</Clustering>
       <ColNames>cartID
 productID</ColNames>
@@ -16856,7 +16869,7 @@ productID</ColNames>
       <Position>1</Position>
       <Unique>1</Unique>
     </index>
-    <key id="5577" parent="5550" name="PK__Carts__F38A0ECCBA7A6C2C">
+    <key id="5579" parent="5550" name="PK__Carts__F38A0ECCBA7A6C2C">
       <CreatedTimestamp>2023-01-12.09:19:51.723</CreatedTimestamp>
       <ModifiedTimestamp>2023-01-12.09:19:51.723</ModifiedTimestamp>
       <NameSurrogate>1</NameSurrogate>
@@ -16864,62 +16877,62 @@ productID</ColNames>
       <Primary>1</Primary>
       <UnderlyingIndexName>PK__Carts__F38A0ECCBA7A6C2C</UnderlyingIndexName>
     </key>
-    <column id="5578" parent="5551" name="orderID">
+    <column id="5580" parent="5551" name="orderID">
       <DasType>varchar(255 char)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="5579" parent="5551" name="accountID">
+    <column id="5581" parent="5551" name="accountID">
       <DasType>varchar(255 char)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="5580" parent="5551" name="paymentID">
+    <column id="5582" parent="5551" name="paymentID">
       <DasType>varchar(255 char)|0s</DasType>
       <Position>3</Position>
     </column>
-    <column id="5581" parent="5551" name="cartID">
+    <column id="5583" parent="5551" name="cartID">
       <DasType>varchar(255 char)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
-    <column id="5582" parent="5551" name="orderDate">
+    <column id="5584" parent="5551" name="orderDate">
       <DasType>date|0s</DasType>
       <NotNull>1</NotNull>
       <Position>5</Position>
       <DefaultConstraintId>1893581784</DefaultConstraintId>
       <DefaultConstraintName>DF__OrderTabl__order__70DDC3D8</DefaultConstraintName>
     </column>
-    <column id="5583" parent="5551" name="totalCost">
+    <column id="5585" parent="5551" name="totalCost">
       <DasType>varchar(255 char)|0s</DasType>
       <Position>6</Position>
     </column>
-    <column id="5584" parent="5551" name="deliveryType">
+    <column id="5586" parent="5551" name="deliveryType">
       <DasType>varchar(255 char)|0s</DasType>
       <Position>7</Position>
     </column>
-    <column id="5585" parent="5551" name="isPaid">
+    <column id="5587" parent="5551" name="isPaid">
       <DasType>char(5 char)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>8</Position>
       <DefaultConstraintId>1909581841</DefaultConstraintId>
       <DefaultConstraintName>DF__OrderTabl__isPai__71D1E811</DefaultConstraintName>
     </column>
-    <default id="5586" parent="5551" name="DF__OrderTabl__order__70DDC3D8">
+    <default id="5588" parent="5551" name="DF__OrderTabl__order__70DDC3D8">
       <ColNames>orderDate</ColNames>
       <DefaultExpression>getdate()</DefaultExpression>
       <ModifiedTimestamp>2023-01-31.03:00:03.823</ModifiedTimestamp>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>1893581784</ObjectId>
     </default>
-    <default id="5587" parent="5551" name="DF__OrderTabl__isPai__71D1E811">
+    <default id="5589" parent="5551" name="DF__OrderTabl__isPai__71D1E811">
       <ColNames>isPaid</ColNames>
       <DefaultExpression>&apos;false&apos;</DefaultExpression>
       <ModifiedTimestamp>2023-01-31.03:00:03.823</ModifiedTimestamp>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>1909581841</ObjectId>
     </default>
-    <foreign-key id="5588" parent="5551" name="FK__Order__accountID__73BA3083">
+    <foreign-key id="5590" parent="5551" name="FK__Order__accountID__73BA3083">
       <ColNames>accountID</ColNames>
       <CreatedTimestamp>2023-01-31.03:05:29.490</CreatedTimestamp>
       <ModifiedTimestamp>2023-01-31.03:05:29.490</ModifiedTimestamp>
@@ -16929,14 +16942,14 @@ productID</ColNames>
       <RefTableId>1589580701</RefTableId>
       <RefTableName>Accounts</RefTableName>
     </foreign-key>
-    <index id="5589" parent="5551" name="PK__OrderTab__0809337DAA2AE379">
+    <index id="5591" parent="5551" name="PK__OrderTab__0809337DAA2AE379">
       <Clustering>1</Clustering>
       <ColNames>orderID</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Position>1</Position>
       <Unique>1</Unique>
     </index>
-    <key id="5590" parent="5551" name="PK__OrderTab__0809337DAA2AE379">
+    <key id="5592" parent="5551" name="PK__OrderTab__0809337DAA2AE379">
       <CreatedTimestamp>2023-01-31.03:00:03.823</CreatedTimestamp>
       <ModifiedTimestamp>2023-01-31.03:00:03.823</ModifiedTimestamp>
       <NameSurrogate>1</NameSurrogate>
@@ -16944,66 +16957,66 @@ productID</ColNames>
       <Primary>1</Primary>
       <UnderlyingIndexName>PK__OrderTab__0809337DAA2AE379</UnderlyingIndexName>
     </key>
-    <column id="5591" parent="5552" name="paymentID">
+    <column id="5593" parent="5552" name="paymentID">
       <DasType>varchar(255 char)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="5592" parent="5552" name="accountID">
+    <column id="5594" parent="5552" name="accountID">
       <DasType>varchar(255 char)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="5593" parent="5552" name="cardFirstName">
+    <column id="5595" parent="5552" name="cardFirstName">
       <DasType>varchar(255 char)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="5594" parent="5552" name="cardLastName">
+    <column id="5596" parent="5552" name="cardLastName">
       <DasType>varchar(255 char)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
-    <column id="5595" parent="5552" name="cardNum">
+    <column id="5597" parent="5552" name="cardNum">
       <DasType>char(16 char)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>5</Position>
     </column>
-    <column id="5596" parent="5552" name="cardCVV">
+    <column id="5598" parent="5552" name="cardCVV">
       <DasType>char(4 char)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>6</Position>
     </column>
-    <column id="5597" parent="5552" name="cardExp">
+    <column id="5599" parent="5552" name="cardExp">
       <DasType>varchar(255 char)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>7</Position>
     </column>
-    <column id="5598" parent="5552" name="cardType">
+    <column id="5600" parent="5552" name="cardType">
       <DasType>varchar(255 char)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>8</Position>
     </column>
-    <column id="5599" parent="5552" name="isDelivered">
+    <column id="5601" parent="5552" name="isDelivered">
       <DasType>char(5 char)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>9</Position>
       <DefaultConstraintId>2037582297</DefaultConstraintId>
       <DefaultConstraintName>DF__Payments__isDeli__797309D9</DefaultConstraintName>
     </column>
-    <column id="5600" parent="5552" name="orderID">
+    <column id="5602" parent="5552" name="orderID">
       <DasType>varchar(255 char)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>10</Position>
     </column>
-    <default id="5601" parent="5552" name="DF__Payments__isDeli__797309D9">
+    <default id="5603" parent="5552" name="DF__Payments__isDeli__797309D9">
       <ColNames>isDelivered</ColNames>
       <DefaultExpression>&apos;false&apos;</DefaultExpression>
       <ModifiedTimestamp>2023-01-31.05:12:23.553</ModifiedTimestamp>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>2037582297</ObjectId>
     </default>
-    <foreign-key id="5602" parent="5552" name="Payments_Accounts_emailAccount_fk">
+    <foreign-key id="5604" parent="5552" name="Payments_Accounts_emailAccount_fk">
       <ColNames>accountID</ColNames>
       <CreatedTimestamp>2023-01-31.05:13:22.063</CreatedTimestamp>
       <ModifiedTimestamp>2023-01-31.05:13:22.063</ModifiedTimestamp>
@@ -17012,7 +17025,7 @@ productID</ColNames>
       <RefTableId>1589580701</RefTableId>
       <RefTableName>Accounts</RefTableName>
     </foreign-key>
-    <foreign-key id="5603" parent="5552" name="Payments_Orders_orderID_fk">
+    <foreign-key id="5605" parent="5552" name="Payments_Orders_orderID_fk">
       <ColNames>orderID</ColNames>
       <CreatedTimestamp>2023-01-31.05:15:22.930</CreatedTimestamp>
       <ModifiedTimestamp>2023-01-31.05:15:22.930</ModifiedTimestamp>
@@ -17021,14 +17034,14 @@ productID</ColNames>
       <RefTableId>1861581670</RefTableId>
       <RefTableName>Orders</RefTableName>
     </foreign-key>
-    <index id="5604" parent="5552" name="PK__Payments__A0D9EFA6E221F701">
+    <index id="5606" parent="5552" name="PK__Payments__A0D9EFA6E221F701">
       <Clustering>1</Clustering>
       <ColNames>paymentID</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Position>1</Position>
       <Unique>1</Unique>
     </index>
-    <key id="5605" parent="5552" name="PK__Payments__A0D9EFA6E221F701">
+    <key id="5607" parent="5552" name="PK__Payments__A0D9EFA6E221F701">
       <CreatedTimestamp>2023-01-31.05:12:23.553</CreatedTimestamp>
       <ModifiedTimestamp>2023-01-31.05:12:23.553</ModifiedTimestamp>
       <NameSurrogate>1</NameSurrogate>
@@ -17036,44 +17049,52 @@ productID</ColNames>
       <Primary>1</Primary>
       <UnderlyingIndexName>PK__Payments__A0D9EFA6E221F701</UnderlyingIndexName>
     </key>
-    <column id="5606" parent="5553" name="productID">
+    <trigger id="5608" parent="5552" name="pointForPayments">
+      <CreatedTimestamp>2023-02-10.11:45:55.503</CreatedTimestamp>
+      <Events>I</Events>
+      <ModifiedTimestamp>2023-02-10.12:04:23.580</ModifiedTimestamp>
+      <ObjectId>50099219</ObjectId>
+      <SourceTextLength>370</SourceTextLength>
+      <Turn>after-stmt</Turn>
+    </trigger>
+    <column id="5609" parent="5553" name="productID">
       <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="5607" parent="5553" name="productName">
+    <column id="5610" parent="5553" name="productName">
       <DasType>varchar(255 char)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="5608" parent="5553" name="productDescription">
+    <column id="5611" parent="5553" name="productDescription">
       <DasType>varchar(255 char)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="5609" parent="5553" name="productPrice">
+    <column id="5612" parent="5553" name="productPrice">
       <DasType>decimal(10,2)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
-    <column id="5610" parent="5553" name="productCategory">
+    <column id="5613" parent="5553" name="productCategory">
       <DasType>varchar(255 char)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>5</Position>
     </column>
-    <column id="5611" parent="5553" name="productInventoryQuantity">
+    <column id="5614" parent="5553" name="productInventoryQuantity">
       <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>6</Position>
     </column>
-    <index id="5612" parent="5553" name="PK__Products__2D10D14ACE865B0A">
+    <index id="5615" parent="5553" name="PK__Products__2D10D14ACE865B0A">
       <Clustering>1</Clustering>
       <ColNames>productID</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Position>1</Position>
       <Unique>1</Unique>
     </index>
-    <key id="5613" parent="5553" name="PK__Products__2D10D14ACE865B0A">
+    <key id="5616" parent="5553" name="PK__Products__2D10D14ACE865B0A">
       <CreatedTimestamp>2023-01-11.16:08:23.327</CreatedTimestamp>
       <ModifiedTimestamp>2023-01-11.16:08:23.327</ModifiedTimestamp>
       <NameSurrogate>1</NameSurrogate>

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Account {
+
+    //instance variables
     private String email;
     private String password;
     private String firstName;
@@ -20,136 +22,116 @@ public class Account {
     private String defaultCardCVV;
     private String defaultCardExp;
     private String defaultCardType;
+    private int pointBalance;
 
+    //getter and setters
+    public String getDefaultCardFirstName() {
+        return defaultCardFirstName;
+    }
+    public int getPointBalance() {
+        return pointBalance;
+    }
+    public void setPointBalance(int pointBalance) {
+        this.pointBalance = pointBalance;
+    }
     public String getEmail() {
         return email;
     }
-
     public void setEmail(String email) {
         this.email = email;
     }
-
     public String getPassword() {
         return password;
     }
-
     public void setPassword(String password) {
         this.password = password;
     }
-
     public String getFirstName() {
         return firstName;
     }
-
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
-
     public String getLastName() {
         return lastName;
     }
-
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
-
     public String getStreet() {
         return street;
     }
-
     public void setStreet(String street) {
         this.street = street;
     }
-
     public String getCity() {
         return city;
     }
-
     public void setCity(String city) {
         this.city = city;
     }
-
     public String getPostalCode() {
         return postalCode;
     }
-
     public void setPostalCode(String postalCode) {
         this.postalCode = postalCode;
     }
-
     public String getProvince() {
         return province;
     }
-
     public void setProvince(String province) {
         this.province = province;
     }
-
     public String getCountry() {
         return country;
     }
-
     public void setCountry(String country) {
         this.country = country;
     }
-
     public String getPhoneNumber() {
         return phoneNumber;
     }
-
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
-
     public String getDefaultFirstCardName() {
         return defaultCardFirstName;
     }
-
     public void setDefaultCardFirstName(String defaultCardFirstName) {
         this.defaultCardFirstName = defaultCardFirstName;
     }
-
     public String getDefaultCardLastName() {
         return defaultCardLastName;
     }
-
     public void setDefaultCardLastName(String defaultCardLastName) {
         this.defaultCardLastName = defaultCardLastName;
     }
-
     public String getDefaultCardNum() {
         return defaultCardNum;
     }
-
     public void setDefaultCardNum(String defaultCardNum) {
         this.defaultCardNum = defaultCardNum;
     }
-
     public String getDefaultCardCVV() {
         return defaultCardCVV;
     }
-
     public void setDefaultCardCVV(String defaultCardCVV) {
         this.defaultCardCVV = defaultCardCVV;
     }
-
     public String getDefaultCardExp() {
         return defaultCardExp;
     }
-
     public void setDefaultCardExp(String defaultCardExp) {
         this.defaultCardExp = defaultCardExp;
     }
-
     public String getDefaultCardType() {
         return defaultCardType;
     }
-
     public void setDefaultCardType(String defaultCardType) {
         this.defaultCardType = defaultCardType;
     }
 
-
+    //constructor
     public Account() {
         this.email = "";
         this.password = "";
@@ -169,6 +151,13 @@ public class Account {
         this.defaultCardType = "";
     }
 
+    @Override
+    public String toString() {
+        return "\nAccount information:\nEmail: " + email + ", password: " + password + ", First name: " + firstName + ", Last name: " + lastName + "\n" + "Street: " + street + ", City: " + city + ", Postal code: " + postalCode + ", Province: " + province + "\n" + "Country: " + country + ", Phone number: " + phoneNumber + "\n" + "Card First name: " + defaultCardFirstName + ", Card Last name: " + defaultCardLastName + ", Card Number: " + defaultCardNum + "\n" + "Card CVV: " + defaultCardCVV + ", Card Expiration: " + defaultCardExp + ", Card Type: " + defaultCardType + "\n";
+    }
+
+    // STATIC METHODS --------------------------------------------------------------------------------------------------
+
     public static void createAccount(Scanner scan) throws ClassNotFoundException {
         Account account = new Account();
         emailFN(scan, account);
@@ -186,21 +175,23 @@ public class Account {
     }
 
     public static void editAccount(Scanner scan, Account account) throws ClassNotFoundException {
-
+        account = Account.getFromDB(account.getEmail(), account.getPassword());
+        System.out.print("Accumulated points: $");
+        System.out.printf("%.2f\n",account.getPointBalance()/100.00);
         boolean loop = true;
         while (loop) {
             System.out.println("--- Manage Account ---\n\t1.Change password\n\t2.Change name\n\t3.Change address\n\t4.Change phone number\n\t5.Change default payment\n\t6.See orders\n\t7.Go back to menu");
             String input = scan.nextLine();
             switch (input) {
                 case "1" -> passwordFN(scan, account);
-
                 case "2" -> nameFN(scan, account);
                 case "3" -> addressFN(scan, account);
                 case "4" -> phoneFN(scan, account);
                 case "5" -> defaultCardFN(scan, account);
                 case "6" -> {
+                    System.out.println("Retrieving all past orders, this may take a while...");
                     ArrayList<Order> orders = Order.getAllOrders(account);
-                    orders.forEach(o->System.out.println(o.shortString()));
+                    orders.forEach(o -> System.out.println(o.shortString()));
                     System.out.println("Enter the OrderID you would like to see:");
                     String selected = "";
                     while (true) {
@@ -381,7 +372,7 @@ public class Account {
     //make sure @ is present, short emails (up to 20 before @) only
     public static boolean isValidEmail(String email) throws ClassNotFoundException {
         if (email.matches("^(?=.{1,20}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@" + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$")) {
-            boolean exist = false;
+            boolean exist = true;
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             String connectionUrl = Main.dbConnection;
             ResultSet rs;
@@ -390,11 +381,13 @@ public class Account {
                 String selectSql = "SELECT * FROM Accounts WHERE emailAccount = '" + email + "';";
                 rs = statement.executeQuery(selectSql);
                 if (rs.isBeforeFirst()) {
+                    System.out.println("Email already registered.");
                     return !exist;
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
             }
+            return true;
         }
         System.out.println("Invalid email.");
         return false;
@@ -478,11 +471,6 @@ public class Account {
         return true;
     }
 
-    @Override
-    public String toString() {
-        return "\nAccount information:\nEmail: " + email + ", password: " + password + ", First name: " + firstName + ", Last name: " + lastName + "\n" + "Street: " + street + ", City: " + city + ", Postal code: " + postalCode + ", Province: " + province + "\n" + "Country: " + country + ", Phone number: " + phoneNumber + "\n" + "Card First name: " + defaultCardFirstName + ", Card Last name: " + defaultCardLastName + ", Card Number: " + defaultCardNum + "\n" + "Card CVV: " + defaultCardCVV + ", Card Expiration: " + defaultCardExp + ", Card Type: " + defaultCardType + "\n";
-    }
-
     // DB methods
     public static void updateDB(Account a) throws ClassNotFoundException { //update or insert
         boolean exist = false;
@@ -503,7 +491,7 @@ public class Account {
         if (exist) {
             try (Connection connection = DriverManager.getConnection(Main.dbConnection); Statement statement = connection.createStatement()) {
                 // Create and execute an insert SQL statement.
-                String sql = "UPDATE Accounts SET  emailAccount = '" + a.email + "', password = '" + a.password + "', firstName = '" + a.firstName + "', lastName = '" + a.lastName + "', addressStreet = '" + a.street + "', addressCity = '" + a.city + "', addressZip = '" + a.postalCode + "', addressState = '" + a.province + "', addressCountry = '" + a.country + "', phoneNumber = '" + a.phoneNumber + "', cardFirstName = '" + a.defaultCardFirstName + "', cardLastName = '" + a.defaultCardLastName + "', cardNumber = '" + a.defaultCardNum + "', cardCVV = '" + a.defaultCardCVV + "', cardExp = '" + a.defaultCardExp + "', cardType = '" + a.defaultCardType + "' WHERE emailAccount = '" + a.email + "' ";
+                String sql = "UPDATE Accounts SET  emailAccount = '" + a.email + "', password = '" + a.password + "', firstName = '" + a.firstName + "', lastName = '" + a.lastName + "', addressStreet = '" + a.street + "', addressCity = '" + a.city + "', addressZip = '" + a.postalCode + "', addressState = '" + a.province + "', addressCountry = '" + a.country + "', phoneNumber = '" + a.phoneNumber + "', cardFirstName = '" + a.defaultCardFirstName + "', cardLastName = '" + a.defaultCardLastName + "', cardNumber = '" + a.defaultCardNum + "', cardCVV = '" + a.defaultCardCVV + "', cardExp = '" + a.defaultCardExp + "', cardType = '" + a.defaultCardType + "', pointBalance = "+a.pointBalance+" WHERE emailAccount = '" + a.email + "' ";
                 int rowsUpdated = statement.executeUpdate(sql);
                 if (rowsUpdated < 1) throw new SQLException("zero row updated");
             }
@@ -551,6 +539,7 @@ public class Account {
                 account.setDefaultCardCVV(rs.getString(14));
                 account.setDefaultCardExp(rs.getString(15));
                 account.setDefaultCardType(rs.getString(16));
+                account.setPointBalance(rs.getInt(17));
                 return account;
             }
         } catch (SQLException e) {

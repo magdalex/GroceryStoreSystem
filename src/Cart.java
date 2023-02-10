@@ -85,10 +85,10 @@ public class Cart {
         for (int i = 0; i < products.size(); i++) {
             output += "\n" + products.get(i) + " ";
             output += ", [Quantity] " + quantities.get(i);
-            output += ", [Total Cost] " + totalCosts.get(i);
+            output += ", [Total Cost] " + String.format("$%.2f",totalCosts.get(i));
             cartTotal += totalCosts.get(i);
         }
-        output += "\n[Cart Total] " + cartTotal;
+        output += "\n[Cart Total] " + String.format("$%.2f",cartTotal);
         return output;
     }
 

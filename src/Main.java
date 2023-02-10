@@ -11,18 +11,19 @@ public class Main {
     }
 
     public static void greetingPage(Scanner scan) throws ClassNotFoundException {
-        System.out.println("Do you have an existing account already?");
-        System.out.println("Type Yes if you do, type No if you don't");
+        System.out.println("Do you have an account? (yes/no)");
         String answer = scan.nextLine();
-        while (true) if (answer.equalsIgnoreCase("yes")) {
-            logIn(scan);
-            break;
-        } else if (answer.equalsIgnoreCase("no")) {
-            Account.createAccount(scan);
-            break;
-        } else {
-            System.out.println("Please enter a valid answer!");
-            answer = scan.nextLine();
+        while (true) {
+            if (answer.equalsIgnoreCase("yes")) {
+                logIn(scan);
+                break;
+            } else if (answer.equalsIgnoreCase("no")) {
+                Account.createAccount(scan);
+                break;
+            } else {
+                System.out.println("Please enter a valid answer!");
+                answer = scan.nextLine();
+            }
         }
     }
 

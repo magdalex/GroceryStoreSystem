@@ -66,7 +66,7 @@ public class Product {
     // toString
     @Override
     public String toString() {
-        return "[ID] " + productID + ", [Product] " + productName + ", [Description] " + productDescription + ", [Availability] " + productAvailability + ", [Category] " + productCategory + ", [Price] " + productPrice;
+        return "[ID] " + productID + ", [Product] " + productName + ", [Description] " + productDescription + ", [Availability] " + productAvailability + ", [Category] " + productCategory + ", [Price] " + String.format("$%.2f",productPrice);
     }
 
     // constructors
@@ -182,6 +182,9 @@ public class Product {
         Cart cart = new Cart();
         boolean loop = true;
         while (loop) {
+            account = Account.getFromDB(account.getEmail(), account.getPassword());
+            System.out.print("Accumulated points: $");
+            System.out.printf("%.2f\n",account.getPointBalance()/100.00);
             System.out.println("--- Shopping Menu ---");
             System.out.println("\t1. List by category");
             System.out.println("\t2. Search items by keyword");
@@ -249,6 +252,7 @@ public class Product {
                             case "yes" -> {
                                 Order.order(scan, cart, account);
                                 loop2 = false;
+                                cart = new Cart();
                             }
                             case "no" -> loop2 = false;
                             default -> System.out.println("Invalid input, try again.");
