@@ -372,7 +372,7 @@ public class Account {
     //make sure @ is present, short emails (up to 20 before @) only
     public static boolean isValidEmail(String email) throws ClassNotFoundException {
         if (email.matches("^(?=.{1,20}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@" + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$")) {
-            boolean exist = false;
+            boolean exist = true;
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             String connectionUrl = Main.dbConnection;
             ResultSet rs;
@@ -381,11 +381,13 @@ public class Account {
                 String selectSql = "SELECT * FROM Accounts WHERE emailAccount = '" + email + "';";
                 rs = statement.executeQuery(selectSql);
                 if (rs.isBeforeFirst()) {
+                    System.out.println("Email already registered.");
                     return !exist;
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
             }
+            return true;
         }
         System.out.println("Invalid email.");
         return false;

@@ -4,18 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="46f092e3-8cd8-49ba-8947-17252fb060f3" name="Changes" comment="point system completed">
+    <list default="true" id="46f092e3-8cd8-49ba-8947-17252fb060f3" name="Changes" comment="point system refined">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/GroceryStoreSystem/Account.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GroceryStoreSystem/Account.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GroceryStoreSystem/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GroceryStoreSystem/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GroceryStoreSystem/Order.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GroceryStoreSystem/Order.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GroceryStoreSystem/Cart.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GroceryStoreSystem/Cart.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/GroceryStoreSystem/Payment.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GroceryStoreSystem/Payment.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GroceryStoreSystem/Product.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GroceryStoreSystem/Product.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Account.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Account.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Cart.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Cart.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Order.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Payment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Payment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Product.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -117,7 +111,7 @@
       <workItem from="1675810821861" duration="12000" />
       <workItem from="1675914803305" duration="924000" />
       <workItem from="1675915869454" duration="5122000" />
-      <workItem from="1676042957553" duration="11092000" />
+      <workItem from="1676042957553" duration="14380000" />
     </task>
     <task id="LOCAL-00001" summary="Code cleanup, proper DB query in account, product and cart. DB sequencer function.">
       <created>1675150165727</created>
@@ -224,7 +218,14 @@
       <option name="project" value="LOCAL" />
       <updated>1676050658300</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="point system refined">
+      <created>1676054092400</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1676054092400</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -295,7 +296,8 @@
     <MESSAGE value="total after qty changed on checkout fixed, optimized some db calls for performance" />
     <MESSAGE value="begin adding point system, fix reset cart after placing an order" />
     <MESSAGE value="point system completed" />
-    <option name="LAST_COMMIT_MESSAGE" value="point system completed" />
+    <MESSAGE value="point system refined" />
+    <option name="LAST_COMMIT_MESSAGE" value="point system refined" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
