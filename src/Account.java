@@ -487,7 +487,7 @@ public class Account {
         if (exist) {
             try (Connection connection = DriverManager.getConnection(Main.dbConnection); Statement statement = connection.createStatement()) {
                 // Create and execute an insert SQL statement.
-                String sql = "UPDATE Accounts SET  emailAccount = '" + a.email + "', password = '" + a.password + "', firstName = '" + a.firstName + "', lastName = '" + a.lastName + "', addressStreet = '" + a.street + "', addressCity = '" + a.city + "', addressZip = '" + a.postalCode + "', addressState = '" + a.province + "', addressCountry = '" + a.country + "', phoneNumber = '" + a.phoneNumber + "', cardFirstName = '" + a.defaultCardFirstName + "', cardLastName = '" + a.defaultCardLastName + "', cardNumber = '" + a.defaultCardNum + "', cardCVV = '" + a.defaultCardCVV + "', cardExp = '" + a.defaultCardExp + "', cardType = '" + a.defaultCardType + "' WHERE emailAccount = '" + a.email + "' ";
+                String sql = "UPDATE Accounts SET  emailAccount = '" + a.email + "', password = '" + a.password + "', firstName = '" + a.firstName + "', lastName = '" + a.lastName + "', addressStreet = '" + a.street + "', addressCity = '" + a.city + "', addressZip = '" + a.postalCode + "', addressState = '" + a.province + "', addressCountry = '" + a.country + "', phoneNumber = '" + a.phoneNumber + "', cardFirstName = '" + a.defaultCardFirstName + "', cardLastName = '" + a.defaultCardLastName + "', cardNumber = '" + a.defaultCardNum + "', cardCVV = '" + a.defaultCardCVV + "', cardExp = '" + a.defaultCardExp + "', cardType = '" + a.defaultCardType + "', pointBalance = "+a.pointBalance+" WHERE emailAccount = '" + a.email + "' ";
                 int rowsUpdated = statement.executeUpdate(sql);
                 if (rowsUpdated < 1) throw new SQLException("zero row updated");
             }
@@ -535,6 +535,7 @@ public class Account {
                 account.setDefaultCardCVV(rs.getString(14));
                 account.setDefaultCardExp(rs.getString(15));
                 account.setDefaultCardType(rs.getString(16));
+                account.setPointBalance(rs.getInt(17));
                 return account;
             }
         } catch (SQLException e) {

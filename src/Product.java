@@ -181,6 +181,8 @@ public class Product {
     public static void shopMenu(Scanner scan, Account account) throws ClassNotFoundException {
         Cart cart = new Cart();
         boolean loop = true;
+        System.out.print("Accumulated points: $");
+        System.out.printf("%.2f\n",account.getPointBalance()/100.00);
         while (loop) {
             System.out.println("--- Shopping Menu ---");
             System.out.println("\t1. List by category");

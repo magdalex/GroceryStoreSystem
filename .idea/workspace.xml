@@ -4,12 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="46f092e3-8cd8-49ba-8947-17252fb060f3" name="Changes" comment="total after qty changed on checkout fixed, optimized some db calls for performance">
+    <list default="true" id="46f092e3-8cd8-49ba-8947-17252fb060f3" name="Changes" comment="begin adding point system, fix reset cart after placing an order">
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/c7d10e17-d3a7-4178-b39d-b015f3b0cab9.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/c7d10e17-d3a7-4178-b39d-b015f3b0cab9.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/c7d10e17-d3a7-4178-b39d-b015f3b0cab9/storage_v2/_src_/database/VanierGroceryService.u2g7bA/schema/dbo.sYMBAA.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/c7d10e17-d3a7-4178-b39d-b015f3b0cab9/storage_v2/_src_/database/VanierGroceryService.u2g7bA/schema/dbo.sYMBAA.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/c7d10e17-d3a7-4178-b39d-b015f3b0cab9/storage_v2/_src_/database/VanierGroceryService.u2g7bA/schema/dbo.sYMBAA.zip" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/c7d10e17-d3a7-4178-b39d-b015f3b0cab9/storage_v2/_src_/database/VanierGroceryService.u2g7bA/schema/dbo.sYMBAA.zip" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GroceryStoreSystem/Order.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GroceryStoreSystem/Order.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GroceryStoreSystem/Account.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GroceryStoreSystem/Account.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Account.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Account.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Payment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Payment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Product.java" afterDir="false" />
     </list>
@@ -113,7 +115,7 @@
       <workItem from="1675810821861" duration="12000" />
       <workItem from="1675914803305" duration="924000" />
       <workItem from="1675915869454" duration="5122000" />
-      <workItem from="1676042957553" duration="5464000" />
+      <workItem from="1676042957553" duration="7657000" />
     </task>
     <task id="LOCAL-00001" summary="Code cleanup, proper DB query in account, product and cart. DB sequencer function.">
       <created>1675150165727</created>
@@ -206,7 +208,14 @@
       <option name="project" value="LOCAL" />
       <updated>1675968581595</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="begin adding point system, fix reset cart after placing an order">
+      <created>1676048540738</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1676048540738</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -275,7 +284,8 @@
     <MESSAGE value="added apache common codec dependency and implemented sha256 password encryption" />
     <MESSAGE value="regex updated" />
     <MESSAGE value="total after qty changed on checkout fixed, optimized some db calls for performance" />
-    <option name="LAST_COMMIT_MESSAGE" value="total after qty changed on checkout fixed, optimized some db calls for performance" />
+    <MESSAGE value="begin adding point system, fix reset cart after placing an order" />
+    <option name="LAST_COMMIT_MESSAGE" value="begin adding point system, fix reset cart after placing an order" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
