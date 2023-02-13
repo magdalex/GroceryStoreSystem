@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact build-on-make="true" name="App">
+    <output-path>$PROJECT_DIR$/out/artifacts/App</output-path>
+    <root id="root">
+      <element id="archive" name="App.jar">
+        <element id="module-output" name="GroceryStoreSystem" />
+      </element>
+      <element id="directory" name="lib">
+        <element id="file-copy" path="$PROJECT_DIR$/lib/commons-codec-1.15.jar" />
+        <element id="file-copy" path="$PROJECT_DIR$/lib/mssql-jdbc-11.2.3.jre17.jar" />
+      </element>
+    </root>
+  </artifact>
+</component>
