@@ -239,6 +239,8 @@ public class Product {
                             cart.add(toAdd, quantity);
                             System.out.println(cart);
                         }
+                    } else {
+                        System.out.println("Item not found!");
                     }
                 }
                 case "4" -> {

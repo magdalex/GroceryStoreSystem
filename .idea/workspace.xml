@@ -1,15 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="App" />
+    </artifacts-to-build>
+  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="46f092e3-8cd8-49ba-8947-17252fb060f3" name="Changes" comment="point system refined">
+    <list default="true" id="46f092e3-8cd8-49ba-8947-17252fb060f3" name="Changes" comment="fixed signup email bug">
+      <change afterPath="$PROJECT_DIR$/.idea/artifacts/App.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/commons_codec.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/microsoft_sqlserver_mssql_jdbc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/META-INF/MANIFEST.MF" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/resources/META-INF/MANIFEST.MF" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/commons_codec_1_15.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/mssql_jdbc_11_2_2_jre17.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/mssql_jdbc_11_2_2_jre17__2_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GroceryStoreSystem/Account.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GroceryStoreSystem/Account.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GroceryStoreSystem/Cart.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GroceryStoreSystem/Cart.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GroceryStoreSystem/Payment.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GroceryStoreSystem/Payment.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Account.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Account.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GroceryStoreSystem.iml" beforeDir="false" afterPath="$PROJECT_DIR$/GroceryStoreSystem.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dependencies/commons-codec-1.15.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dependencies/mssql-jdbc-11.2.2.jre17.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GroceryStoreSystem/Account.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GroceryStoreSystem/Cart.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GroceryStoreSystem/Main.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GroceryStoreSystem/Order.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GroceryStoreSystem/Payment.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GroceryStoreSystem/Product.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Product.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,6 +71,9 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="ProjectErrors" />
+  </component>
   <component name="ProjectId" id="2L4chLsYTZsnPK8a5JqlWF6yARP" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -56,16 +81,25 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
+    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;true&quot;,
+    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;E:/School/sysDev/Java/GrocerySystem/GroceryStoreSystem/src&quot;,
+    &quot;last_opened_file_path&quot;: &quot;E:/School/sysDev/Java/GrocerySystem/GroceryStoreSystem/src/resources&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;org.jetbrains.plugins.github.ui.GithubSettingsConfigurable&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Artifacts&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;configurable.group.tools&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
   &quot;keyToStringList&quot;: {
@@ -79,9 +113,45 @@
       <recent name="E:\School\sysDev\Java\GrocerySystem\GroceryStoreSystem\src" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\School\sysDev\Java\GrocerySystem\GroceryStoreSystem\src" />
       <recent name="E:\School\sysDev\Java\GrocerySystem\GroceryStoreSystem" />
       <recent name="E:\School\sysDev\Java\GrocerySystem\GroceryStoreSystem\dependencies" />
     </key>
+  </component>
+  <component name="RunManager" selected="JAR Application.App.jar (1)">
+    <configuration name="App.jar (1)" type="JarApplication" temporary="true">
+      <option name="JAR_PATH" value="$PROJECT_DIR$/out/artifacts/App/App.jar" />
+      <method v="2" />
+    </configuration>
+    <configuration name="App.jar" type="JarApplication" temporary="true">
+      <option name="JAR_PATH" value="$PROJECT_DIR$/out/artifacts/GroceryStoreSystem2/App.jar" />
+      <method v="2" />
+    </configuration>
+    <configuration name="GroceryStoreSystem2.jar" type="JarApplication" temporary="true">
+      <option name="JAR_PATH" value="$PROJECT_DIR$/out/artifacts/GroceryStoreSystem2/GroceryStoreSystem2.jar" />
+      <method v="2" />
+    </configuration>
+    <configuration name="GroceryStoreSystem.jar (1)" type="JarApplication" temporary="true">
+      <option name="JAR_PATH" value="$PROJECT_DIR$/out/artifacts/GroceryStoreSystem2/GroceryStoreSystem.jar" />
+      <method v="2" />
+    </configuration>
+    <configuration name="GroceryStoreSystem.jar" type="JarApplication">
+      <option name="JAR_PATH" value="$PROJECT_DIR$/out/artifacts/GroceryStoreSystem_jar/GroceryStoreSystem.jar" />
+      <method v="2" />
+    </configuration>
+    <configuration name="app.jar" type="JarApplication" temporary="true">
+      <option name="JAR_PATH" value="$PROJECT_DIR$/out/artifacts/GroceryStoreSystem/app.jar" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JAR Application.App.jar (1)" />
+        <item itemvalue="JAR Application.App.jar" />
+        <item itemvalue="JAR Application.GroceryStoreSystem.jar (1)" />
+        <item itemvalue="JAR Application.app.jar" />
+        <item itemvalue="JAR Application.GroceryStoreSystem2.jar" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SQLScriptSettings">
     <option name="matrix">
@@ -111,7 +181,21 @@
       <workItem from="1675810821861" duration="12000" />
       <workItem from="1675914803305" duration="924000" />
       <workItem from="1675915869454" duration="5122000" />
-      <workItem from="1676042957553" duration="14380000" />
+      <workItem from="1676042957553" duration="15024000" />
+      <workItem from="1676058475597" duration="597000" />
+      <workItem from="1676062383107" duration="124000" />
+      <workItem from="1676074039666" duration="2798000" />
+      <workItem from="1676145337392" duration="8000" />
+      <workItem from="1676242451289" duration="8847000" />
+      <workItem from="1676252571684" duration="3999000" />
+      <workItem from="1676258732287" duration="868000" />
+      <workItem from="1676263476044" duration="14000" />
+      <workItem from="1676265843813" duration="591000" />
+      <workItem from="1676266738189" duration="259000" />
+      <workItem from="1676269778117" duration="2000" />
+      <workItem from="1676269819634" duration="626000" />
+      <workItem from="1676299738831" duration="60000" />
+      <workItem from="1676300615403" duration="3000" />
     </task>
     <task id="LOCAL-00001" summary="Code cleanup, proper DB query in account, product and cart. DB sequencer function.">
       <created>1675150165727</created>
@@ -225,7 +309,14 @@
       <option name="project" value="LOCAL" />
       <updated>1676054092400</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="fixed signup email bug">
+      <created>1676057778000</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1676057778000</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -297,7 +388,8 @@
     <MESSAGE value="begin adding point system, fix reset cart after placing an order" />
     <MESSAGE value="point system completed" />
     <MESSAGE value="point system refined" />
-    <option name="LAST_COMMIT_MESSAGE" value="point system refined" />
+    <MESSAGE value="fixed signup email bug" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed signup email bug" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
