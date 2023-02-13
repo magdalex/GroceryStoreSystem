@@ -269,6 +269,10 @@ public class Product {
                 case "4" -> {
                     boolean loop2 = true;
                     while (loop2) {
+                        if (cart.getCartCost() == 0) {
+                            System.out.println("Cart is empty.");
+                            break;
+                        }
                         System.out.println("do you want to take this cart to checkout?");
                         System.out.println(cart);
                         System.out.println("Yes/No:");
