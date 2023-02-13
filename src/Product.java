@@ -66,7 +66,9 @@ public class Product {
     // toString
     @Override
     public String toString() {
-        return "[ID] " + productID + ", [Product] " + productName + ", [Description] " + productDescription + ", [Availability] " + productAvailability + ", [Category] " + productCategory + ", [Price] " + String.format("$%.2f",productPrice);
+        return "[ID] " + productID + ", [Product] " + productName + ", [Description] " + productDescription
+                + ", [Availability] " + productAvailability + ", [Category] " + productCategory + ", [Price] "
+                + String.format("$%.2f", productPrice);
     }
 
     // constructors
@@ -74,7 +76,8 @@ public class Product {
 
     }
 
-    public Product(String productID, String productName, String productDescription, double productPrice, String productCategory, int productAvailability) {
+    public Product(String productID, String productName, String productDescription, double productPrice,
+            String productCategory, int productAvailability) {
         this.productID = productID;
         this.productName = productName;
         this.productDescription = productDescription;
@@ -89,13 +92,17 @@ public class Product {
         Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
         String connectionUrl = Main.dbConnection;
         ResultSet resultSet;
-        try (Connection connection = DriverManager.getConnection(connectionUrl); Statement statement = connection.createStatement()) {
+        try (Connection connection = DriverManager.getConnection(connectionUrl);
+                Statement statement = connection.createStatement()) {
             // Create and execute a SELECT SQL statement.
-            String selectSql = "SELECT * FROM Products WHERE productCategory LIKE '%" + keyword + "%' or productName like '%" + keyword + "%' or productDescription LIKE '%" + keyword + "%'";
+            String selectSql = "SELECT * FROM Products WHERE productCategory LIKE '%" + keyword
+                    + "%' or productName like '%" + keyword + "%' or productDescription LIKE '%" + keyword + "%'";
             resultSet = statement.executeQuery(selectSql);
             // Print results from select statement
             while (resultSet.next()) {
-                results.add(new Product(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3), Double.parseDouble(resultSet.getString(4)), resultSet.getString(5), Integer.parseInt(resultSet.getString(6))));
+                results.add(new Product(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3),
+                        Double.parseDouble(resultSet.getString(4)), resultSet.getString(5),
+                        Integer.parseInt(resultSet.getString(6))));
             }
         }
         // Handle any errors that may have occurred.
@@ -104,18 +111,22 @@ public class Product {
         }
         return results;
     }
+
     public static ArrayList<Product> searchCategory(String keyword) throws ClassNotFoundException {
         ArrayList<Product> results = new ArrayList<>();
         Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
         String connectionUrl = Main.dbConnection;
         ResultSet resultSet;
-        try (Connection connection = DriverManager.getConnection(connectionUrl); Statement statement = connection.createStatement()) {
+        try (Connection connection = DriverManager.getConnection(connectionUrl);
+                Statement statement = connection.createStatement()) {
             // Create and execute a SELECT SQL statement.
             String selectSql = "SELECT * FROM Products WHERE productCategory = '" + keyword + "'";
             resultSet = statement.executeQuery(selectSql);
             // Print results from select statement
             while (resultSet.next()) {
-                results.add(new Product(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3), Double.parseDouble(resultSet.getString(4)), resultSet.getString(5), Integer.parseInt(resultSet.getString(6))));
+                results.add(new Product(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3),
+                        Double.parseDouble(resultSet.getString(4)), resultSet.getString(5),
+                        Integer.parseInt(resultSet.getString(6))));
             }
         }
         // Handle any errors that may have occurred.
@@ -130,7 +141,8 @@ public class Product {
         Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
         String connectionUrl = Main.dbConnection;
         ResultSet resultSet;
-        try (Connection connection = DriverManager.getConnection(connectionUrl); Statement statement = connection.createStatement()) {
+        try (Connection connection = DriverManager.getConnection(connectionUrl);
+                Statement statement = connection.createStatement()) {
             // Create and execute a SELECT SQL statement.
             String selectSql = "Select productCategory from Products group by productCategory";
             resultSet = statement.executeQuery(selectSql);
@@ -150,11 +162,14 @@ public class Product {
     public static void adjustInventory(String ID, int quantity) throws ClassNotFoundException {
         Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
         String connectionUrl = Main.dbConnection;
-        try (Connection connection = DriverManager.getConnection(connectionUrl); Statement statement = connection.createStatement()) {
+        try (Connection connection = DriverManager.getConnection(connectionUrl);
+                Statement statement = connection.createStatement()) {
             // Create and execute a SELECT SQL statement.
-            String selectSql = "UPDATE Products SET productInventoryQuantity = " + quantity + " WHERE productID = " + ID;
+            String selectSql = "UPDATE Products SET productInventoryQuantity = " + quantity + " WHERE productID = "
+                    + ID;
             int rowsUpdated = statement.executeUpdate(selectSql);
-            if (rowsUpdated < 1) throw new SQLException("zero row updated");
+            if (rowsUpdated < 1)
+                throw new SQLException("zero row updated");
         }
         // Handle any errors that may have occurred.
         catch (SQLException e) {
@@ -166,12 +181,15 @@ public class Product {
         Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
         String connectionUrl = Main.dbConnection;
         ResultSet resultSet;
-        try (Connection connection = DriverManager.getConnection(connectionUrl); Statement statement = connection.createStatement()) {
+        try (Connection connection = DriverManager.getConnection(connectionUrl);
+                Statement statement = connection.createStatement()) {
             // Create and execute a SELECT SQL statement.
             String selectSql = "SELECT * FROM Products WHERE productID = " + ID;
             resultSet = statement.executeQuery(selectSql);
             if (resultSet.next()) {
-                return new Product(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3), Double.parseDouble(resultSet.getString(4)), resultSet.getString(5), Integer.parseInt(resultSet.getString(6)));
+                return new Product(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3),
+                        Double.parseDouble(resultSet.getString(4)), resultSet.getString(5),
+                        Integer.parseInt(resultSet.getString(6)));
             }
         } catch (Exception e) {
         }
@@ -184,7 +202,7 @@ public class Product {
         while (loop) {
             account = Account.getFromDB(account.getEmail(), account.getPassword());
             System.out.print("Accumulated points: $");
-            System.out.printf("%.2f\n",account.getPointBalance()/100.00);
+            System.out.printf("%.2f\n", account.getPointBalance() / 100.00);
             System.out.println("--- Shopping Menu ---");
             System.out.println("\t1. List by category");
             System.out.println("\t2. Search items by keyword");
@@ -202,9 +220,12 @@ public class Product {
                     System.out.println("Enter the category you would like to see:");
                     while (true) {
                         String input = scan.nextLine();
-                        selected = categories.stream().filter(s -> s.equalsIgnoreCase(input)).findFirst().get();
-                        if (selected.equalsIgnoreCase("")) System.out.println("Invalid input, try again.");
-                        else break;
+                        try {
+                            selected = categories.stream().filter(s -> s.equalsIgnoreCase(input)).findFirst().get();
+                            break;
+                        } catch (Exception e) {
+                            System.out.println("Category entered does not exist.");
+                        }
                     }
                     searchCategory(selected).forEach(System.out::println);
                 }
@@ -227,13 +248,15 @@ public class Product {
                         int quantity = 0;
                         try {
                             quantity = Integer.parseInt(qty);
-                            if (quantity < 1) throw new Exception();
+                            if (quantity < 1)
+                                throw new Exception();
                         } catch (Exception e) {
                             System.out.println("Quantity input was not a valid number");
                         }
                         if (quantity > 0) {
                             if (quantity > toAdd.productAvailability) {
-                                System.out.println("Insufficient availability. " + toAdd.productAvailability + " added instead of " + quantity + ".");
+                                System.out.println("Insufficient availability. " + toAdd.productAvailability
+                                        + " added instead of " + quantity + ".");
                                 quantity = toAdd.productAvailability;
                             }
                             cart.add(toAdd, quantity);
