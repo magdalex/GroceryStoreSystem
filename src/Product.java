@@ -208,8 +208,10 @@ public class Product {
             System.out.println("\t2. Search items by keyword");
             System.out.println("\t3. Add item by ID");
             System.out.println("\t4. Checkout cart");
-            System.out.println("\t5. Manage Account");
-            System.out.println("\t6. Exit");
+            System.out.println("\t5. Remove cart item");
+            System.out.println("\t6. Reset cart");
+            System.out.println("\t7. Manage Account");
+            System.out.println("\t8. Exit");
             String userInput = scan.nextLine();
             switch (userInput) {
                 case "1" -> {
@@ -218,15 +220,15 @@ public class Product {
                     categories.forEach(System.out::println);
                     String selected = "";
                     System.out.println("Enter the category you would like to see:");
-                    while (true) {
-                        String input = scan.nextLine();
-                        try {
-                            selected = categories.stream().filter(s -> s.equalsIgnoreCase(input)).findFirst().get();
-                            break;
-                        } catch (Exception e) {
-                            System.out.println("Category entered does not exist.");
-                        }
+
+                    String input = scan.nextLine();
+                    try {
+                        selected = categories.stream().filter(s -> s.equalsIgnoreCase(input)).findFirst().get();
+
+                    } catch (Exception e) {
+                        System.out.println("Category entered does not exist.");
                     }
+
                     searchCategory(selected).forEach(System.out::println);
                 }
                 case "2" -> {
@@ -288,8 +290,19 @@ public class Product {
                         }
                     }
                 }
-                case "5" -> Account.editAccount(scan, account);
-                case "6" -> loop = false;
+                case "5" -> {
+                    System.out.println(cart + "\n\nEnter the item number you want to remove:");
+                    try {
+                        cart.removeProduct(Integer.parseInt(scan.nextLine()));
+                        System.out.println("Item Removed.");
+                    } catch (Exception e) {
+                        System.out.println("Could not remove item.");
+                    }
+                }
+
+                case "6" -> cart = new Cart();
+                case "7" -> Account.editAccount(scan, account);
+                case "8" -> loop = false;
                 default -> System.out.println("Invalid input, try again.");
             }
         }

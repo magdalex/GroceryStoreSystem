@@ -1,6 +1,7 @@
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Scanner;
 
 public class Account {
@@ -207,12 +208,14 @@ public class Account {
         addressFN(scan, account);
         phoneFN(scan, account);
         defaultCardFN(scan, account);
+        account.pointBalance = 0;
         try {
             updateDB(account);
-            Main.logIn(scan);
+
         } catch (Exception e) {
             System.out.println("Couldn't add new account to database");
         }
+        Main.logIn(scan);
     }
 
     public static void editAccount(Scanner scan, Account account) throws ClassNotFoundException {
@@ -398,7 +401,7 @@ public class Account {
     private static void passwordFN(Scanner scan, Account account) {
         System.out.println("Passwords, 8 to 16 characters, must have at least 2 uppercase and 2 lowercase \n"
                 + "letter, at least 2 digit, and at least 2 special characters.\\");
-        System.out.println("Input password:");
+        System.out.println("Input new password:");
         String password = scan.nextLine();
         while (!isValidPassword(password)) {
             System.out.println("Re-input password:");
@@ -532,6 +535,7 @@ public class Account {
 
     // DB methods
     public static void updateDB(Account a) throws ClassNotFoundException { // update or insert
+        a = encode(a);
         boolean exist = false;
         Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
         String connectionUrl = Main.dbConnection;
@@ -619,11 +623,25 @@ public class Account {
                 account.setDefaultCardExp(rs.getString(15));
                 account.setDefaultCardType(rs.getString(16));
                 account.setPointBalance(rs.getInt(17));
+                try {
+                    account = decode(account);
+                } catch (Exception e) {
+                }
                 return account;
             }
         } catch (SQLException e) {
             // e.printStackTrace();
         }
         return null;
+    }
+
+    public static Account encode(Account account) {
+        account.street = Base64.getEncoder().encodeToString(account.street.getBytes());
+        return account;
+    }
+
+    public static Account decode(Account account) {
+        account.street = new String(Base64.getDecoder().decode(account.street));
+        return account;
     }
 }

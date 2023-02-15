@@ -13,7 +13,7 @@ public class Cart {
         Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
         String connectionUrl = Main.dbConnection;
         try (Connection connection = DriverManager.getConnection(connectionUrl);
-             Statement statement = connection.createStatement()) {
+                Statement statement = connection.createStatement()) {
             // Create and execute an insert SQL statement.
             String sql = "SELECT NEXT VALUE FOR CartSequence";
             ResultSet rs = statement.executeQuery(sql);
@@ -28,7 +28,7 @@ public class Cart {
         Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
         String connectionUrl = Main.dbConnection;
         try (Connection connection = DriverManager.getConnection(connectionUrl);
-             Statement statement = connection.createStatement()) {
+                Statement statement = connection.createStatement()) {
             // Create and execute an insert SQL statement.
             String sql = "Select * from Carts where cartID = '" + cartID + "'";
             ResultSet rs = statement.executeQuery(sql);
@@ -55,6 +55,7 @@ public class Cart {
     }
 
     public Double getTotalCost(int listPosition) {
+        totalCosts.set(listPosition, products.get(listPosition).getProductPrice() * quantities.get(listPosition));
         return totalCosts.get(listPosition);
     }
 
@@ -78,6 +79,16 @@ public class Cart {
         }
     }
 
+    public void removeProduct(int productId) {
+        for (int i = 0; i < products.size(); i++) {
+            if (Integer.parseInt(products.get(i).getProductID()) == (productId)) {
+                products.remove(i);
+                quantities.remove(i);
+                totalCosts.remove(i);
+            }
+        }
+    }
+
     @Override
     public String toString() {
         double cartTotal = 0;
@@ -85,10 +96,10 @@ public class Cart {
         for (int i = 0; i < products.size(); i++) {
             output += "\n" + products.get(i) + " ";
             output += ", [Quantity] " + quantities.get(i);
-            output += ", [Total Cost] " + String.format("$%.2f",totalCosts.get(i));
+            output += ", [Total Cost] " + String.format("$%.2f", totalCosts.get(i));
             cartTotal += totalCosts.get(i);
         }
-        output += "\n[Cart Total] " + String.format("$%.2f",cartTotal);
+        output += "\n[Cart Total] " + String.format("$%.2f", cartTotal);
         return output;
     }
 
@@ -106,7 +117,7 @@ public class Cart {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             String connectionUrl = Main.dbConnection;
             try (Connection connection = DriverManager.getConnection(connectionUrl);
-                 Statement statement = connection.createStatement()) {
+                    Statement statement = connection.createStatement()) {
                 // Create and execute an insert SQL statement.
                 String sql = "insert into Carts(cartID,productID,quantity,totalCost)Values";
                 for (int i = 0; i < cart.getCartSize(); i++) {
