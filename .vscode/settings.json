@@ -1,6 +1,0 @@
-{
-    "java.project.referencedLibraries": [
-        "lib/**/*.jar",
-        "dependencies/mssql-jdbc-11.2.2.jre17.jar"
-    ]
-}
