@@ -239,6 +239,10 @@ public class Account {
                     System.out.println("Retrieving all past orders, this may take a while...");
                     ArrayList<Order> orders = Order.getAllOrders(account);
                     orders.forEach(o -> System.out.println(o.shortString()));
+                    if (orders.size() < 1) {
+                        System.out.println("No orders found.");
+                        break;
+                    }
                     System.out.println("Enter the OrderID you would like to see:");
                     String selected = "";
                     while (true) {
@@ -271,7 +275,7 @@ public class Account {
     }
 
     private static void phoneFN(Scanner scan, Account account) {
-        System.out.println("Input phone number with no spaces:");
+        System.out.println("Input phone number with no spaces or symbols:");
         String phoneNumber = scan.nextLine();
         while (!isPhoneValid(phoneNumber)) {
             System.out.println("Re-input phone number:");
@@ -344,7 +348,13 @@ public class Account {
 
     private static void addressFN(Scanner scan, Account account) {
         System.out.println("Address\nInput street number, name and apartment number:");
-        String street = scan.nextLine(); // check no special characters
+        String street;
+        while (true) {
+            street = scan.nextLine();
+            if (street.matches("\\d+\\D+"))
+                break;
+            System.out.println("Invalid, you need street number and name.");
+        }
         account.setStreet(street.toLowerCase());
 
         System.out.println("Input city:");
@@ -419,12 +429,12 @@ public class Account {
             email = scan.nextLine();
         }
         account.setEmail(email.toLowerCase());
+
     }
 
     // make sure @ is present, short emails (up to 20 before @) only
     public static boolean isValidEmail(String email) throws ClassNotFoundException {
-        if (email.matches("^(?=.{1,20}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@"
-                + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$")) {
+        if (email.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$")) {
             boolean exist = true;
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             String connectionUrl = Main.dbConnection;

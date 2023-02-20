@@ -1,4 +1,0 @@
-Manifest-Version: 1.0
-Main-Class: Main
-Class-Path: mssql-jdbc-11.2.3.jre17.jar commons-codec-1.15.jar
-
